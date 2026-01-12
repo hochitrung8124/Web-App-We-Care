@@ -8,7 +8,7 @@ export interface Lead {
   address: string;
   source: string;
   campaign: string;
-  status: 'Waiting' | 'Processed' | 'Cancelled';
+  status: 'Đợi xác nhận' | 'Marketing đã xác nhận' | 'Sale đã liên hệ';
   taxCode: string;
   avatarColorClass: string;
   

@@ -8,29 +8,32 @@ interface LeadTableProps {
 }
 
 const LeadTable: React.FC<LeadTableProps> = ({ leads, selectedLeadId, onSelectLead }) => {
+  const ROWS_PER_PAGE = 5;
+  const emptyRowsCount = Math.max(0, ROWS_PER_PAGE - leads.length);
+
   return (
     <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
-      <table className="w-full text-left border-collapse">
+      <table className="w-full text-left border-collapse table-fixed">
         <thead>
           <tr className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
-            <th className="px-4 py-4 text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">
+            <th className="px-4 py-4 text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-wider w-[35%]">
               Khách hàng
             </th>
-            <th className="px-4 py-4 text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">
+            <th className="px-4 py-4 text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-wider w-[20%]">
               Số điện thoại
             </th>
-            <th className="px-4 py-4 text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">
+            <th className="px-4 py-4 text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-wider w-[20%]">
               Nguồn
             </th>
-            <th className="px-4 py-4 text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">
+            <th className="px-4 py-4 text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-wider w-[18%]">
               Trạng thái
             </th>
-            <th className="px-4 py-4 text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-wider text-right">
+            <th className="px-4 py-4 text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-wider text-right w-[7%]">
               Thao tác
             </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+        <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
           {leads.map((lead) => {
             const isSelected = lead.id === selectedLeadId;
             return (
@@ -89,23 +92,23 @@ const LeadTable: React.FC<LeadTableProps> = ({ leads, selectedLeadId, onSelectLe
               </tr>
             );
           })}
+          
+          {/* Empty rows to maintain consistent table height */}
+          {Array.from({ length: emptyRowsCount }).map((_, index) => (
+            <tr key={`empty-${index}`} className="border-l-4 border-l-transparent">
+              <td className="px-4 py-4" style={{ height: '73px' }}>
+                <div className="h-9"></div>
+              </td>
+              <td className="px-4 py-4"></td>
+              <td className="px-4 py-4"></td>
+              <td className="px-4 py-4"></td>
+              <td className="px-4 py-4"></td>
+            </tr>
+          ))}
         </tbody>
       </table>
       {/* Pagination Footer */}
-      <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 flex justify-between items-center">
-        <p className="text-slate-500 text-xs">Trang 1 / 5</p>
-        <div className="flex gap-2">
-          <button
-            className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-400 disabled:opacity-50 hover:bg-slate-50"
-            disabled
-          >
-            <span className="material-symbols-outlined text-sm">chevron_left</span>
-          </button>
-          <button className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-50">
-            <span className="material-symbols-outlined text-sm">chevron_right</span>
-          </button>
-        </div>
-      </div>
+    
     </div>
   );
 };

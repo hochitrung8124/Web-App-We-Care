@@ -4,10 +4,31 @@ import { Lead } from '../types';
 interface CustomerSidebarProps {
   lead: Lead | null;
   onClose: () => void;
+  onSave: (updatedLead: Lead) => void;
+  saving?: boolean;
 }
 
-const CustomerSidebar: React.FC<CustomerSidebarProps> = ({ lead, onClose }) => {
-  if (!lead) return null;
+const CustomerSidebar: React.FC<CustomerSidebarProps> = ({ lead, onClose, onSave, saving = false }) => {
+  const [formData, setFormData] = useState<Lead | null>(null);
+
+  // Initialize form data when lead changes
+  useEffect(() => {
+    if (lead) {
+      setFormData({ ...lead });
+    }
+  }, [lead]);
+
+  if (!lead || !formData) return null;
+
+  const handleInputChange = (field: keyof Lead, value: any) => {
+    setFormData(prev => prev ? { ...prev, [field]: value } : null);
+  };
+
+  const handleSave = () => {
+    if (formData) {
+      onSave(formData);
+    }
+  };
 
   return (
     <aside className="w-full md:w-[450px] bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 flex flex-col h-full shadow-2xl z-40 absolute right-0 top-0 bottom-0 md:relative">
@@ -25,7 +46,7 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({ lead, onClose }) => {
                 {lead.name}
               </h3>
               <p className="text-slate-500 text-xs">
-                ID: #{lead.id.padStart(5, '4')} • MKT Verify
+                ID: {lead.id.padStart(5, '4')} 
               </p>
             </div>
           </div>
@@ -65,8 +86,8 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({ lead, onClose }) => {
             <input
               className="form-input w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm py-2 px-3 focus:ring-primary focus:border-primary outline-none border"
               type="date"
-              defaultValue={lead.birthDate}
-              key={`dob-${lead.id}`}
+              value={formData.birthDate || ''}
+              onChange={(e) => handleInputChange('birthDate', e.target.value)}
             />
           </div>
 
@@ -128,8 +149,8 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({ lead, onClose }) => {
             <input
               className="form-input w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm py-2 px-3 focus:ring-primary focus:border-primary outline-none border"
               type="text"
-              defaultValue={lead.detailedIndustry}
-              key={`detailedIndustry-${lead.id}`}
+              value={formData.detailedIndustry || ''}
+              onChange={(e) => handleInputChange('detailedIndustry', e.target.value)}
             />
           </div>
            {/* Ngành chủ lực & Ngành phụ */}
@@ -141,8 +162,8 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({ lead, onClose }) => {
               <input
                 className="form-input w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm py-2 px-3 focus:ring-primary focus:border-primary outline-none border"
                 type="text"
-                defaultValue={lead.keyIndustry}
-                key={`keyIndustry-${lead.id}`}
+                value={formData.keyIndustry || ''}
+                onChange={(e) => handleInputChange('keyIndustry', e.target.value)}
               />
             </div>
             <div className="flex flex-col gap-1.5">
@@ -152,8 +173,8 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({ lead, onClose }) => {
               <input
                 className="form-input w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm py-2 px-3 focus:ring-primary focus:border-primary outline-none border"
                 type="text"
-                defaultValue={lead.subIndustry}
-                key={`subIndustry-${lead.id}`}
+                value={formData.subIndustry || ''}
+                onChange={(e) => handleInputChange('subIndustry', e.target.value)}
               />
             </div>
           </div>
@@ -166,8 +187,8 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({ lead, onClose }) => {
             <input
               className="form-input w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm py-2 px-3 focus:ring-primary focus:border-primary outline-none border"
               type="text"
-              defaultValue={lead.paymentTerms}
-              key={`paymentTerms-${lead.id}`}
+              value={formData.paymentTerms || ''}
+              onChange={(e) => handleInputChange('paymentTerms', e.target.value)}
               placeholder="VD: Net 30, COD..."
             />
           </div>
@@ -200,8 +221,8 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({ lead, onClose }) => {
                 <input
                   className="form-input w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm py-2 pl-3 pr-8 focus:ring-primary focus:border-primary outline-none border"
                   type="text"
-                  defaultValue={lead.salesStaff}
-                  key={`salesStaff-${lead.id}`}
+                  value={formData.salesStaff || ''}
+                  onChange={(e) => handleInputChange('salesStaff', e.target.value)}
                   placeholder="Chọn sales..."
                 />
                 <span className="material-symbols-outlined absolute right-2 top-2 text-slate-400 text-[18px]">search</span>
@@ -217,8 +238,8 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({ lead, onClose }) => {
                 <input
                   className="form-input w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm py-2 pl-3 pr-8 focus:ring-primary focus:border-primary outline-none border"
                   type="text"
-                  defaultValue={lead.debtStaff}
-                  key={`debtStaff-${lead.id}`}
+                  value={formData.debtStaff || ''}
+                  onChange={(e) => handleInputChange('debtStaff', e.target.value)}
                   placeholder="Chọn NV..."
                 />
                 <span className="material-symbols-outlined absolute right-2 top-2 text-slate-400 text-[18px]">search</span>
@@ -241,8 +262,8 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({ lead, onClose }) => {
             <input
               className="form-input w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm py-2 px-3 focus:ring-primary focus:border-primary outline-none border font-medium text-amber-600"
               type="text"
-              defaultValue={lead.initialPotential}
-              key={`initialPotential-${lead.id}`}
+              value={formData.initialPotential || ''}
+              onChange={(e) => handleInputChange('initialPotential', e.target.value)}
             />
           </div>
 
@@ -253,8 +274,8 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({ lead, onClose }) => {
             </label>
             <textarea
               className="form-input w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm py-2 px-3 focus:ring-primary focus:border-primary h-16 outline-none border resize-none"
-              defaultValue={lead.initialGeneralInfo}
-              key={`initialGeneralInfo-${lead.id}`}
+              value={formData.initialGeneralInfo || ''}
+              onChange={(e) => handleInputChange('initialGeneralInfo', e.target.value)}
             ></textarea>
           </div>
 
@@ -265,8 +286,8 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({ lead, onClose }) => {
             </label>
             <textarea
               className="form-input w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm py-2 px-3 focus:ring-primary focus:border-primary h-16 outline-none border resize-none"
-              defaultValue={lead.repDescription}
-              key={`repDescription-${lead.id}`}
+              value={formData.repDescription || ''}
+              onChange={(e) => handleInputChange('repDescription', e.target.value)}
             ></textarea>
           </div>
         </section>
@@ -275,9 +296,22 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({ lead, onClose }) => {
 
       {/* Sidebar Footer */}
       <div className="p-6 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col gap-3">
-        <button className="w-full h-12 rounded-xl bg-primary text-white font-bold shadow-lg shadow-primary/30 hover:bg-primary/90 transition-all flex items-center justify-center gap-2">
-          <span className="material-symbols-outlined text-[20px]">verified</span>
-          Save &amp; Verify Sale
+        <button 
+          onClick={handleSave}
+          disabled={saving}
+          className="w-full h-12 rounded-xl bg-primary text-white font-bold shadow-lg shadow-primary/30 hover:bg-primary/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {saving ? (
+            <>
+              <span className="material-symbols-outlined text-[20px] animate-spin">sync</span>
+              Đang lưu...
+            </>
+          ) : (
+            <>
+              <span className="material-symbols-outlined text-[20px]">verified</span>
+              Save
+            </>
+          )}
         </button>
         <button onClick={onClose} className="w-full py-2 text-slate-400 hover:text-slate-600 text-sm font-medium transition-colors">
           Để sau

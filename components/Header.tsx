@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useAuth } from './AuthGuard';
 
 const Header: React.FC = () => {
+  const { user, logout } = useAuth();
+  const [showUserMenu, setShowUserMenu] = useState(false);
+
+  const handleLogout = () => {
+    if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
+      logout();
+    }
+  };
+
   return (
     <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-10 py-3 sticky top-0 z-50">
       <div className="flex items-center gap-8">
@@ -41,13 +51,57 @@ const Header: React.FC = () => {
             <span className="material-symbols-outlined">settings</span>
           </button>
         </div>
-        <div
-          className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-primary/20 cursor-pointer"
-          style={{
-            backgroundImage:
-              'url("https://picsum.photos/100/100")',
-          }}
-        ></div>
+        
+        {/* User Menu */}
+        <div className="relative">
+          <button
+            onClick={() => setShowUserMenu(!showUserMenu)}
+            className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+            title={user?.email || user?.username}
+          >
+            <div
+              className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-primary/20"
+              style={{
+                backgroundImage: 'url("https://picsum.photos/100/100")',
+              }}
+            ></div>
+            <div className="hidden lg:block text-left">
+              <p className="text-sm font-semibold text-slate-900 dark:text-white">
+                {user?.name || user?.username || 'User'}
+              </p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                {user?.email || 'user@example.com'}
+              </p>
+            </div>
+          </button>
+
+          {/* Dropdown Menu */}
+          {showUserMenu && (
+            <>
+              <div 
+                className="fixed inset-0 z-40" 
+                onClick={() => setShowUserMenu(false)}
+              ></div>
+              <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-slate-900 rounded-lg shadow-xl border border-slate-200 dark:border-slate-800 py-2 z-50">
+                <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-800">
+                  <p className="text-sm font-semibold text-slate-900 dark:text-white">
+                    {user?.name || user?.username}
+                  </p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                    {user?.email}
+                  </p>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-red-600 dark:text-red-400"
+                >
+                  <span className="material-symbols-outlined text-xl">logout</span>
+                  <span className="text-sm font-medium">Đăng xuất</span>
+                </button>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </header>
   );
