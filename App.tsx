@@ -36,6 +36,10 @@ function App() {
         // Auto-login to Sale department
         setIsAdmin(false);
         setDepartment('SALE');
+      } else if (userRoleInfo.isMarketing) {
+        // Auto-login to Marketing department
+        setIsAdmin(false);
+        setDepartment('MARKETING');
       } else {
         // Admin or default user - show department selection
         setIsAdmin(userRoleInfo.isAdmin || true);

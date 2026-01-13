@@ -37,6 +37,9 @@ export const AppConfig = {
     ],
     sales: [
       '02b3e938-795e-ed11-9562-00224859398c'
+    ],
+    marketing: [
+      '1e0c6613-7e5e-ed11-9562-00224859398c'
     ]
   }
 } as const;

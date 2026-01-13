@@ -6,6 +6,7 @@ import { AuthProvider } from './AuthProvider';
 export interface UserRoleInfo {
   isAdmin: boolean;
   isSale: boolean;
+  isMarketing: boolean;
   userId: string;
   roles: Array<{ name: string; roleid: string }>;
 }
@@ -55,6 +56,7 @@ export class RoleService {
         const userRoles = rolesData.systemuserroles_association || [];
         let foundAdmin = false;
         let foundSale = false;
+        let foundMarketing = false;
         
         userRoles.forEach((role: any) => {
           console.log(`Role: ${role.name}, ID: ${role.roleid}`);
@@ -68,19 +70,27 @@ export class RoleService {
           if (AppConfig.roles.sales.includes(role.roleid) || role.name === 'Sale_Permission') {
             foundSale = true;
           }
+          
+          // Check Marketing by role ID
+          if (AppConfig.roles.marketing.includes(role.roleid)|| role.name === 'Sourcing_Permission') {
+            foundMarketing = true;
+          }
         });
 
         if (foundAdmin) {
           console.log('👑 User is Admin - Can choose department');
         } else if (foundSale) {
           console.log('💼 User is Sale - Auto-login to Sale department');
+        } else if (foundMarketing) {
+          console.log('📢 User is Marketing - Auto-login to Marketing department');
         } else {
           console.log('👤 User has no special role');
         }
 
         return {
           isAdmin: foundAdmin,
-          isSale: foundSale && !foundAdmin, // Only set isSale if NOT admin
+          isSale: foundSale && !foundAdmin,
+          isMarketing: foundMarketing && !foundAdmin,
           userId,
           roles: userRoles
         };
@@ -88,8 +98,9 @@ export class RoleService {
         // If user doesn't have permission to read systemusers, default to allowing selection
         console.log('ℹ️ User roles not accessible. Allowing department selection.');
         return {
-          isAdmin: true, // Allow them to choose
+          isAdmin: true,
           isSale: false,
+          isMarketing: false,
           userId,
           roles: []
         };
