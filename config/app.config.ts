@@ -34,6 +34,9 @@ export const AppConfig = {
     admins: [
       'de39ddf0-bd51-ed11-9562-002248570312',
       'b93b3dcc-4175-ed11-81ac-002248593e2d'
+    ],
+    sales: [
+      '02b3e938-795e-ed11-9562-00224859398c'
     ]
   }
 } as const;

@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import LeadTable from './components/LeadTable';
 import CustomerSidebar from './components/CustomerSidebar';
-import { getProspectiveCustomerService } from './services';
+import { getProspectiveCustomerService, roleService } from './services';
 import { Lead } from './types';
-import { getToken } from './implicitAuthService';
-import { AppConfig } from './config/app.config';
 
 function App() {
   const [allLeads, setAllLeads] = useState<Lead[]>([]); // All loaded leads
@@ -17,6 +15,7 @@ function App() {
   const [saving, setSaving] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [department, setDepartment] = useState<'SALE' | 'MARKETING' | null>(null);
+  const [filteredLeadsCount, setFilteredLeadsCount] = useState(0); // Track filtered leads count
   const ITEMS_PER_PAGE = 5;
   const TOTAL_RECORDS_TO_LOAD = 50; // Load 50 records from Dataverse
 
@@ -31,67 +30,20 @@ function App() {
 
   const checkUserRoles = async () => {
     try {
-      console.log('👤 Checking user roles...');
-      const token = await getToken();
+      const userRoleInfo = await roleService.checkUserRoles();
       
-      // 1. WhoAmI Request to get UserId
-      const whoAmIUrl = `${AppConfig.dataverse.baseUrl}/WhoAmI`;
-      const whoAmIResponse = await fetch(whoAmIUrl, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/json',
-          'OData-MaxVersion': '4.0',
-          'OData-Version': '4.0'
-        }
-      });
-      
-      if (!whoAmIResponse.ok) throw new Error('Failed to get WhoAmI');
-      const whoAmIData = await whoAmIResponse.json();
-      const userId = whoAmIData.UserId;
-      
-      console.log('🆔 User ID:', userId);
-
-      // 2. Get User Roles
-      // Url: clientUrl + "/api/data/v9.2/systemusers(" + userId + ")?$expand=systemuserroles_association($select=name,roleid)"
-      const rolesUrl = `${AppConfig.dataverse.baseUrl}/systemusers(${userId})?$expand=systemuserroles_association($select=name,roleid)`;
-      
-      const rolesResponse = await fetch(rolesUrl, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/json',
-          'OData-MaxVersion': '4.0',
-          'OData-Version': '4.0',
-          'Prefer': 'odata.include-annotations="*"'
-        }
-      });
-
-      if (!rolesResponse.ok) throw new Error('Failed to get User Roles');
-      const rolesData = await rolesResponse.json();
-      
-      console.log('👮 User Roles Data:', rolesData);
-      
-      let foundAdmin = false;
-      if (rolesData.systemuserroles_association) {
-        rolesData.systemuserroles_association.forEach((role: any) => {
-          console.log(`Role: ${role.name}, ID: ${role.roleid}`);
-          if (AppConfig.roles.admins.includes(role.roleid)) {
-            foundAdmin = true;
-          }
-        });
-      }
-
-      if (foundAdmin) {
-        console.log('👑 User is Admin');
-        setIsAdmin(true);
+      if (userRoleInfo.isSale) {
+        // Auto-login to Sale department
+        setIsAdmin(false);
+        setDepartment('SALE');
       } else {
-        console.log('👤 User is not Admin');
-        // If not admin, maybe default to something? 
-        // For now, let's assume non-admin just sees everything or standard logic
-        // But prompt implies only admin gets to choose.
+        // Admin or default user - show department selection
+        setIsAdmin(userRoleInfo.isAdmin || true);
       }
-
     } catch (error) {
       console.error('❌ Error checking user roles:', error);
+      // On error, default to allowing department selection
+      setIsAdmin(true);
     }
   };
 
@@ -137,6 +89,9 @@ function App() {
       );
     }
 
+    // Update filtered count for pagination
+    setFilteredLeadsCount(filteredLeads.length);
+    
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
     const pageLeads = filteredLeads.slice(startIndex, endIndex);
@@ -278,7 +233,7 @@ function App() {
       <div className="flex h-[calc(100vh-65px)] overflow-hidden relative">
         
         {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto px-4 md:px-10 py-6 custom-scrollbar bg-background-light dark:bg-background-dark">
+        <main className="flex-1 overflow-y-auto px-4 md:px-10 py-6 pb-20 custom-scrollbar bg-background-light dark:bg-background-dark">
         {/* Breadcrumbs */}
 
 
@@ -354,9 +309,37 @@ function App() {
                 selectedLeadId={selectedLead?.id || null} 
                 onSelectLead={handleSelectLead} 
               />
-              
-              {/* Pagination Controls */}
-              <div className="flex items-center justify-between mt-6 px-4 py-3 bg-white dark:bg-slate-600 rounded-lg border border-slate-100 dark:border-slate-400">
+            </>
+          )}
+
+          {/* Empty State */}
+          {!loading && !error && leads.length === 0 && (
+            <div className="flex items-center justify-center py-12">
+              <div className="text-center">
+                <span className="material-symbols-outlined text-slate-400 text-6xl mb-4">inbox</span>
+                <p className="text-slate-600 dark:text-slate-400 text-lg font-medium">Không có leads nào</p>
+                <p className="text-slate-500 dark:text-slate-500 text-sm mt-2">Nhấn "Lấy Leads mới" để tải dữ liệu</p>
+              </div>
+            </div>
+          )}
+        </main>
+
+          {/* Right Sidebar */}
+          {selectedLead && (
+            <CustomerSidebar 
+              lead={selectedLead} 
+              onClose={handleCloseSidebar}
+              onSave={handleSaveLead}
+              saving={saving}
+            />
+          )}
+        </div>
+
+        {/* Pagination Controls - Fixed at bottom */}
+        {!loading && !error && leads.length > 0 && (
+          <div className="fixed bottom-4 left-0 right-0 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 shadow-lg z-50 mx-4 rounded-lg">
+            <div className="max-w-full mx-auto px-4 md:px-10 py-3">
+              <div className="flex items-center justify-between">
                 <button
                   onClick={handlePrevPage}
                   disabled={currentPage === 1 || loading}
@@ -368,7 +351,7 @@ function App() {
                 
                 <div className="flex items-center gap-1">
                   {(() => {
-                    const totalPages = Math.ceil(allLeads.length / ITEMS_PER_PAGE) || 1;
+                    const totalPages = Math.ceil(filteredLeadsCount / ITEMS_PER_PAGE) || 1;
                     const pages = [];
                     
                     if (totalPages <= 7) {
@@ -406,38 +389,16 @@ function App() {
                 
                 <button
                   onClick={handleNextPage}
-                  disabled={currentPage >= Math.ceil(allLeads.length / ITEMS_PER_PAGE) || loading}
+                  disabled={currentPage >= Math.ceil(filteredLeadsCount / ITEMS_PER_PAGE) || loading}
                   className="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   title="Trang sau"
                 >
                   <span className="material-symbols-outlined text-[24px]">chevron_right</span>
                 </button>
               </div>
-            </>
-          )}
-
-          {/* Empty State */}
-          {!loading && !error && leads.length === 0 && (
-            <div className="flex items-center justify-center py-12">
-              <div className="text-center">
-                <span className="material-symbols-outlined text-slate-400 text-6xl mb-4">inbox</span>
-                <p className="text-slate-600 dark:text-slate-400 text-lg font-medium">Không có leads nào</p>
-                <p className="text-slate-500 dark:text-slate-500 text-sm mt-2">Nhấn "Lấy Leads mới" để tải dữ liệu</p>
-              </div>
             </div>
-          )}
-        </main>
-
-          {/* Right Sidebar */}
-          {selectedLead && (
-            <CustomerSidebar 
-              lead={selectedLead} 
-              onClose={handleCloseSidebar}
-              onSave={handleSaveLead}
-              saving={saving}
-            />
-          )}
-        </div>
+          </div>
+        )}
       </div>
     
   );

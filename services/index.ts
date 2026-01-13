@@ -6,6 +6,8 @@
 // Export service container and main service
 export { getProspectiveCustomerService } from './ServiceContainer';
 export type { IProspectiveCustomerService } from './ProspectiveCustomerService';
+export { roleService } from './RoleService';
+export type { UserRoleInfo } from './RoleService';
 
 // Export types if needed
 export type { IDataverseQueryOptions } from '../interfaces/IDataverseEntities';
