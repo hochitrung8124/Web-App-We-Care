@@ -72,6 +72,77 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({ lead, onClose, onSave
       {/* Sidebar Scrollable Content */}
       <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
         
+        {/* Section: Thông tin cơ bản */}
+        <section className="space-y-4">
+          <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">
+            Thông tin cơ bản
+          </h4>
+
+          {/* Tên khách hàng */}
+          <div className="flex flex-col gap-1.5">
+            <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">
+              Tên khách hàng
+            </label>
+            <input
+              className="form-input w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm py-2 px-3 focus:ring-primary focus:border-primary outline-none border font-semibold"
+              type="text"
+              value={formData.name || ''}
+              onChange={(e) => handleInputChange('name', e.target.value)}
+            />
+          </div>
+
+          {/* Số điện thoại */}
+          <div className="flex flex-col gap-1.5">
+            <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">
+              Số điện thoại
+            </label>
+            <input
+              className="form-input w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm py-2 px-3 focus:ring-primary focus:border-primary outline-none border font-mono"
+              type="text"
+              value={formData.phone || ''}
+              onChange={(e) => handleInputChange('phone', e.target.value)}
+            />
+          </div>
+
+          {/* Email */}
+          <div className="flex flex-col gap-1.5">
+            <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">
+               Email
+            </label>
+            <input
+              className="form-input w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm py-2 px-3 focus:ring-primary focus:border-primary outline-none border"
+              type="email"
+              value={formData.email || ''}
+              onChange={(e) => handleInputChange('email', e.target.value)}
+            />
+          </div>
+
+          {/* Địa chỉ */}
+          <div className="flex flex-col gap-1.5">
+            <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">
+              Địa chỉ
+            </label>
+            <textarea
+              className="form-input w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm py-2 px-3 focus:ring-primary focus:border-primary outline-none border resize-none h-16"
+              value={formData.address || ''}
+              onChange={(e) => handleInputChange('address', e.target.value)}
+             />
+          </div>
+           
+           {/* Mã số thuế */}
+           <div className="flex flex-col gap-1.5">
+            <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">
+              Mã số thuế
+            </label>
+            <input
+              className="form-input w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm py-2 px-3 focus:ring-primary focus:border-primary outline-none border font-mono"
+              type="text"
+              value={formData.taxCode || ''}
+              onChange={(e) => handleInputChange('taxCode', e.target.value)}
+             />
+          </div>
+        </section>
+
         {/* Section: Thông tin định danh & Hành chính */}
         <section className="space-y-4">
           <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">

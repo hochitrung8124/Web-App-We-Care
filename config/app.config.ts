@@ -29,6 +29,13 @@ export const AppConfig = {
       'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-300',
     ],
   },
+  
+  roles: {
+    admins: [
+      'de39ddf0-bd51-ed11-9562-002248570312',
+      'b93b3dcc-4175-ed11-81ac-002248593e2d'
+    ]
+  }
 } as const;
 
 export type AppConfigType = typeof AppConfig;

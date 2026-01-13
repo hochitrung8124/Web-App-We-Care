@@ -30,7 +30,8 @@ export class ProspectiveCustomerMapper
       address: entity.crdfd_address || 'N/A',
       source: entity['crdfd_leadsource@OData.Community.Display.V1.FormattedValue'] || 'Unknown',
       campaign: entity.crdfd_campaign || 'N/A',
-      status: mapDataverseStatus(entity.crdfd_verify),
+      status: entity['crdfd_verify@OData.Community.Display.V1.FormattedValue'] || 'Unknown',
+      statusCode: entity.crdfd_verify,
       taxCode: entity.crdfd_taxcode || 'N/A',
       avatarColorClass: getColorFromString(name, AppConfig.ui.avatarColors),
       
