@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { useAuth } from './AuthGuard';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  searchText: string;
+  onSearchChange: (value: string) => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ searchText, onSearchChange }) => {
   const { user, logout } = useAuth();
   const [showUserMenu, setShowUserMenu] = useState(false);
 
@@ -15,11 +20,11 @@ const Header: React.FC = () => {
     <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-10 py-3 sticky top-0 z-50">
       <div className="flex items-center gap-8">
         <div className="flex items-center gap-3 text-primary">
-          <div className="size-8 bg-primary/10 rounded-lg flex items-center justify-center">
-            <span className="material-symbols-outlined text-primary">dashboard_customize</span>
+          <div className="size-8 rounded-lg flex items-center justify-center overflow-hidden">
+            <img src="https://i.imgur.com/tD07Yrv.png" alt="WeCare Logo" className="w-full h-full object-contain" />
           </div>
           <h2 className="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">
-            CRM Sale
+            WeCare
           </h2>
         </div>
         <label className="flex flex-col min-w-40 h-10 max-w-64">
@@ -30,19 +35,21 @@ const Header: React.FC = () => {
             <input
               className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-0 border-none bg-slate-100 dark:bg-slate-800 placeholder:text-slate-500 px-4 pl-2 text-sm font-normal"
               placeholder="Tìm kiếm SĐT, tên..."
+              value={searchText}
+              onChange={(e) => onSearchChange(e.target.value)}
             />
           </div>
         </label>
       </div>
       <div className="flex flex-1 justify-end gap-6 items-center">
-        <nav className="flex items-center gap-6 hidden md:flex">
+        {/* <nav className="flex items-center gap-6 hidden md:flex">
           <a
             className="text-primary text-sm font-semibold leading-normal border-b-2 border-primary py-4 -mb-4"
             href="#"
           >
             MKT Leads
           </a>
-        </nav>
+        </nav> */}
         <div className="flex gap-2">
           <button className="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
             <span className="material-symbols-outlined">notifications</span>
