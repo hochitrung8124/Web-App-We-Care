@@ -9,6 +9,9 @@ export type { IProspectiveCustomerService } from './ProspectiveCustomerService';
 export { roleService } from './RoleService';
 export type { UserRoleInfo } from './RoleService';
 
+// Export Reference Data Service
+export * from './ReferenceDataService';
+
 // Export types if needed
 export type { IDataverseQueryOptions } from '../interfaces/IDataverseEntities';
 

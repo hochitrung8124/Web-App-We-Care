@@ -1,0 +1,441 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Notify:
+    Properties:
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - Container_6:
+          Control: GroupContainer@1.4.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.Semibold
+            Fill: =RGBA(4, 161, 179, 1)
+            Height: =txt_SearchNotify.Y + txt_SearchNotify.Height + 20
+            Width: =Parent.Width
+          Children:
+            - Label2_1:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.Arial
+                  FontWeight: =FontWeight.Bold
+                  Height: =70
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =28
+                  Text: ="Thông báo"
+                  Width: =Parent.Width
+            - Image11_6:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =2
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  DisabledFill: =RGBA(0, 0, 0, 0)
+                  FocusedBorderThickness: =4
+                  Height: =50
+                  HoverBorderColor: =RGBA(0, 0, 0, 0)
+                  HoverFill: =RGBA(0, 0, 0, 0)
+                  Image: =back_white
+                  OnSelect: |-
+                    =Back()
+                    //If(show_Notify_CT = true, UpdateContext({show_Notify_CT: !show_Notify_CT});, Back())
+                  PressedBorderColor: =RGBA(0, 0, 0, 0)
+                  PressedFill: =RGBA(0, 0, 0, 0)
+                  Width: =70
+                  X: =20
+                  Y: =20
+            - txt_SearchNotify:
+                Control: Classic/TextInput@2.3.2
+                Properties:
+                  Align: =Align.Center
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderThickness: =0
+                  Default: =
+                  DelayOutput: =true
+                  Font: =Font.Arial
+                  Height: =60
+                  HintText: ="Tìm kiếm..."
+                  HoverBorderColor: =RGBA(0, 0, 0, 0)
+                  HoverFill: =RGBA(186, 202, 226, 1)
+                  OnChange: "=Switch(\n    Gallery6_1.Selected.Value,\n    \"Vận tải\",\n    ClearCollect(\n        List_VT,\n        Sort(\n            Filter(\n                'Vận tải',\n                Status = 'Status (Vận tải)'.Active,\n                'Mail sale' = mail_sale Or 'Supervisor - mail' = mail_sale,\n                'Created On' >= DateAdd(\n                    Today(),\n                    -30,\n                    TimeUnit.Days\n                ),\n                txt_SearchNotify.Text in 'Khách hàng text'\n            ),\n            'Created On',\n            SortOrder.Descending\n        )\n    )\n    \n)"
+                  OnSelect: =
+                  PressedBorderColor: =
+                  RadiusBottomLeft: =30
+                  RadiusBottomRight: =30
+                  RadiusTopLeft: =30
+                  RadiusTopRight: =30
+                  Size: =24
+                  Width: =Parent.Width - 160
+                  X: =80
+                  Y: =Label2_1.Y + Label2_1.Height
+            - Icon1_2:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(77, 77, 77, 1)
+                  Height: =50
+                  Icon: =Icon.Search
+                  OnSelect: |
+                    =ClearCollect(
+                        List_VT,
+                        Sort(
+                            Filter(
+                                'Vận tải',
+                                Status = 'Status (Vận tải)'.Active,
+                                'Mail sale' = mail_sale Or 'Supervisor - mail' = mail_sale,
+                                'Created On' >= DateAdd(
+                                    Today(),
+                                    -30,
+                                    TimeUnit.Days
+                                ),
+                                txt_SearchNotify.Text in 'Khách hàng text'
+                            ),
+                            'Created On',
+                            SortOrder.Descending
+                        )
+                    );
+                  Width: =50
+                  X: =628
+                  Y: =70
+            - Container_7:
+                Control: GroupContainer@1.4.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.Semibold
+                  Fill: =RGBA(4, 161, 179, 1)
+                  Height: =txt_SearchNotify_1.Y + txt_SearchNotify_1.Height + 20
+                  Width: =Parent.Width
+                Children:
+                  - Icon1_3:
+                      Control: Classic/Icon@2.5.0
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(77, 77, 77, 1)
+                        Height: =50
+                        Icon: =Icon.Search
+                        OnSelect: |
+                          =ClearCollect(
+                              List_VT,
+                              Sort(
+                                  Filter(
+                                      'Vận tải',
+                                      Status = 'Status (Vận tải)'.Active,
+                                      'Mail sale' = mail_sale Or 'Supervisor - mail' = mail_sale,
+                                      'Created On' >= DateAdd(
+                                          Today(),
+                                          -30,
+                                          TimeUnit.Days
+                                      ),
+                                      txt_SearchNotify_1.Text in 'Khách hàng text'
+                                  ),
+                                  'Created On',
+                                  SortOrder.Descending
+                              )
+                          );
+                        Width: =50
+                        X: =592
+                        Y: =75
+                  - Label2_7:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Bold
+                        Height: =70
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =28
+                        Text: ="Thông báo"
+                        Width: =Parent.Width
+                  - Image11_7:
+                      Control: Image@2.2.3
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =2
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =4
+                        Height: =50
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        Image: =back_white
+                        OnSelect: =Navigate(Main);
+                        PressedBorderColor: =RGBA(0, 0, 0, 0)
+                        PressedFill: =RGBA(0, 0, 0, 0)
+                        Width: =70
+                        Y: =10
+                  - txt_SearchNotify_1:
+                      Control: Classic/TextInput@2.3.2
+                      Properties:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderThickness: =0
+                        Default: =
+                        DelayOutput: =true
+                        Font: =Font.Arial
+                        Height: =60
+                        HintText: ="Tìm kiếm..."
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverFill: =RGBA(186, 202, 226, 1)
+                        OnChange: "=Switch(\n    Gallery6_1.Selected.Value,\n    \"Vận tải\",\n    ClearCollect(\n        List_VT,\n        Sort(\n            Filter(\n                'Vận tải',\n                Status = 'Status (Vận tải)'.Active,\n                'Mail sale' = mail_sale Or 'Supervisor - mail' = mail_sale,\n                'Created On' >= DateAdd(\n                    Today(),\n                    -30,\n                    TimeUnit.Days\n                ),\n                txt_SearchNotify_1.Text in 'Khách hàng text'\n            ),\n            'Created On',\n            SortOrder.Descending\n        )\n    )\n    \n)"
+                        OnSelect: =
+                        PressedBorderColor: =
+                        RadiusBottomLeft: =30
+                        RadiusBottomRight: =30
+                        RadiusTopLeft: =30
+                        RadiusTopRight: =30
+                        Size: =24
+                        Width: =Parent.Width - 160
+                        X: =90
+                        Y: =70
+      - Label2_8:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(62, 128, 149, 1)
+            Font: =Font.Arial
+            FontWeight: =FontWeight.Bold
+            Height: =53
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =28
+            Text: |-
+              ="Áp dụng cho : " & nv_sale.Location.'Vùng miền fx'
+            Width: =766
+            Y: =176
+      - Gallery_Ecommerce:
+          Control: Gallery@2.15.0
+          Variant: Vertical
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Fill: =RGBA(237, 243, 245, 1)
+            Height: =1116
+            Items: =nofify_data
+            OnSelect: |-
+              =UpdateContext({show_Notify_CT: true});
+              UpdateContext({varShowPDF: true});
+
+              UpdateContext(
+                  {
+                      Json_result: JSON(
+                          DropColumns(
+                              AddColumns(
+                                  Filter(
+                                      'Multi-image',
+                                      Status = 'Status (Multi-image)'.Active,
+                                      'Key Data' = Gallery_Ecommerce.Selected.Title,
+                                      Table = "cr1bb_data_website_ecommerce"
+                                  ),
+                                  id,
+                                  ID,
+                                  name,
+                                  Name,
+                                  size,
+                                  125438,
+                                  type,
+                                  "image/png",
+                                  data,
+                                  Substitute(
+                                      Substitute(
+                                          Substitute(
+                                              JSON(
+                                                  Image.Full,
+                                                  JSONFormat.IncludeBinaryData
+                                              ),
+                                              "\",
+                                              ""// Remove backslashes
+                                          ),
+                                          """",
+                                          ""// Remove quotes
+                                      ),
+                                      "data:application/octet-stream;base64,",
+                                      ""// Remove data URI prefix
+                                  ),
+                                  uploadDate,
+                                  Text(
+                                      'Created On',
+                                      "yyyy-mm-ddThh:mm:ss.fffZ"
+                                  ),
+                                  note,
+                                  Notes
+                              ),
+                              Image,
+                              'Key Data',
+                              ID,
+                              Name,
+                              Table,
+                              'Created On',
+                              Status
+                          ),
+                          JSONFormat.IncludeBinaryData & JSONFormat.IgnoreUnsupportedTypes
+                      )
+                  }
+              );
+            ShowScrollbar: =false
+            TemplatePadding: =20
+            TemplateSize: =200
+            Width: =Parent.Width
+            Y: =250
+          Children:
+            - Button1_2:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =ColorFade(Self.Fill, -15%)
+                  BorderThickness: =0
+                  Color: =RGBA(255, 255, 255, 1)
+                  DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =Gallery_Ecommerce.TemplateHeight
+                  HoverBorderColor: =
+                  HoverColor: =RGBA(255, 255, 255, 1)
+                  HoverFill: =
+                  OnSelect: =Select(Parent)
+                  PressedBorderColor: =
+                  PressedColor: =Self.Fill
+                  PressedFill: =
+                  RadiusBottomLeft: =20
+                  RadiusBottomRight: =20
+                  RadiusTopLeft: =20
+                  RadiusTopRight: =20
+                  Size: =24
+                  Text: =""
+                  Width: =Gallery_Ecommerce.TemplateWidth
+            - lbl_Title:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(4, 161, 179, 1)
+                  Font: =Font.Arial
+                  FontWeight: =FontWeight.Bold
+                  Height: =200
+                  OnSelect: =Select(Parent)
+                  PaddingLeft: =20
+                  PaddingTop: =0
+                  Size: =22
+                  Text: |+
+                    =ThisItem.Title
+                  Width: =Gallery_Ecommerce.TemplateWidth
+      - Container_Notify:
+          Control: GroupContainer@1.4.0
+          Variant: ManualLayout
+          Properties:
+            BorderColor: =RGBA(214, 221, 224, 1)
+            BorderThickness: =1
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =1366
+            Visible: =show_Notify_CT
+            Width: =768
+          Children:
+            - lbl_tile:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.Arial
+                  FontWeight: =FontWeight.Bold
+                  Height: =90
+                  Size: =15
+                  Text: =Gallery_Ecommerce.Selected.Title
+                  Visible: =false
+                  Width: =768
+                  Y: =5
+            - HtmlText5_3:
+                Control: HtmlViewer@2.1.0
+                Properties:
+                  Font: =Font.'Open Sans'
+                  Height: =397
+                  HtmlText: "=\"<div style='\n  width:100%;\n  font-family:Segoe UI, Arial;\n  font-size:16px;\n  color:#1a1a1a;\n  border:1px solid #cce4ff;\n  border-radius:10px;\n  padding:12px 18px 12px 14px;\n  background-color:#f9fcff;\n  box-shadow:0px 2px 4px rgba(0,0,0,0.04);\n  line-height:1.5;\n  overflow-x:hidden;\n  overflow-y:hidden;\n  box-sizing:border-box;\n'>\n    <!-- tile Name -->\n  <div style='\n    font-weight:700;\n    color:#04a1b3;\n    font-size:19px;\n    margin-bottom:8px;\n    text-align:center;\n    word-wrap:break-word;\n  '>\n    \" & Gallery_Ecommerce.Selected.Title & \"\n  </div>\n  \n  <!-- Time Range -->\n  \" & If(\n      !IsBlank(Gallery_Ecommerce.Selected.'Start Date') || !IsBlank(Gallery_Ecommerce.Selected.'End Date'),\n      \"<div style='margin-bottom:10px;'>\n        <b>\U0001F552 Thời gian áp dụng:</b> \" &\n          If(!IsBlank(Gallery_Ecommerce.Selected.'Start Date'),\n             Text(Gallery_Ecommerce.Selected.'Start Date', \"dd/mm/yyyy\"),\n             \"\"\n          ) &\n          If(!IsBlank(Gallery_Ecommerce.Selected.'End Date'),\n             \" - \" & Text(Gallery_Ecommerce.Selected.'End Date', \"dd/mm/yyyy\"),\n             \" - Đến khi có thông báo mới\"\n          ) &\n      \"</div>\",\n      \"\"\n    ) & \"\n\n    <!-- Payment Conditions -->\n  \" & If(\n      !IsBlank(Gallery_Ecommerce.Selected.Content),\n      \"<div style='margin-bottom:10px; display:flex; align-items:flex-start;'>\n        <span style='font-size:16px; margin-right:4px; flex-shrink:0;'>\U0001F4B3</span>\n        <span style='white-space: pre-wrap; word-wrap: break-word; flex-grow:1;'><b>Mô tả:</b> \" & \n        Gallery_Ecommerce.Selected.Content &\n        \"</span>\n      </div>\",\n      \"\"\n    ) & \"\n\n</div>\"\n"
+                  Width: =768
+                  Y: =62
+            - lbl_ngay:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.Arial
+                  PaddingLeft: =10
+                  Size: =14
+                  Text: |-
+                    ="🕒Thời gian áp dụng: " & Text(Gallery_Ecommerce.Selected.'Start Date',"dd/mm/yyyy") & " - " & Text(Gallery_Ecommerce.Selected.'End Date',"dd/mm/yyyy")
+                  Visible: =false
+                  Width: =768
+                  Y: =lbl_tile.Y + lbl_tile.Height
+            - lbl_ngay_1:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.Arial
+                  Height: =400
+                  Overflow: =Overflow.Scroll
+                  Size: =14
+                  Text: =
+                  Visible: =false
+                  Width: =768
+            - Icon12:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(0, 18, 107, 1)
+                  Height: =35
+                  Icon: =Icon.Cancel
+                  OnSelect: |
+                    =UpdateContext({show_Notify_CT: !show_Notify_CT});
+                    UpdateContext({varShowPDF: false});
+                  Width: =35
+                  X: =725
+                  Y: =5
+            - ImportMultiImageCanvas3:
+                Control: CodeComponent
+                ComponentName: crdfd_CustomComponent.ImportMultiImageCanvas
+                Properties:
+                  Height: =475
+                  JsonDataImage: =Json_result
+                  ViewOnly: =true
+                  Width: =725
+                  WidthControl: =750
+                  Y: =461
+            - lbl_tile_1:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.Arial
+                  FontWeight: =FontWeight.Bold
+                  Height: =90
+                  Size: =15
+                  Text: =Gallery_Ecommerce.Selected.Title
+                  Visible: =false
+                  Width: =768
+                  Y: =25
+      - PdfViewer3:
+          Control: PDFViewer@2.5.0
+          Properties:
+            Document: =Gallery_Ecommerce.Selected.'Hình ảnh'.Value
+            Height: =427
+            Visible: =varShowPDF && If(!IsBlank(Gallery_Ecommerce.Selected.'Hình ảnh'.Value),true,false )
+            Width: =717
+            X: =30
+            Y: =939

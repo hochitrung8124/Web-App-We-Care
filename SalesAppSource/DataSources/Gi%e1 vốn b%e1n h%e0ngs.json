@@ -1,0 +1,117 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "crdfd_givnbnhng_2s",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "crdfd_givnbnhng_2",
+    "MaxGetRowsCount": 2000,
+    "Name": "Giá vốn bán hàngs",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr1bb_giatriauky": "Giá trị đầu kỳ",
+      "cr1bb_giatrimisa": "Giá trị misa",
+      "cr1bb_giatrinhap": "Giá trị nhập",
+      "cr1bb_giatriton": "Giá trị tồn",
+      "cr1bb_giatrixuat": "Giá trị xuất",
+      "cr1bb_gv_auto": "GV_auto",
+      "cr1bb_hesoquyoi": "Hệ số quy đổi",
+      "cr1bb_onvichuan": "Đơn vị chuẩn",
+      "cr1bb_onvimisa": "Đơn vị misa",
+      "cr1bb_soluongauky": "Số lượng đầu kỳ",
+      "cr1bb_soluongmisa": "Số lượng misa",
+      "cr1bb_soluongnhap": "Số lượng nhập",
+      "cr1bb_soluongxuat": "Số lượng xuất",
+      "cr44a_giavon": "Giá vốn",
+      "cr44a_kho": "Kho",
+      "cr44a_masanphamtext": "Mã sản phẩm text",
+      "cr44a_nam": "Năm",
+      "cr44a_Sanpham": "Sản phẩm",
+      "cr44a_soluongton": "Số lượng tồn",
+      "cr44a_tensanphamtext": "Tên sản phẩm text",
+      "cr44a_thang": "Tháng",
+      "crdfd_givnbnhng_2_AsyncOperations": "System Jobs",
+      "crdfd_givnbnhng_2_BulkDeleteFailures": "Bulk Delete Failures",
+      "crdfd_givnbnhng_2_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "crdfd_givnbnhng_2_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "crdfd_givnbnhng_2_ProcessSession": "Process Sessions",
+      "crdfd_givnbnhng_2_SyncErrors": "Sync Errors",
+      "crdfd_givnbnhng_2id": "Giá vốn bán hàng",
+      "crdfd_idxut": "ID xuất",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number",
+      "wc001_Tenthuongmai": "Tên thương mại"
+    },
+    "PreferredName": "Giá vốn bán hàngs",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Giá vốn bán hàngs (Views)",
+    "Name": "_crdfd_givnbnhng_2_views",
+    "RelatedEntityName": "Giá vốn bán hàngs",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "233ad553-1253-43d0-9d30-226de3553787": "Giá vốn",
+      "2a92b09f-71b3-417d-9b48-ad2c9492f348": "Giá vốn bán hàng Lookup View",
+      "c9069091-f790-4375-b68a-0aee86f63335": "Inactive Giá vốn bán hàng",
+      "cb9e11f6-92f9-4d17-96db-857307353c5e": "Giá vốn bán hàng Associated View",
+      "fa160571-c586-4231-b00f-ceacf0ddde70": "Giá vốn bán hàng Advanced Find View"
+    }
+  },
+  {
+    "DisplayName": "Status (Giá vốn bán hàngs)",
+    "Name": "crdfd_givnbnhng_2_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Giá vốn bán hàngs"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Giá vốn bán hàngs",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Giá vốn bán hàngs)",
+    "Name": "crdfd_givnbnhng_2_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Giá vốn bán hàngs"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Giá vốn bán hàngs",
+    "Type": "OptionSetInfo"
+  }
+]

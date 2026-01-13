@@ -1,0 +1,180 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cr1bb_data_website_ecommerces",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cr1bb_data_website_ecommerce",
+    "MaxGetRowsCount": 2000,
+    "Name": "Ecommerce Website",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr1bb_content": "Content",
+      "cr1bb_content2": "Content 2",
+      "cr1bb_CustomerGroup": "Customer Group",
+      "cr1bb_data_website_ecommerce_AsyncOperations": "System Jobs",
+      "cr1bb_data_website_ecommerce_BulkDeleteFailures": "Bulk Delete Failures",
+      "cr1bb_data_website_ecommerce_FileAttachments": "FileAttachments",
+      "cr1bb_data_website_ecommerce_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cr1bb_data_website_ecommerce_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cr1bb_data_website_ecommerce_ProcessSession": "Process Sessions",
+      "cr1bb_data_website_ecommerce_SyncErrors": "Sync Errors",
+      "cr1bb_data_website_ecommerceid": "data_website_ecommerce",
+      "cr1bb_enddate": "End Date",
+      "cr1bb_excerpt": "Excerpt",
+      "cr1bb_filehinhanh": "Hình ảnh",
+      "cr1bb_header": "Header",
+      "cr1bb_img_content": "img_content",
+      "cr1bb_img_contentid": "cr1bb_img_contentId",
+      "cr1bb_img_file": "img_file",
+      "cr1bb_img_url": "img_url",
+      "cr1bb_linkfileembedded": "Link file embedded",
+      "cr1bb_loai": "Loại",
+      "cr1bb_loaitext": "Loại text",
+      "cr1bb_startdate": "Start Date",
+      "cr1bb_tags": "tags",
+      "cr1bb_title": "Title",
+      "cr1bb_vungmien": "Vùng miền",
+      "crdfd_type": "Type",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Ecommerce Website",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Ecommerce Website (Views)",
+    "Name": "_cr1bb_data_website_ecommerce_views",
+    "RelatedEntityName": "Ecommerce Website",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "51420f64-afe7-45d6-bd1f-41a53f44feae": "Inactive data_website_ecommerces",
+      "5ebcd19c-4146-4a27-8451-0245d8127145": "data_website_ecommerce Lookup View",
+      "5f149e01-6459-4ed7-9fea-c2326912d854": "data_website_ecommerce Associated View",
+      "9aaab9d6-d512-48c3-b7a5-ab8ef414c646": "data_website_ecommerce Advanced Find View",
+      "e930769d-a71a-4a51-9545-130635d0adaa": "Data_website_ecommerces"
+    }
+  },
+  {
+    "DisplayName": "Loại text (Ecommerce Website)",
+    "Name": "cr1bb_data_website_ecommerce_cr1bb_loai",
+    "OptionSetInfoNameMapping": {
+      "283640000": "Thông báo",
+      "283640001": "Khác"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr1bb_loai",
+        "OptionSetReferenceEntityName": "Ecommerce Website"
+      },
+      "OptionSetReferenceItem1": {
+        "OptionSetReferenceColumnName": "cr1bb_loaitext",
+        "OptionSetReferenceEntityName": "Ecommerce Website"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr1bb_loai",
+    "RelatedEntityName": "Ecommerce Website",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Vùng miền (Ecommerce Website)",
+    "Name": "cr1bb_data_website_ecommerce_cr1bb_vungmien",
+    "OptionSetInfoNameMapping": {
+      "283640000": "Miền Trung",
+      "283640001": "Miền Nam"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr1bb_vungmien",
+        "OptionSetReferenceEntityName": "Ecommerce Website"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr1bb_vungmien",
+    "RelatedEntityName": "Ecommerce Website",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Ecommerce Website)",
+    "Name": "cr1bb_data_website_ecommerce_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Ecommerce Website"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Ecommerce Website",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Ecommerce Website)",
+    "Name": "cr1bb_data_website_ecommerce_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Ecommerce Website"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Ecommerce Website",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Type (Ecommerce Website)",
+    "Name": "crdfd_cr1bb_data_website_ecommerce_crdfd_type",
+    "OptionSetInfoNameMapping": {
+      "191920000": "News",
+      "191920001": "Popup Ads",
+      "283640001": "Hero primary",
+      "283640002": "Sub Hero panel"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_type",
+        "OptionSetReferenceEntityName": "Ecommerce Website"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_type",
+    "RelatedEntityName": "Ecommerce Website",
+    "Type": "OptionSetInfo"
+  }
+]

@@ -1,0 +1,764 @@
+Training_sp As screen:
+    Fill: =RGBA(219, 219, 219, 1)
+
+    TextInput1 As text:
+        Align: =Align.Center
+        BorderColor: =RGBA(77, 77, 77, 1)
+        BorderThickness: =1
+        Color: =RGBA(77, 77, 77, 1)
+        Default: =
+        DelayOutput: =true
+        Font: =Font.Arial
+        Height: =50
+        HintText: ="Search"
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =0
+        PaddingTop: =0
+        RadiusBottomLeft: =25
+        RadiusBottomRight: =25
+        RadiusTopLeft: =25
+        RadiusTopRight: =25
+        Size: =20
+        Width: =Parent.Width - 40
+        X: =20
+        Y: =Label3.Y + Label3.Height + 20
+        ZIndex: =1
+
+    "Gallery_Product_learning As gallery.'BrowseLayout_Vertical_ThreeTextOneImageVariant_ver5.0'":
+        DelayItemLoading: =true
+        Height: =1196
+        Items: |-
+            =Sort(
+            Search(
+            Filter(
+                'Product groups',
+                Status = 'Status (Product groups)'.Active, 'Nhóm sản phẩm' <> "Adapter"
+            ), TextInput1.Text, 'Nhóm sản phẩm'), 'Nhóm sản phẩm', SortOrder.Ascending)
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        OnSelect: |-
+            =UpdateContext({show_product_learning: !show_product_learning});
+            UpdateContext({show_thong_tin_coban: true})
+        ShowScrollbar: =false
+        TemplatePadding: =20
+        TemplateSize: =160
+        Width: =Parent.Width
+        Y: =TextInput1.Y + TextInput1.Height + 10
+        ZIndex: =2
+
+        Button14 As button:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =Parent.TemplateHeight
+            HoverFill: =
+            OnSelect: =Select(Parent)
+            Text: =
+            Width: =Parent.TemplateWidth
+            ZIndex: =1
+
+        Image8 As image:
+            BorderColor: =RGBA(51, 51, 51, 1)
+            BorderThickness: =1
+            Height: =Parent.TemplateHeight - 20
+            Image: =ThisItem.'Hình ảnh'.Value
+            ImagePosition: =ImagePosition.Center
+            OnSelect: =Select(Parent)
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.TemplateHeight - 20
+            X: =10
+            Y: =10
+            ZIndex: =2
+
+        Label5 As label:
+            Color: =RGBA(51, 51, 51, 1)
+            Font: =Font.Arial
+            FontWeight: =FontWeight.Bold
+            Height: =50
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =24
+            Text: =ThisItem.'Nhóm sản phẩm'
+            Width: =558
+            X: =170
+            ZIndex: =3
+
+        Label5_3 As label:
+            Font: =Font.Arial
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =20
+            Text: =ThisItem.'Số sản phẩm' & " SKUs"
+            Width: =558
+            X: =Label5.X
+            Y: =Label5.Y + Label5.Height
+            ZIndex: =4
+
+        Label5_4 As label:
+            Font: =Font.Arial
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =20
+            Text: |-
+                ="Giá bán: " & If(IsBlank(ThisItem.'Giá Min') && IsBlank(ThisItem.'Giá Max'), "Đang cập nhật", Text(ThisItem.'Giá Min', "#,###") & " - " & Text(ThisItem.'Giá Max', "#,###"))
+            Width: =558
+            X: =Label5.X
+            Y: =90
+            ZIndex: =5
+
+    Label3 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(4, 161, 179, 1)
+        Font: =Font.Arial
+        FontWeight: =FontWeight.Bold
+        Height: =90
+        Size: =28
+        Text: ="Nhóm sản phẩm"
+        Width: =Parent.Width
+        ZIndex: =3
+
+    Icon10 As icon.Add:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =50
+        Icon: =Icon.ArrowLeft
+        OnSelect: =Back()
+        Width: =50
+        X: =20
+        Y: =20
+        ZIndex: =4
+
+    Container14 As groupContainer.verticalAutoLayoutContainer:
+        Fill: =RGBA(219, 219, 219, 1)
+        Height: =App.Height
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutGap: =20
+        LayoutGridColumns: =6
+        LayoutGridRows: =6
+        LayoutMode: =LayoutMode.Auto
+        LayoutOverflowY: =LayoutOverflow.Scroll
+        Visible: =show_product_learning
+        Width: =Parent.Width
+        ZIndex: =5
+
+        Container18 As groupContainer.manualLayoutContainer:
+            AlignInContainer: =AlignInContainer.Start
+            FillPortions: =0
+            Height: =van_de_thuong_gap.Y + van_de_thuong_gap.Height + 30
+            LayoutGridColumns: =6
+            LayoutGridRows: =6
+            LayoutMaxHeight: =
+            LayoutMaxWidth: =
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            Width: =Parent.Width
+            ZIndex: =6
+
+            "'Screen_product learning_head' As groupContainer.manualLayoutContainer":
+                Height: =90
+                LayoutGridColumns: =6
+                LayoutGridRows: =6
+                Width: =Parent.Width
+                ZIndex: =1
+
+                Label12 As label:
+                    Align: =Align.Center
+                    Fill: =RGBA(255, 255, 255, 1)
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Bold
+                    Height: =90
+                    Size: =28
+                    Text: =Gallery_Product_learning.Selected.'Nhóm sản phẩm'
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                Icon11 As icon.Add:
+                    Color: =RGBA(77, 77, 77, 1)
+                    Height: =50
+                    Icon: =Icon.Cancel
+                    OnSelect: |-
+                        =UpdateContext({show_product_learning: !show_product_learning});
+                        UpdateContext({show_van_de_thuong_gap: false});
+                        UpdateContext({show_han_sudung: false});
+                        UpdateContext({show_sp_pho_bien: false});
+                        UpdateContext({show_tieu_chuan_chat_luong: false});
+                        UpdateContext({show_sp_thay_the: false});
+                        UpdateContext({show_ung_dung_sp: false});
+                        UpdateContext({show_uu_nhuoc_diêm: false});
+                        UpdateContext({show_phanloai_ben_trong: false});
+                        UpdateContext({show_kienthuccoban: false});
+                    Width: =50
+                    X: =Parent.Width - Icon11.Width - 20
+                    Y: =20
+                    ZIndex: =2
+
+            thong_tin_co_banm As groupContainer.manualLayoutContainer:
+                BorderColor: =RGBA(77, 77, 77, 1)
+                BorderThickness: =1
+                DropShadow: =DropShadow.Semibold
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =If(show_thong_tin_coban, Label15_11.Y + Label15_11.Height + 20, Label15_12.Height)
+                LayoutGridColumns: =6
+                LayoutGridRows: =6
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Width: =Parent.Width - 40
+                X: =20
+                Y: ='Screen_product learning_head'.Y + 'Screen_product learning_head'.Height + 20
+                ZIndex: =2
+
+                Label15_6 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(51, 51, 51, 1)
+                    Font: =Font.Arial
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =20
+                    Text: |-
+                        ="Thương hiệu: " & Gallery_Product_learning.Selected.'Thương hiệu'
+                    Width: =Parent.Width
+                    Y: =Image7.Y + Image7.Height + 20
+                    ZIndex: =1
+
+                Label15_7 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(51, 51, 51, 1)
+                    Font: =Font.Arial
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =20
+                    Text: |-
+                        ="Quy cách: " & Gallery_Product_learning.Selected.'Quy cách'
+                    Width: =Parent.Width
+                    Y: =Label15_6.Y + Label15_6.Height + 20
+                    ZIndex: =2
+
+                Label15_8 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(51, 51, 51, 1)
+                    Font: =Font.Arial
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =20
+                    Text: |-
+                        ="Chất liệu: " & Gallery_Product_learning.Selected.'Chất liệu'
+                    Width: =Parent.Width
+                    Y: =Label15_7.Y + Label15_7.Height + 20
+                    ZIndex: =3
+
+                Label15_9 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(51, 51, 51, 1)
+                    Font: =Font.Arial
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =20
+                    Text: |-
+                        ="Hoàn thiện: " & Gallery_Product_learning.Selected.'Hoàn thiện bề mặt'
+                    Width: =Parent.Width
+                    Y: =Label15_8.Y + Label15_8.Height + 20
+                    ZIndex: =4
+
+                Label15_10 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(51, 51, 51, 1)
+                    Font: =Font.Arial
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =20
+                    Text: |-
+                        ="Đơn vị: " & Gallery_Product_learning.Selected.'Đơn vị'
+                    Width: =Parent.Width
+                    Y: =Label15_9.Y + Label15_9.Height + 20
+                    ZIndex: =5
+
+                Label15_11 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(51, 51, 51, 1)
+                    Font: =Font.Arial
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =20
+                    Text: |-
+                        ="MOQ: " & Gallery_Product_learning.Selected.'MOQ tối thiểu'
+                    Width: =Parent.Width
+                    Y: =Label15_10.Y + Label15_10.Height + 20
+                    ZIndex: =6
+
+                Label15_12 As label:
+                    Color: =RGBA(4, 161, 179, 1)
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Bold
+                    Height: =50
+                    OnSelect: |-
+                        =UpdateContext({show_thong_tin_coban: !show_thong_tin_coban})
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =24
+                    Text: ="Thông tin nhóm sản phẩm"
+                    Width: =Parent.Width
+                    ZIndex: =7
+
+                Image7 As image:
+                    BorderColor: =RGBA(77, 77, 77, 1)
+                    Height: =400
+                    Image: =Gallery_Product_learning.Selected.'Hình ảnh'
+                    Width: =Parent.Width
+                    X: =(Parent.Width - Image7.Width)/2
+                    Y: =Label15_12.Y + Label15_12.Height + 10
+                    ZIndex: =8
+
+            kien_thuc_coban As groupContainer.manualLayoutContainer:
+                BorderColor: =RGBA(77, 77, 77, 1)
+                BorderThickness: =1
+                DropShadow: =DropShadow.Semibold
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =If(show_kienthuccoban, Label19.Y + Label19.Height + 20, Label16.Height)
+                LayoutGridColumns: =6
+                LayoutGridRows: =6
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Width: =Parent.Width - 40
+                X: =20
+                Y: =thong_tin_co_banm.Y + thong_tin_co_banm.Height + 20
+                ZIndex: =3
+
+                Label16 As label:
+                    Color: =RGBA(4, 161, 179, 1)
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Bold
+                    Height: =50
+                    OnSelect: |-
+                        =UpdateContext({show_kienthuccoban: !show_kienthuccoban})
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =24
+                    Text: ="Kiến thức cơ bản"
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                Label19 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(51, 51, 51, 1)
+                    Font: =Font.Arial
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =20
+                    Text: =Gallery_Product_learning.Selected.'Kiến thức cơ bản'
+                    Width: =Parent.Width
+                    Y: =Label16.Y + Label16.Height
+                    ZIndex: =2
+
+            phan_loai_ben_trong As groupContainer.manualLayoutContainer:
+                BorderColor: =RGBA(77, 77, 77, 1)
+                BorderThickness: =1
+                DropShadow: =DropShadow.Semibold
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =If(show_phanloai_ben_trong, Label19_1.Y + Label19_1.Height + 20, Label16_1.Height)
+                LayoutGridColumns: =6
+                LayoutGridRows: =6
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Width: =Parent.Width - 40
+                X: =20
+                Y: =kien_thuc_coban. Y+ kien_thuc_coban.Height + 20
+                ZIndex: =4
+
+                Label16_1 As label:
+                    Color: =RGBA(4, 161, 179, 1)
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Bold
+                    Height: =50
+                    OnSelect: |-
+                        =UpdateContext({show_phanloai_ben_trong: !show_phanloai_ben_trong})
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =24
+                    Text: ="Phân loại bên trong"
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                Label19_1 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(51, 51, 51, 1)
+                    Font: =Font.Arial
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =20
+                    Text: =Gallery_Product_learning.Selected.'Phân loại bên trong'
+                    Width: =Parent.Width
+                    Y: =Label16_1.Y + Label16_1.Height 
+                    ZIndex: =2
+
+            uu_nhuoc_san_pham As groupContainer.manualLayoutContainer:
+                BorderColor: =RGBA(77, 77, 77, 1)
+                BorderThickness: =1
+                DropShadow: =DropShadow.Semibold
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =If(show_uu_nhuoc_diêm, Label19_2.Y + Label19_2.Height + 20, Label16_2.Height)
+                LayoutGridColumns: =6
+                LayoutGridRows: =6
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Width: =Parent.Width - 40
+                X: =20
+                Y: =phan_loai_ben_trong.Y + phan_loai_ben_trong.Height + 20
+                ZIndex: =5
+
+                Label16_2 As label:
+                    Color: =RGBA(4, 161, 179, 1)
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Bold
+                    Height: =50
+                    OnSelect: |-
+                        =UpdateContext({show_uu_nhuoc_diêm: !show_uu_nhuoc_diêm})
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =24
+                    Text: ="Ưu nhược điểm sản phẩm"
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                Label19_2 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(51, 51, 51, 1)
+                    Font: =Font.Arial
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =20
+                    Text: =Gallery_Product_learning.Selected.'Ưu Nhược điểm'
+                    Width: =Parent.Width
+                    Y: =Label16_2.Y + Label16_2.Height
+                    ZIndex: =2
+
+            ung_dung_san_pham As groupContainer.manualLayoutContainer:
+                BorderColor: =RGBA(77, 77, 77, 1)
+                BorderThickness: =1
+                DropShadow: =DropShadow.Semibold
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =If(show_ung_dung_sp, Label19_3.Y + Label19_3.Height + 20, Label16_3.Height)
+                LayoutGridColumns: =6
+                LayoutGridRows: =6
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Width: =Parent.Width - 40
+                X: =20
+                Y: =uu_nhuoc_san_pham.Y + uu_nhuoc_san_pham.Height + 20
+                ZIndex: =6
+
+                Label16_3 As label:
+                    Color: =RGBA(4, 161, 179, 1)
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Bold
+                    Height: =50
+                    OnSelect: |-
+                        =UpdateContext({show_ung_dung_sp: !show_ung_dung_sp})
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =24
+                    Text: ="Ứng dụng của sản phẩm"
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                Label19_3 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(51, 51, 51, 1)
+                    Font: =Font.Arial
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =20
+                    Text: =Gallery_Product_learning.Selected.'Ứng dụng của SP'
+                    Width: =Parent.Width
+                    Y: =Label16_3.Y + Label16_3.Height
+                    ZIndex: =2
+
+            sp_thay_the As groupContainer.manualLayoutContainer:
+                BorderColor: =RGBA(77, 77, 77, 1)
+                BorderThickness: =1
+                DropShadow: =DropShadow.Semibold
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =If(show_sp_thay_the, Label19_4.Y + Label19_4.Height + 20, Label16_4.Height)
+                LayoutGridColumns: =6
+                LayoutGridRows: =6
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Width: =Parent.Width - 40
+                X: =20
+                Y: =ung_dung_san_pham.Y + ung_dung_san_pham.Height + 20
+                ZIndex: =7
+
+                Label16_4 As label:
+                    Color: =RGBA(4, 161, 179, 1)
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Bold
+                    Height: =50
+                    OnSelect: |-
+                        =UpdateContext({show_sp_thay_the: !show_sp_thay_the})
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =24
+                    Text: ="Các sản phẩm tương ứng thay thế"
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                Label19_4 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(51, 51, 51, 1)
+                    Font: =Font.Arial
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =20
+                    Text: =Gallery_Product_learning.Selected.'Sản phẩm thay thế'
+                    Width: =Parent.Width
+                    Y: =Label16_4.Y + Label16_4.Height
+                    ZIndex: =2
+
+            tieu_chuan_chat_luong As groupContainer.manualLayoutContainer:
+                BorderColor: =RGBA(77, 77, 77, 1)
+                BorderThickness: =1
+                DropShadow: =DropShadow.Semibold
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =If(show_tieu_chuan_chat_luong, Label19_5.Y + Label19_5.Height + 20, Label16_5.Height)
+                LayoutGridColumns: =6
+                LayoutGridRows: =6
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Width: =Parent.Width - 40
+                X: =20
+                Y: =sp_thay_the.Y + sp_thay_the.Height + 20
+                ZIndex: =8
+
+                Label16_5 As label:
+                    Color: =RGBA(4, 161, 179, 1)
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Bold
+                    Height: =50
+                    OnSelect: |-
+                        =UpdateContext({show_tieu_chuan_chat_luong: !show_tieu_chuan_chat_luong})
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =24
+                    Text: ="Các tiêu chuẩn chất lượng"
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                Label19_5 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(51, 51, 51, 1)
+                    Font: =Font.Arial
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =20
+                    Text: =Gallery_Product_learning.Selected.'Tiêu chuẩn chất lượng (cr1bb_tieuchuanchatluong)'
+                    Width: =Parent.Width
+                    Y: =Label16_5.Y + Label16_5.Height
+                    ZIndex: =2
+
+            san_pham_pho_bien As groupContainer.manualLayoutContainer:
+                BorderColor: =RGBA(77, 77, 77, 1)
+                BorderThickness: =1
+                DropShadow: =DropShadow.Semibold
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =If(show_sp_pho_bien, Label19_6.Y + Label19_6.Height + 20, Label16_6.Height)
+                LayoutGridColumns: =6
+                LayoutGridRows: =6
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Width: =Parent.Width - 40
+                X: =20
+                Y: =tieu_chuan_chat_luong.Y + tieu_chuan_chat_luong.Height + 20
+                ZIndex: =9
+
+                Label16_6 As label:
+                    Color: =RGBA(4, 161, 179, 1)
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Bold
+                    Height: =50
+                    OnSelect: |-
+                        =UpdateContext({show_sp_pho_bien: !show_sp_pho_bien})
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =24
+                    Text: ="Sản phẩm phổ biến"
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                Label19_6 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(51, 51, 51, 1)
+                    Font: =Font.Arial
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =20
+                    Text: =Gallery_Product_learning.Selected.'Dòng sản phẩm phổ biến'
+                    Width: =Parent.Width
+                    Y: =Label16_6.Y + Label16_6.Height
+                    ZIndex: =2
+
+            han_su_dung_luu_tru As groupContainer.manualLayoutContainer:
+                BorderColor: =RGBA(77, 77, 77, 1)
+                BorderThickness: =1
+                DropShadow: =DropShadow.Semibold
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =If(show_han_sudung, Label19_7.Y + Label19_7.Height + 20, Label16_7.Height)
+                LayoutGridColumns: =6
+                LayoutGridRows: =6
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Width: =Parent.Width - 40
+                X: =20
+                Y: =san_pham_pho_bien.Y + san_pham_pho_bien.Height + 20
+                ZIndex: =10
+
+                Label16_7 As label:
+                    Color: =RGBA(4, 161, 179, 1)
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Bold
+                    Height: =50
+                    OnSelect: |-
+                        =UpdateContext({show_han_sudung: !show_han_sudung})
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =24
+                    Text: ="Hạn sử dụng, lưu trữ"
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                Label19_7 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(51, 51, 51, 1)
+                    Font: =Font.Arial
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =20
+                    Text: =Gallery_Product_learning.Selected.'Hạn sử dụng, hạn lưu trữ'
+                    Width: =Parent.Width
+                    Y: =Label16_7.Y + Label16_7.Height
+                    ZIndex: =2
+
+            van_de_thuong_gap As groupContainer.manualLayoutContainer:
+                BorderColor: =RGBA(77, 77, 77, 1)
+                BorderThickness: =1
+                DropShadow: =DropShadow.Semibold
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =If(show_van_de_thuong_gap, Label19_8.Y + Label19_8.Height + 20, Label16_9.Height)
+                LayoutGridColumns: =6
+                LayoutGridRows: =6
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Width: =Parent.Width - 40
+                X: =20
+                Y: =han_su_dung_luu_tru.Y + han_su_dung_luu_tru.Height + 20
+                ZIndex: =11
+
+                Label16_9 As label:
+                    Color: =RGBA(4, 161, 179, 1)
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Bold
+                    Height: =50
+                    OnSelect: |-
+                        =UpdateContext({show_van_de_thuong_gap: !show_van_de_thuong_gap})
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =24
+                    Text: ="Vấn đề thường gặp khi sử dụng"
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                Label19_8 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(51, 51, 51, 1)
+                    Font: =Font.Arial
+                    PaddingBottom: =0
+                    PaddingLeft: =20
+                    PaddingRight: =10
+                    PaddingTop: =0
+                    Size: =20
+                    Text: =Gallery_Product_learning.Selected.'Vấn đề thường gặp'
+                    Width: =Parent.Width
+                    Y: =Label16_9.Y + Label16_9.Height
+                    ZIndex: =2
+

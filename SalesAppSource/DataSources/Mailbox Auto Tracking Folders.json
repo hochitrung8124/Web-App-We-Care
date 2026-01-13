@@ -1,0 +1,62 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "mailboxtrackingfolders",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "mailboxtrackingfolder",
+    "MaxGetRowsCount": 2000,
+    "Name": "Mailbox Auto Tracking Folders",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "_regardingobjectid_value": "Regarding Object Id",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "exchangefolderid": "Exchange Folder Id",
+      "exchangefoldername": "Exchange Folder Name",
+      "folderonboardingstatus": "Folder on boarding Status",
+      "mailboxid": "MailboxId",
+      "mailboxtrackingfolderid": "MailboxTrackingFolderId",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "msft_datastate": "msft_DataState",
+      "organizationid": "Organization",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "versionnumber": "Version number"
+    },
+    "PreferredName": "Mailbox Auto Tracking Folders",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Mailbox Auto Tracking Folders (Views)",
+    "Name": "_mailboxtrackingfolder_views",
+    "RelatedEntityName": "Mailbox Auto Tracking Folders",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {}
+  },
+  {
+    "DisplayName": "DataState",
+    "Name": "msft_datastate",
+    "OptionSetInfoNameMapping": {
+      "0": "Default",
+      "1": "Retain"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "msft_datastate",
+        "OptionSetReferenceEntityName": "Mailbox Auto Tracking Folders"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "msft_datastate",
+    "RelatedEntityName": "Mailbox Auto Tracking Folders",
+    "Type": "OptionSetInfo"
+  }
+]

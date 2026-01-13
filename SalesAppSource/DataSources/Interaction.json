@@ -1,0 +1,178 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "crdfd_interactions",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "crdfd_interaction",
+    "MaxGetRowsCount": 2000,
+    "Name": "Interaction",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr1bb_nhan_vien_sale_f": "Nhân viên sale",
+      "crdfd_analysis": "Analysis",
+      "crdfd_channel": "Channel",
+      "crdfd_check": "Check",
+      "crdfd_conversation": "Conversation",
+      "crdfd_dev": "dev",
+      "crdfd_dungluongmb": "Dung lượng (MB)",
+      "crdfd_ghichu": "Ghi chú",
+      "crdfd_ienthoai": "Điện thoại",
+      "crdfd_interaction_AsyncOperations": "System Jobs",
+      "crdfd_interaction_BulkDeleteFailures": "Bulk Delete Failures",
+      "crdfd_interaction_DuplicateBaseRecord": "Duplicate Records (crdfd_interaction_DuplicateBaseRecord)",
+      "crdfd_interaction_DuplicateMatchingRecord": "Duplicate Records (crdfd_interaction_DuplicateMatchingRecord)",
+      "crdfd_interaction_FileAttachments": "FileAttachments",
+      "crdfd_interaction_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "crdfd_interaction_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "crdfd_interaction_ProcessSession": "Process Sessions",
+      "crdfd_interaction_SyncErrors": "Sync Errors",
+      "crdfd_Interactionaccount": "Interaction account",
+      "crdfd_interactiondetail_Interaction_crdfd_interaction": "Interaction Detail",
+      "crdfd_interactionid": "ID",
+      "crdfd_Khach_hang": "Khách hàng",
+      "crdfd_khach_hang_cal": "Khách hàng CAL",
+      "crdfd_mailsale": "Mail sale",
+      "crdfd_makh": "Mã KH",
+      "crdfd_mang": "Mạng",
+      "crdfd_name": "Interaction key",
+      "crdfd_ngaytao": "Ngày tạo",
+      "crdfd_nhan_vien_sale": "Nhân viên sale offline",
+      "crdfd_oa_avatar": "OA - Avatar",
+      "crdfd_oa_avatarid": "crdfd_OA_AvatarId",
+      "crdfd_oa_avatarurl": "OA - Avatar url",
+      "crdfd_oa_id": "OA_id",
+      "crdfd_recording": "Recording",
+      "crdfd_recording_url": "Recording URL",
+      "crdfd_sale_offline": "Sale offline",
+      "crdfd_sale_online": "Sale online",
+      "crdfd_score": "Score",
+      "crdfd_tagging": "Tagging",
+      "crdfd_temp": "Temp",
+      "crdfd_thoi_gian_phan_hoi_tb": "Thời gian phản hồi trung bình (s)",
+      "crdfd_thoigiangois": "Thời gian chăm sóc (s)",
+      "crdfd_transcribe": "Transcribe",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Interaction",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Interaction (Views)",
+    "Name": "_crdfd_interaction_views",
+    "RelatedEntityName": "Interaction",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "19a3f65c-6e50-ef11-a316-000d3aa0d296": "Interaction - dev",
+      "2a241089-7558-ef11-bfe2-000d3aa32b87": "Interaction - Call",
+      "3bfc33ac-7f45-4324-a5b2-d6a6eba8d4af": "Interaction Associated View",
+      "43e0c873-e64f-ef11-a316-00224859c897": "Interaction - OA",
+      "6d0b0856-a4c5-4dd7-bb09-242cfc3c980f": "Interaction Advanced Find View",
+      "958478cc-7558-ef11-bfe2-000d3ac7f330": "Interaction - Direct",
+      "96780a93-bf7f-417a-bde9-eedd823edd56": "Interaction Lookup View",
+      "a898f6db-3eb2-49a6-8c41-91c0ec3c086a": "Inactive Interaction",
+      "ca9c518c-bc48-ef11-a316-000d3ac9268a": "interaction_task",
+      "db11fb87-26a3-475e-929d-3cfd5133602b": "Interaction"
+    }
+  },
+  {
+    "DisplayName": "Transcribe (Interaction)",
+    "Name": "crdfd_interaction_crdfd_transcribe",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_transcribe",
+        "OptionSetReferenceEntityName": "Interaction"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "crdfd_transcribe",
+    "RelatedEntityName": "Interaction",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Interaction)",
+    "Name": "crdfd_interaction_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Interaction"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Interaction",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Interaction)",
+    "Name": "crdfd_interaction_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Interaction"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Interaction",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Interaction Channel (choice)",
+    "Name": "crdfd_interactionchannelchoice",
+    "OptionSetInfoNameMapping": {
+      "1": "Zalo OA",
+      "2": "Call",
+      "3": "Sale Direct",
+      "4": "Facebook",
+      "5": "Email"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_channel",
+        "OptionSetReferenceEntityName": "Interaction"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_channel",
+    "RelatedEntityName": "Interaction",
+    "Type": "OptionSetInfo"
+  }
+]

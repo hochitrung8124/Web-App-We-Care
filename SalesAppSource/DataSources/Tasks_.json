@@ -1,0 +1,352 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "crdfd_taskses",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "crdfd_tasks",
+    "MaxGetRowsCount": 2000,
+    "Name": "Tasks_",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr1bb_Chuoicungung": "Chuỗi cung ứng",
+      "cr1bb_KPItracking": "KPI tracking",
+      "cr1bb_manhomsanphamcal": "Mã nhóm sản phẩm cal",
+      "crdfd_anh_feedback": "Ảnh feedback",
+      "crdfd_anh_feedbackid": "crdfd_Anh_feedbackId",
+      "crdfd_auditresult": "Audit result",
+      "crdfd_bo_phan": "Bộ phận",
+      "crdfd_check": "Check",
+      "crdfd_cost": "Cost",
+      "crdfd_doit_uong": "Đối tượng",
+      "crdfd_doituongkhactext": "Đối tượng khác (text)",
+      "crdfd_Eventtrigger": "Event trigger",
+      "crdfd_Eventverify": "Event verify",
+      "crdfd_Fromtask": "From task",
+      "crdfd_Incharge": "Incharge",
+      "crdfd_inchargemail": "Incharge - mail",
+      "crdfd_inchargenamecal": "Incharge Name",
+      "crdfd_ke_hoach_xu_ly": "Kế hoạch xử lý",
+      "crdfd_kehoachxulytest": "Kế hoạch xử lý test",
+      "crdfd_ket_qua": "Kết quả",
+      "crdfd_key_auto": "Key_auto",
+      "crdfd_keyquanhuyen": "Key quận huyện",
+      "crdfd_Khach_hang": "Khách hàng",
+      "crdfd_khachhangphanhoi": "Khách hàng phản hồi",
+      "crdfd_khachhangtext": "Khách hàng text",
+      "crdfd_kichbanhanhdong": "Kịch bản hành động",
+      "crdfd_makh": "Mã KH",
+      "crdfd_name": "Name",
+      "crdfd_netscore": "Net Score",
+      "crdfd_ngay_dukien_hoan_thanh": "Ngày dự kiến hoàn thành",
+      "crdfd_ngay_hoan_thanh": "Ngày hoàn thành",
+      "crdfd_ngay_khoi_tao": "Ngày khởi tạo",
+      "crdfd_ngay_xu_ly": "Ngày xử lý ",
+      "crdfd_ngaycapnhat": "Ngày cập nhật",
+      "crdfd_nguoitaoon": "Người tạo đơn",
+      "crdfd_Nhacungcap": "Nhà cung cấp",
+      "crdfd_Nhanvien": "Nhân viên",
+      "crdfd_Nhomsanpham": "Nhóm sản phẩm",
+      "crdfd_noidungchitiet": "Nội dung chi tiết",
+      "crdfd_phanloai": "Phân loại",
+      "crdfd_phongban": "Phòng ban",
+      "crdfd_quan_huyen": "Quận huyện_KH",
+      "crdfd_Quanhuyen": "ĐT_Quận huyện",
+      "crdfd_rankingtasktype": "Ranking task type",
+      "crdfd_resultscore": "Result score",
+      "crdfd_sochkdcal": "Số CHKD cal",
+      "crdfd_supervisormail": "Supervisor - mail",
+      "crdfd_task_action_Tasks_crdfd_tasks": "Task action",
+      "crdfd_Task_resuilt": "Task_resuilt",
+      "crdfd_taskgroup": "Task group",
+      "crdfd_tasks_AsyncOperations": "System Jobs",
+      "crdfd_tasks_BulkDeleteFailures": "Bulk Delete Failures",
+      "crdfd_tasks_DuplicateBaseRecord": "Duplicate Records (crdfd_tasks_DuplicateBaseRecord)",
+      "crdfd_tasks_DuplicateMatchingRecord": "Duplicate Records (crdfd_tasks_DuplicateMatchingRecord)",
+      "crdfd_tasks_Fromtask_crdfd_tasks": "Tasks_",
+      "crdfd_tasks_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "crdfd_tasks_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "crdfd_tasks_ProcessSession": "Process Sessions",
+      "crdfd_tasks_SyncErrors": "Sync Errors",
+      "crdfd_tasksid": "ID",
+      "crdfd_Tasktype": "Task type",
+      "crdfd_tasktype_text": "Task type_text",
+      "crdfd_Tinhthanh": "Tỉnh thành",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "new_da_thuc_hien": "Đã thực hiện",
+      "new_huong_dan_xu_ly": "Hướng dẫn xử lý",
+      "new_mo_ta_ket_qua": "Mô tả kết quả",
+      "new_trangthai": "Trạng thái",
+      "new_xu_ly_task": "Xử lý task",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number",
+      "wc001_taskactionnumber": "task action number"
+    },
+    "PreferredName": "Tasks_",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Tasks_ (Views)",
+    "Name": "_crdfd_tasks_views",
+    "RelatedEntityName": "Tasks_",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "0d2462a1-6481-ef11-ac20-6045bd1cbfd4": "Task xử lý hiện tại",
+      "3ec97036-f0f5-4285-98cb-e8ef1da06a2a": "Tasks Lookup View",
+      "44517ca3-f2dd-4846-8428-54e4c74b5966": "Tasks Advanced Find View",
+      "6637b092-44b1-45b8-979b-770309a83b3a": "All Tasks",
+      "69dfd40a-b1dc-f011-8544-000d3a08dd6c": "PCF - SaleCare Task",
+      "73f17523-0542-43d7-bc0d-cc3f52f51711": "Inactive Tasks",
+      "751d2afc-13d4-f011-8544-000d3aa350f3": "Kế toán - Task xử lý đã hoàn thành",
+      "8c28707f-14d4-f011-8544-000d3aa05927": "Kế toán - Task xử lý hiện tại",
+      "9c337fde-764b-4a7d-a8ca-76d33fae7f0e": "Tasks Associated View",
+      "c7d97a08-502d-ef11-840a-000d3aa15235": "Subgrid_view",
+      "cc1d6419-92fd-ef11-bae3-6045bd1d396f": "Sourcing - Task xử lý",
+      "ecd40f66-d823-ef11-840a-6045bd1feb6a": "Task trễ",
+      "eddc4273-0111-ef11-9f8a-6045bd1bff1d": "Sale - Task xử lý hiện tại",
+      "f8a40af4-1186-ef11-ac20-6045bd1c0db1": "Lookup view"
+    }
+  },
+  {
+    "DisplayName": "Xử lý task (Tasks_)",
+    "Name": "cr1bb_crdfd_tasks_new_xu_ly_task",
+    "OptionSetInfoNameMapping": {
+      "111": "Đang xử lý",
+      "112": "Hoàn thành"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "new_xu_ly_task",
+        "OptionSetReferenceEntityName": "Tasks_"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "new_xu_ly_task",
+    "RelatedEntityName": "Tasks_",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Task status - choice",
+    "Name": "cr1bb_taskstatuschoice",
+    "OptionSetInfoNameMapping": {
+      "111": "Đang xử lý",
+      "112": "Hoàn thành",
+      "113": "Tạm dừng"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "new_trangthai",
+        "OptionSetReferenceEntityName": "Tasks_"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "new_trangthai",
+    "RelatedEntityName": "Tasks_",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Phòng ban - choice",
+    "Name": "crdfd_bophan",
+    "OptionSetInfoNameMapping": {
+      "191920000": "R&D",
+      "191920001": "Tech",
+      "191920002": "Accounting",
+      "191920003": "Sourcing",
+      "191920004": "Sales",
+      "191920005": "Logistics",
+      "191920006": "General",
+      "283640001": "HR"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_phongban",
+        "OptionSetReferenceEntityName": "Tasks_"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_phongban",
+    "RelatedEntityName": "Tasks_",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Bộ phận - choice",
+    "Name": "crdfd_bophan_choice",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Sale online",
+      "191920001": "Sale direct",
+      "191920002": "Supervisor",
+      "191920003": "Sale manager",
+      "191920004": "Sourcing",
+      "191920005": "Logictics",
+      "191920006": "Sourcing leader",
+      "191920007": "Logictics leader",
+      "191920008": "Sale B2B",
+      "191920009": "Sale B2B leader",
+      "191920010": "Auto System",
+      "191920011": "Sale leader",
+      "283640001": "Tech",
+      "283640002": "Accounting"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_bo_phan",
+        "OptionSetReferenceEntityName": "Tasks_"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_bo_phan",
+    "RelatedEntityName": "Tasks_",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Kết quả (Tasks_)",
+    "Name": "crdfd_tasks_crdfd_ket_qua",
+    "OptionSetInfoNameMapping": {
+      "111": "Thành công",
+      "112": "Không thành công"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_ket_qua",
+        "OptionSetReferenceEntityName": "Tasks_"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_ket_qua",
+    "RelatedEntityName": "Tasks_",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Khách hàng phản hồi (Tasks_)",
+    "Name": "crdfd_tasks_crdfd_khachhangphanhoi",
+    "OptionSetInfoNameMapping": {
+      "283640000": "Sai công nợ, chờ điều chỉnh",
+      "283640001": "Sai công nợ, hẹn ngày thanh toán",
+      "283640002": "Đúng công nợ, hẹn ngày thanh toán",
+      "283640003": "Đúng công nợ nhưng không hẹn ngày thanh toán",
+      "283640004": "Nghe điện thoại nhưng chưa phản hồi khi nào có lịch thanh toán",
+      "283640005": "Ghi chú khác",
+      "283640007": "Khách hàng không nghe máy"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_khachhangphanhoi",
+        "OptionSetReferenceEntityName": "Tasks_"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_khachhangphanhoi",
+    "RelatedEntityName": "Tasks_",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Người tạo đơn (Tasks_)",
+    "Name": "crdfd_tasks_crdfd_nguoitaoon",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Sale direct",
+      "191920001": "Sale online",
+      "191920002": "Khách tự liên hệ sale online",
+      "191920003": "Khách tự liên hệ sale direct"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_nguoitaoon",
+        "OptionSetReferenceEntityName": "Tasks_"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_nguoitaoon",
+    "RelatedEntityName": "Tasks_",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Phân loại (Tasks_)",
+    "Name": "crdfd_tasks_crdfd_phanloai",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Operation",
+      "191920001": "Issue",
+      "191920002": "System issue"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_phanloai",
+        "OptionSetReferenceEntityName": "Tasks_"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_phanloai",
+    "RelatedEntityName": "Tasks_",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Tasks_)",
+    "Name": "crdfd_tasks_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Tasks_"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Tasks_",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Tasks_)",
+    "Name": "crdfd_tasks_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Tasks_"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Tasks_",
+    "Type": "OptionSetInfo"
+  }
+]

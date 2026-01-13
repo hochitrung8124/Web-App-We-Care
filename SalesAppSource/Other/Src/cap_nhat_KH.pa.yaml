@@ -1,0 +1,320 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  cap_nhat_KH:
+    Properties:
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      OnVisible: "=UpdateContext({varToday: Today()});\nClearCollect(\n    data_CNKH_Src,\n    Filter(\n        'Cập nhật khách háng',\n        Status = 'Status (Cập nhật khách háng)'.Active \n        And 'Created On' >= DateAdd(varToday,-30) \n        //And 'Tổng thời gian chăm sóc (s)' >=0\n        And Email_user = drop_emp.Selected.Email\n       \n        //And drop_emp.Selected.'Chức vụ ( text)' = \"Nhân viên Kinh doanh bán lẻ\"\n    )\n);\n"
+    Children:
+      - Container4_2:
+          Control: GroupContainer@1.4.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =App.Height
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            Width: =Parent.Width
+          Children:
+            - Container6_3:
+                Control: GroupContainer@1.4.0
+                Variant: ManualLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(219, 219, 219, 1)
+                  FillPortions: =0
+                  Height: =Parent.Height
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  LayoutMinHeight: =112
+                  Width: =Parent.Width
+                Children:
+                  - Rectangle3_2:
+                      Control: Rectangle@2.3.0
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Fill: =RGBA(4, 161, 179, 1)
+                        Height: =90
+                        Width: =Parent.Width
+                  - c_info_checkin_1:
+                      Control: GroupContainer@1.4.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.Bold
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =1141
+                        RadiusBottomLeft: =20
+                        RadiusBottomRight: =20
+                        RadiusTopLeft: =20
+                        RadiusTopRight: =20
+                        Width: =Parent.Width -40
+                        X: =20
+                        Y: =201
+                      Children:
+                        - g_CNKH_1:
+                            Control: Gallery@2.15.0
+                            Variant: BrowseLayout_Vertical_OneTextOneImageVariant_ver4.0
+                            Properties:
+                              BorderColor: =RGBA(77, 77, 77, 1)
+                              BorderThickness: =1
+                              DelayItemLoading: =true
+                              Fill: =RGBA(236, 236, 235, 1)
+                              Height: =984
+                              Items: =list_checkInOut_CNKH
+                              LoadingSpinner: =LoadingSpinner.Data
+                              OnSelect: =
+                              TemplatePadding: =20
+                              TemplateSize: =186
+                              Width: =Parent.Width
+                              Y: =140
+                            Children:
+                              - Button10_1:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =Parent.TemplateHeight
+                                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                    HoverColor: =RGBA(255, 255, 255, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    OnSelect: =Select(Parent)
+                                    PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                    PressedColor: =RGBA(255, 255, 255, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    RadiusBottomLeft: =20
+                                    RadiusBottomRight: =20
+                                    RadiusTopLeft: =20
+                                    RadiusTopRight: =20
+                                    Text: =""
+                                    Width: =Parent.TemplateWidth
+                              - Title11_4:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(77, 77, 77, 1)
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =50
+                                    OnSelect: =Select(Parent)
+                                    PaddingBottom: =0
+                                    PaddingLeft: =20
+                                    PaddingRight: =10
+                                    PaddingTop: =0
+                                    Size: =20
+                                    Text: =ThisItem.'Khách hàng CAL'
+                                    VerticalAlign: =VerticalAlign.Top
+                                    Width: =Parent.TemplateWidth
+                                    Y: =5
+                              - Title11_5:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(26, 26, 26, 1)
+                                    Font: =Font.Arial
+                                    Height: =Self.Size * 1.8
+                                    OnSelect: =Select(Parent)
+                                    PaddingBottom: =0
+                                    PaddingLeft: =20
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =20
+                                    Text: =ThisItem.'Thời gian check in' & " - " & ThisItem.'Thời gian check out'
+                                    VerticalAlign: =VerticalAlign.Top
+                                    Width: =Parent.TemplateWidth
+                                    Y: =Title11_6.Y + Title11_6.Height + 5
+                              - Title11_6:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(26, 26, 26, 1)
+                                    Font: =Font.Arial
+                                    OnSelect: =Select(Parent)
+                                    PaddingBottom: =0
+                                    PaddingLeft: =20
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =20
+                                    Text: =ThisItem.'Trạng thái gặp khách'
+                                    VerticalAlign: =VerticalAlign.Top
+                                    Width: =Parent.TemplateWidth
+                                    Y: =Title11_4.Y + Title11_4.Height
+                              - Title11_7:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(26, 26, 26, 1)
+                                    Font: =Font.Arial
+                                    Height: =Self.Size * 1.8
+                                    OnSelect: =Select(Parent)
+                                    PaddingBottom: =0
+                                    PaddingLeft: =20
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =20
+                                    Text: |-
+                                      ="Tổng: " & Text(
+                                          Value(ThisItem.'Tổng thời gian chăm sóc (s)') / 60,
+                                          "#"
+                                      ) & " phút. "
+                                    VerticalAlign: =VerticalAlign.Top
+                                    Width: =Parent.TemplateWidth
+                                    Y: =Title11_5.Height +Title11_5.Y +5
+                        - Label6_8:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(51, 51, 51, 1)
+                              Font: =Font.Arial
+                              FontWeight: =FontWeight.Bold
+                              Height: =50
+                              PaddingLeft: =20
+                              Size: =24
+                              Text: ="Lịch sử check-in"
+                              Width: =Parent.Width
+                              Y: =10
+                        - Label6_9:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(26, 26, 26, 1)
+                              Font: =Font.Arial
+                              PaddingLeft: =20
+                              Size: =20
+                              Text: |
+                                =With( 
+                                    {
+                                        totalMinutes: Sum(list_checkInOut_CNKH, 'Tổng thời gian chăm sóc (s)') / 60,
+                                        uniqueCheckIns: CountRows(
+                                            GroupBy(
+                                                list_checkInOut_CNKH,
+                                                'Mã KH',
+                                                grouped
+                                            )
+                                        )
+                                    },
+                                    "Đã check in: " & soKhCheckIn & 
+                                    " lần - TG Chăm sóc: " & 
+                                    If(
+                                        totalMinutes >= 60,
+                                        Round(totalMinutes / 60, 1) & " giờ",
+                                        Round(totalMinutes, 0) & " phút"
+                                    )
+                                )
+                              Width: =Parent.Width
+                              Y: =80
+                  - Image11_3:
+                      Control: Image@2.2.3
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =2
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =4
+                        Height: =50
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        Image: =back_white
+                        OnSelect: =Navigate(Main)
+                        PressedBorderColor: =RGBA(0, 0, 0, 0)
+                        PressedFill: =RGBA(0, 0, 0, 0)
+                        Width: =70
+                        X: =20
+                        Y: =20
+                  - drop_emp:
+                      Control: Classic/DropDown@2.3.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        BorderThickness: =0
+                        ChevronBackground: =RGBA(0, 0, 0, 0)
+                        ChevronFill: =RGBA(255, 255, 255, 1)
+                        ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        ChevronHoverFill: =RGBA(0, 0, 0, 0)
+                        Color: =RGBA(255, 255, 255, 1)
+                        Default: =nv_sale.Name
+                        Fill: =RGBA(4, 161, 179, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        Height: =90
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        Items: |-
+                          =If(
+                              check_role_sup,
+                              Filter(
+                                  Employees,
+                                  'Phòng ban (text)' = "Phòng Phát triển Kinh doanh" &&
+                                  //'Chức vụ ( text)' = "Nhân viên Kinh doanh bán lẻ" &&
+                                  'Trạng thái' = 'Trạng thái choice hr'.'Đang làm' &&
+                                  ('Direct Management'.'Email cal' = mail_sale || Email = mail_sale)
+                              ),
+                              Filter(
+                                  Employees,
+                                  //'Phòng ban (text)' = "Phòng Phát triển Kinh doanh" &&
+                                  //'Chức vụ ( text)' = "Nhân viên Kinh doanh bán lẻ" &&
+                                  'Trạng thái' = 'Trạng thái choice hr'.'Đang làm' &&
+                                  Email = mail_sale
+                              )
+                          )
+                        Items.Value: =crdfd_name
+                        OnChange: "=ClearCollect(\r\n    data_CNKH_Src,\r\n    Filter(\r\n        'Cập nhật khách háng',\r\n        Status = 'Status (Cập nhật khách háng)'.Active \r\n        And 'Created On' >= DateAdd(varToday,-3) \r\n        And 'Created By'.'Primary Email' = drop_emp.Selected.Email     \r\n            \r\n    )\r\n);\r\n"
+                        OnSelect: =true
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =RGBA(0, 18, 107, 1)
+                        SelectionColor: =RGBA(255, 255, 255, 1)
+                        SelectionFill: =RGBA(0, 0, 0, 0)
+                        Size: =30
+                        Width: =447
+                        X: =203
+                  - ButtonCanvas3:
+                      Control: Button@0.0.45
+                      Properties:
+                        Align: =Align.Center
+                        Appearance: ='ButtonCanvas.Appearance'.Primary
+                        BasePaletteColor: |+
+                          =If(
+                              ischeckCong >= 1,
+                              RGBA(78, 238, 148, 1),       // Xanh lá nhạt (đủ công)
+                              If(
+                                  ischeckCong >= 0.5,
+                                  RGBA(255, 246, 143, 1),  // Vàng nhạt (nửa công)
+                                  RGBA(200, 200, 200, 1)   // Xám (không công)
+                              )
+                          )
+                        BorderRadius: =20
+                        FontSize: =20
+                        Height: =72
+                        IconStyle: ='ButtonCanvas.IconStyle'.Filled
+                        Layout: ='ButtonCanvas.Layout'.TextOnly
+                        Text: =If(ischeckCong >= 1 , "Đủ Công", If(ischeckCong = 0.5, "Nữa công", ""))
+                        VerticalAlign: =VerticalAlign.Middle
+                        Visible: |-
+                          =//If(ischeckCong>=1, true ,If(ischeckCong>=0.5, true , false ))
+                          true
+                        Width: =252
+                        X: =498
+                        Y: =105
+                  - DatePickerCanvas1:
+                      Control: DatePicker@0.0.46
+                      Properties:
+                        EndDate: =Today()
+                        FontSize: =26
+                        Format: ='DatePickerCanvas.Format'.Short
+                        Height: =72
+                        SelectedDate: =Now()
+                        Width: =427
+                        X: =45
+                        Y: =105

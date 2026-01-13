@@ -1,0 +1,118 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "crdfd_multiimageses",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "crdfd_multiimages",
+    "MaxGetRowsCount": 2000,
+    "Name": "Multi-image",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr1bb_crdfd_quality_Multiimage_crdfd_multiimages": "Qualities",
+      "cr1bb_makhxngay": "Mã KH x Ngày",
+      "cr1bb_nhacungcapsanpham": "Nhà cung cấp / sản phẩm",
+      "crdfd_idlienketissueupdates": "ID liên kết Issue Updates",
+      "crdfd_image": "Image",
+      "crdfd_image_name": "Image/file name",
+      "crdfd_imageid": "crdfd_ImageId",
+      "crdfd_key_data": "Key Data",
+      "crdfd_Khachhang": "Khách hàng",
+      "crdfd_maphieuxuat": "Mã phiếu xuất",
+      "crdfd_multiimages_AsyncOperations": "System Jobs",
+      "crdfd_multiimages_BulkDeleteFailures": "Bulk Delete Failures",
+      "crdfd_multiimages_DuplicateBaseRecord": "Duplicate Records (crdfd_multiimages_DuplicateBaseRecord)",
+      "crdfd_multiimages_DuplicateMatchingRecord": "Duplicate Records (crdfd_multiimages_DuplicateMatchingRecord)",
+      "crdfd_multiimages_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "crdfd_multiimages_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "crdfd_multiimages_ProcessSession": "Process Sessions",
+      "crdfd_multiimages_SyncErrors": "Sync Errors",
+      "crdfd_multiimagesid": "ID",
+      "crdfd_name": "Name",
+      "crdfd_notes": "Notes",
+      "crdfd_Order_Request": "Order Request",
+      "crdfd_path_onedrive": "Path One Drive",
+      "crdfd_so": "SO/BO",
+      "crdfd_table": "Table",
+      "crdfd_uniqueid_onedrive": "UniqueID Onedrive",
+      "crdfd_weburl": "WebUrl One Drive",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Multi-image",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Multi-image (Views)",
+    "Name": "_crdfd_multiimages_views",
+    "RelatedEntityName": "Multi-image",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "53fa9728-5401-400c-aeeb-d4a679651a3e": "Multi-image",
+      "68182c9e-8b9a-ef11-8a6a-000d3ac91200": "Multi-image kiểm soạn",
+      "68b89234-4d4e-ef11-a316-000d3a09aa2d": "Multi-image kiểm xuất",
+      "7c5315f3-e12b-f011-8c4e-00224857a570": "Multi-image kiểm hàng lỗi",
+      "9038e28c-1c8a-456d-96b9-f02ddf5d1456": "Inactive Multi-image",
+      "a5e30546-42d5-4a32-82ae-94773b4367f4": "Multi-images Lookup View",
+      "c6de58e1-4f22-4cdb-8a4e-1cb748f75184": "Multi-images Associated View",
+      "f0b04dc9-0ba8-f011-bbd2-6045bd1cf192": "Multi-image - Nghiệp",
+      "f4102c25-e135-48b8-9f0c-32bd0c69062d": "Multi-images Advanced Find View"
+    }
+  },
+  {
+    "DisplayName": "Status (Multi-image)",
+    "Name": "crdfd_multiimages_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Multi-image"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Multi-image",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Multi-image)",
+    "Name": "crdfd_multiimages_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Multi-image"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Multi-image",
+    "Type": "OptionSetInfo"
+  }
+]

@@ -1,0 +1,246 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cr44a_nhacnos",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cr44a_nhacno",
+    "MaxGetRowsCount": 2000,
+    "Name": "Nhắc nợ KH",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr1bb_actinh": "Đặc tính",
+      "cr1bb_congnochuatoihan": "Công nợ chưa tới hạn",
+      "cr1bb_congnohomnay": "Công nợ tới hạn",
+      "cr1bb_congnoquahan": "Công nợ quá hạn",
+      "cr1bb_email": "Email",
+      "cr1bb_followoa": "Follow OA",
+      "cr1bb_groupzalo": "Group zalo",
+      "cr1bb_hancongnonen": "Hạn công nợ nền",
+      "cr1bb_hanmuccongnonen": "Hạn mức công nợ nền",
+      "cr1bb_ieukhoanthanhtoan": "Điều khoản thanh toán",
+      "cr1bb_khachhangphanhoi": "Khách hàng phản hồi",
+      "cr1bb_manguoiphutrach": "Mã người phụ trách",
+      "cr1bb_nganhnghe": "Ngành nghề chi tiết",
+      "cr1bb_nganhnghemoi": "Ngành nghề",
+      "cr1bb_ngaycongnomin": "Ngày công nợ min",
+      "cr1bb_ngaynhacno": "Ngày nhắc nợ",
+      "cr1bb_ngaythongbao": "Ngày thông báo",
+      "cr1bb_nguoiphutrach": "Người phụ trách",
+      "cr1bb_nvsaleonline": "NV Sale Online",
+      "cr1bb_oaid": "OA ID",
+      "cr1bb_soienthoai": "Số điện thoại",
+      "cr1bb_stt": "stt",
+      "cr1bb_tenkhachhang": "Tên khách hàng",
+      "cr1bb_tinhthanh": "Tỉnh/thành",
+      "cr1bb_tongcongno": "Tổng công nợ",
+      "cr1bb_trangthaingayhientai": "Trạng thái ngày hiện tại",
+      "cr44a_cr44a_nhacnochitiet_Nhac_no_cr44a_nhacno": "Nhắc nợ chi tiết",
+      "cr44a_flag": "flag",
+      "cr44a_ghichu": "Ghi chú",
+      "cr44a_hinhthuc": "Hình thức",
+      "cr44a_Khachhang": "Khách hàng",
+      "cr44a_makh": "Mã KH",
+      "cr44a_name": "Nhắc nợ - auto",
+      "cr44a_nhacno_AsyncOperations": "System Jobs",
+      "cr44a_nhacno_BulkDeleteFailures": "Bulk Delete Failures",
+      "cr44a_nhacno_DuplicateBaseRecord": "Duplicate Records (cr44a_nhacno_DuplicateBaseRecord)",
+      "cr44a_nhacno_DuplicateMatchingRecord": "Duplicate Records (cr44a_nhacno_DuplicateMatchingRecord)",
+      "cr44a_nhacno_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cr44a_nhacno_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cr44a_nhacno_ProcessSession": "Process Sessions",
+      "cr44a_nhacno_SyncErrors": "Sync Errors",
+      "cr44a_nhacnoid": "ID",
+      "cr44a_nvsales": "NV Sales",
+      "cr44a_tinhthanh": "Tỉnh thành",
+      "cr44a_trangthai_thongbao": "Trạng thái thông báo",
+      "cr44a_trangthainhacno": "Trạng thái nhắc nợ",
+      "cr44a_trangthaithanhtoan": "Trạng thái thanh toán",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Nhắc nợ KH",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Nhắc nợ KH (Views)",
+    "Name": "_cr44a_nhacno_views",
+    "RelatedEntityName": "Nhắc nợ KH",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "04b86185-191b-46af-be78-bea2913fa8aa": "Nhắc nợ Associated View",
+      "08d44bcd-c71e-ee11-9cbe-000d3a094144": "Nhắc nợ chưa, có thanh toán",
+      "339f901c-5d1d-ee11-9cbe-000d3a08d137": "Nhắc nợ full",
+      "a2963774-4188-485c-92b5-eade5a51839c": "Nhắc nợ Lookup View",
+      "b22a8724-0c17-4979-82df-2ad4acd97fdc": "Nhắc nợ",
+      "e1b199a8-a634-41c2-98d5-121870ce0c45": "Inactive Nhắc nợ KH",
+      "ee717bbf-35bb-43d0-9807-a3a6f7fbca8c": "Nhắc nợ Advanced Find View"
+    }
+  },
+  {
+    "DisplayName": "Khách hàng phản hồi (Nhắc nợ KH)",
+    "Name": "cr1bb_cr44a_nhacno_cr1bb_khachhangphanhoi",
+    "OptionSetInfoNameMapping": {
+      "283640000": "Sai công nợ, chờ điều chỉnh",
+      "283640001": "Sai công nợ, hẹn ngày thanh toán",
+      "283640002": "Đúng công nợ, hẹn ngày thanh toán",
+      "283640003": "Đúng công nợ nhưng không hẹn ngày thanh toán",
+      "283640004": "Đọc tin/ nghe điện thoại nhưng chưa phản hồi khi nào có lịch thanh toán",
+      "283640005": "Ghi chú khác"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr1bb_khachhangphanhoi",
+        "OptionSetReferenceEntityName": "Nhắc nợ KH"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr1bb_khachhangphanhoi",
+    "RelatedEntityName": "Nhắc nợ KH",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Hình thức (Nhắc nợ KH)",
+    "Name": "cr44a_nhacno_cr44a_hinhthuc",
+    "OptionSetInfoNameMapping": {
+      "799880000": "Gởi nhóm Zalo",
+      "799880001": "Điện thoại",
+      "799880002": "Gặp trực tiếp"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr44a_hinhthuc",
+        "OptionSetReferenceEntityName": "Nhắc nợ KH"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr44a_hinhthuc",
+    "RelatedEntityName": "Nhắc nợ KH",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Trạng thái thông báo (Nhắc nợ KH)",
+    "Name": "cr44a_nhacno_cr44a_trangthai_thongbao",
+    "OptionSetInfoNameMapping": {
+      "799880000": "Đã thông báo",
+      "799880001": "Chưa thông báo"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr44a_trangthai_thongbao",
+        "OptionSetReferenceEntityName": "Nhắc nợ KH"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr44a_trangthai_thongbao",
+    "RelatedEntityName": "Nhắc nợ KH",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Trạng thái nhắc nợ (Nhắc nợ KH)",
+    "Name": "cr44a_nhacno_cr44a_trangthainhacno",
+    "OptionSetInfoNameMapping": {
+      "799880000": "Lần 1",
+      "799880001": "Lần 2",
+      "799880002": "Lần 3",
+      "799880003": "Lần 4",
+      "799880004": "Lần 5",
+      "799880005": "Lần 5+"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr44a_trangthainhacno",
+        "OptionSetReferenceEntityName": "Nhắc nợ KH"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr44a_trangthainhacno",
+    "RelatedEntityName": "Nhắc nợ KH",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Trạng thái thanh toán (Nhắc nợ KH)",
+    "Name": "cr44a_nhacno_cr44a_trangthaithanhtoan",
+    "OptionSetInfoNameMapping": {
+      "799880000": "Chưa thanh toán",
+      "799880001": "Đã thanh toán",
+      "799880002": "Có thanh toán"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr44a_trangthaithanhtoan",
+        "OptionSetReferenceEntityName": "Nhắc nợ KH"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr44a_trangthaithanhtoan",
+    "RelatedEntityName": "Nhắc nợ KH",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Nhắc nợ KH)",
+    "Name": "cr44a_nhacno_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Nhắc nợ KH"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Nhắc nợ KH",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Nhắc nợ KH)",
+    "Name": "cr44a_nhacno_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Nhắc nợ KH"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Nhắc nợ KH",
+    "Type": "OptionSetInfo"
+  }
+]

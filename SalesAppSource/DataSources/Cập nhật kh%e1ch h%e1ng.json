@@ -1,0 +1,195 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "crdfd_capnhatkhachhangs",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "crdfd_capnhatkhachhang",
+    "MaxGetRowsCount": 2000,
+    "Name": "Cập nhật khách háng",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr1bb_email_user": "Email_user",
+      "cr1bb_makh": "Mã KH",
+      "cr3b9_checkout": "Check out",
+      "cr3b9_phanhoi_cuakhachhang": "Phản hồi của khách hàng",
+      "cr3b9_photo_checkout": "Photo check out",
+      "cr3b9_photo_checkoutid": "cr3b9_Photo_checkoutId",
+      "cr3b9_thoigian_checkin": "Thời gian check in",
+      "cr3b9_thoigian_checkout": "Thời gian check out",
+      "cr3b9_tinhhinh_khachhang": "Tình hình khách hàng",
+      "cr3b9_tinhhinh_thitruong": "Tình hình thị trường",
+      "cr3b9_tongthoigianchamsoc": "Tổng thời gian chăm sóc (s)",
+      "crdfd_capnhatkhachhang_AsyncOperations": "System Jobs",
+      "crdfd_capnhatkhachhang_BulkDeleteFailures": "Bulk Delete Failures",
+      "crdfd_capnhatkhachhang_DuplicateBaseRecord": "Duplicate Records (crdfd_capnhatkhachhang_DuplicateBaseRecord)",
+      "crdfd_capnhatkhachhang_DuplicateMatchingRecord": "Duplicate Records (crdfd_capnhatkhachhang_DuplicateMatchingRecord)",
+      "crdfd_capnhatkhachhang_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "crdfd_capnhatkhachhang_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "crdfd_capnhatkhachhang_ProcessSession": "Process Sessions",
+      "crdfd_capnhatkhachhang_SyncErrors": "Sync Errors",
+      "crdfd_capnhatkhachhangid": "ID",
+      "crdfd_checkin": "Check in",
+      "crdfd_checkverifychkd": "Check Verify CHKD",
+      "crdfd_codeauto": "Code-Auto",
+      "crdfd_ghichu": "Ghi chú",
+      "crdfd_gio": "Giờ",
+      "crdfd_json_sp_de_xuat": "JSON_sp_de_xuat",
+      "crdfd_Khachhang": "Khách hàng",
+      "crdfd_khachhang_cal": "Khách hàng CAL",
+      "crdfd_latitude": "Latitude",
+      "crdfd_local": "Local",
+      "crdfd_logtime": "Log Time",
+      "crdfd_longitude": "Longitude",
+      "crdfd_mailsale": "Mail sale old",
+      "crdfd_mucovuivetronghoptac": "Mức độ vui vẻ trong hợp tác",
+      "crdfd_name": "Name",
+      "crdfd_ngaytext": "Ngày",
+      "crdfd_nhan_vien": "Nhân viên",
+      "crdfd_photo": "Photo",
+      "crdfd_photoid": "crdfd_PhotoId",
+      "crdfd_statuskhachhang": "Status Khách hàng",
+      "crdfd_toaokhachhang": "Tọa độ khách hàng",
+      "crdfd_trangthaigapkhach": "Trạng thái gặp khách",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Cập nhật khách háng",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Cập nhật khách háng (Views)",
+    "Name": "_crdfd_capnhatkhachhang_views",
+    "RelatedEntityName": "Cập nhật khách háng",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "067d61db-170c-4404-8d8a-8eca79cf4f32": "Cập nhật khách hàng Lookup View",
+      "0bf15a28-0510-ee11-8f6e-000d3a094665": "SalesApp_CNKH",
+      "1571b91f-a289-4906-8e62-729b1a1042f7": "Inactive Cập nhật khách háng",
+      "4d7643c6-4e67-4af1-b8e5-dc932a305a18": "Cập nhật khách hàng",
+      "68f63847-e35b-4b68-b36c-9ee374b8807d": "Cập nhật khách hàng Advanced Find View",
+      "f6957afd-b5da-4b59-9df8-9b505424023b": "Cập nhật khách hàng Associated View"
+    }
+  },
+  {
+    "DisplayName": "Check Verify CHKD (Cập nhật khách háng)",
+    "Name": "crdfd_capnhatkhachhang_crdfd_checkverifychkd",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_checkverifychkd",
+        "OptionSetReferenceEntityName": "Cập nhật khách háng"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "crdfd_checkverifychkd",
+    "RelatedEntityName": "Cập nhật khách háng",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Trạng thái gặp khách (Cập nhật khách háng)",
+    "Name": "crdfd_capnhatkhachhang_crdfd_trangthaigapkhach",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Đã gặp, chào hàng",
+      "191920001": "Gặp được, không chào hàng được",
+      "191920002": "Không gặp được",
+      "191920003": "Chăm khách online"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_trangthaigapkhach",
+        "OptionSetReferenceEntityName": "Cập nhật khách háng"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_trangthaigapkhach",
+    "RelatedEntityName": "Cập nhật khách háng",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Cập nhật khách háng)",
+    "Name": "crdfd_capnhatkhachhang_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Cập nhật khách háng"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Cập nhật khách háng",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Cập nhật khách háng)",
+    "Name": "crdfd_capnhatkhachhang_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Cập nhật khách háng"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Cập nhật khách háng",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Khách hàng",
+    "Name": "crdfd_statuskhachhang",
+    "OptionSetInfoNameMapping": {
+      "1": "Chưa đặt - chưa tiếp cận được",
+      "2": "Chưa đặt - khách đang quan tâm",
+      "3": "Chưa đặt - khách không quan tâm",
+      "4": "Đã đặt - mở thêm doanh thu, sản phẩm",
+      "5": "Đã đặt - phần lớn Wecare - chăm sóc định kỳ"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_statuskhachhang",
+        "OptionSetReferenceEntityName": "Cập nhật khách háng"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_statuskhachhang",
+    "RelatedEntityName": "Cập nhật khách háng",
+    "Type": "OptionSetInfo"
+  }
+]

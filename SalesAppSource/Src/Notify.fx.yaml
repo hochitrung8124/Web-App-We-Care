@@ -1,0 +1,526 @@
+Notify As screen:
+
+    Container_6 As groupContainer.manualLayoutContainer:
+        DropShadow: =DropShadow.Semibold
+        Fill: =RGBA(4, 161, 179, 1)
+        Height: =txt_SearchNotify.Y + txt_SearchNotify.Height + 20
+        LayoutGridColumns: =6
+        LayoutGridRows: =6
+        Width: =Parent.Width
+        ZIndex: =1
+
+        Label2_1 As label:
+            Align: =Align.Center
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            FontWeight: =FontWeight.Bold
+            Height: =70
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =28
+            Text: ="Thông báo"
+            Width: =Parent.Width
+            ZIndex: =1
+
+        Image11_6 As image:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =2
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =4
+            Height: =50
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(0, 0, 0, 0)
+            Image: =back_white
+            OnSelect: |-
+                =Back()
+                //If(show_Notify_CT = true, UpdateContext({show_Notify_CT: !show_Notify_CT});, Back())
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            Width: =70
+            X: =20
+            Y: =20
+            ZIndex: =2
+
+        txt_SearchNotify As text:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderThickness: =0
+            Default: =
+            DelayOutput: =true
+            Font: =Font.Arial
+            Height: =60
+            HintText: ="Tìm kiếm..."
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            OnChange: |-
+                =Switch(
+                    Gallery6_1.Selected.Value,
+                    "Vận tải",
+                    ClearCollect(
+                        List_VT,
+                        Sort(
+                            Filter(
+                                'Vận tải',
+                                Status = 'Status (Vận tải)'.Active,
+                                'Mail sale' = mail_sale Or 'Supervisor - mail' = mail_sale,
+                                'Created On' >= DateAdd(
+                                    Today(),
+                                    -30,
+                                    TimeUnit.Days
+                                ),
+                                txt_SearchNotify.Text in 'Khách hàng text'
+                            ),
+                            'Created On',
+                            SortOrder.Descending
+                        )
+                    )
+                    
+                )
+            OnSelect: =
+            PressedBorderColor: =
+            RadiusBottomLeft: =30
+            RadiusBottomRight: =30
+            RadiusTopLeft: =30
+            RadiusTopRight: =30
+            Size: =24
+            Width: =Parent.Width - 160
+            X: =80
+            Y: =Label2_1.Y + Label2_1.Height
+            ZIndex: =3
+
+        Icon1_2 As icon:
+            Color: =RGBA(77, 77, 77, 1)
+            Height: =50
+            Icon: =Icon.Search
+            OnSelect: |
+                =ClearCollect(
+                    List_VT,
+                    Sort(
+                        Filter(
+                            'Vận tải',
+                            Status = 'Status (Vận tải)'.Active,
+                            'Mail sale' = mail_sale Or 'Supervisor - mail' = mail_sale,
+                            'Created On' >= DateAdd(
+                                Today(),
+                                -30,
+                                TimeUnit.Days
+                            ),
+                            txt_SearchNotify.Text in 'Khách hàng text'
+                        ),
+                        'Created On',
+                        SortOrder.Descending
+                    )
+                );
+            Width: =50
+            X: =628
+            Y: =70
+            ZIndex: =4
+
+        Container_7 As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.Semibold
+            Fill: =RGBA(4, 161, 179, 1)
+            Height: =txt_SearchNotify_1.Y + txt_SearchNotify_1.Height + 20
+            LayoutGridColumns: =6
+            LayoutGridRows: =6
+            Width: =Parent.Width
+            ZIndex: =5
+
+            Icon1_3 As icon:
+                Color: =RGBA(77, 77, 77, 1)
+                Height: =50
+                Icon: =Icon.Search
+                OnSelect: |
+                    =ClearCollect(
+                        List_VT,
+                        Sort(
+                            Filter(
+                                'Vận tải',
+                                Status = 'Status (Vận tải)'.Active,
+                                'Mail sale' = mail_sale Or 'Supervisor - mail' = mail_sale,
+                                'Created On' >= DateAdd(
+                                    Today(),
+                                    -30,
+                                    TimeUnit.Days
+                                ),
+                                txt_SearchNotify_1.Text in 'Khách hàng text'
+                            ),
+                            'Created On',
+                            SortOrder.Descending
+                        )
+                    );
+                Width: =50
+                X: =592
+                Y: =75
+                ZIndex: =1
+
+            Label2_7 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 255, 255, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Bold
+                Height: =70
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =28
+                Text: ="Thông báo"
+                Width: =Parent.Width
+                ZIndex: =2
+
+            Image11_7 As image:
+                BorderColor: =RGBA(0, 0, 0, 0)
+                BorderStyle: =BorderStyle.None
+                BorderThickness: =2
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                FocusedBorderThickness: =4
+                Height: =50
+                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                HoverFill: =RGBA(0, 0, 0, 0)
+                Image: =back_white
+                OnSelect: =Navigate(Main);
+                PressedBorderColor: =RGBA(0, 0, 0, 0)
+                PressedFill: =RGBA(0, 0, 0, 0)
+                Width: =70
+                Y: =10
+                ZIndex: =3
+
+            txt_SearchNotify_1 As text:
+                Align: =Align.Center
+                BorderColor: =RGBA(0, 0, 0, 0)
+                BorderThickness: =0
+                Default: =
+                DelayOutput: =true
+                Font: =Font.Arial
+                Height: =60
+                HintText: ="Tìm kiếm..."
+                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                OnChange: |-
+                    =Switch(
+                        Gallery6_1.Selected.Value,
+                        "Vận tải",
+                        ClearCollect(
+                            List_VT,
+                            Sort(
+                                Filter(
+                                    'Vận tải',
+                                    Status = 'Status (Vận tải)'.Active,
+                                    'Mail sale' = mail_sale Or 'Supervisor - mail' = mail_sale,
+                                    'Created On' >= DateAdd(
+                                        Today(),
+                                        -30,
+                                        TimeUnit.Days
+                                    ),
+                                    txt_SearchNotify_1.Text in 'Khách hàng text'
+                                ),
+                                'Created On',
+                                SortOrder.Descending
+                            )
+                        )
+                        
+                    )
+                OnSelect: =
+                PressedBorderColor: =
+                RadiusBottomLeft: =30
+                RadiusBottomRight: =30
+                RadiusTopLeft: =30
+                RadiusTopRight: =30
+                Size: =24
+                Width: =Parent.Width - 160
+                X: =90
+                Y: =70
+                ZIndex: =4
+
+    Label2_8 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(62, 128, 149, 1)
+        Font: =Font.Arial
+        FontWeight: =FontWeight.Bold
+        Height: =53
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =0
+        PaddingTop: =0
+        Size: =28
+        Text: |-
+            ="Áp dụng cho : " & nv_sale.Location.'Vùng miền fx'
+        Width: =766
+        Y: =176
+        ZIndex: =2
+
+    Gallery_Ecommerce As gallery.galleryVertical:
+        '#CopilotOverlayLabel': ="Filtered"
+        DelayItemLoading: =true
+        Fill: =RGBA(237, 243, 245, 1)
+        Height: =1116
+        Items: =nofify_data
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        OnSelect: |-
+            =UpdateContext({show_Notify_CT: true});
+            UpdateContext({varShowPDF: true});
+            
+            UpdateContext(
+                {
+                    Json_result: JSON(
+                        DropColumns(
+                            AddColumns(
+                                Filter(
+                                    'Multi-image',
+                                    Status = 'Status (Multi-image)'.Active,
+                                    'Key Data' = Gallery_Ecommerce.Selected.Title,
+                                    Table = "cr1bb_data_website_ecommerce"
+                                ),
+                                id,
+                                ID,
+                                name,
+                                Name,
+                                size,
+                                125438,
+                                type,
+                                "image/png",
+                                data,
+                                Substitute(
+                                    Substitute(
+                                        Substitute(
+                                            JSON(
+                                                Image.Full,
+                                                JSONFormat.IncludeBinaryData
+                                            ),
+                                            "\",
+                                            ""// Remove backslashes
+                                        ),
+                                        """",
+                                        ""// Remove quotes
+                                    ),
+                                    "data:application/octet-stream;base64,",
+                                    ""// Remove data URI prefix
+                                ),
+                                uploadDate,
+                                Text(
+                                    'Created On',
+                                    "yyyy-mm-ddThh:mm:ss.fffZ"
+                                ),
+                                note,
+                                Notes
+                            ),
+                            Image,
+                            'Key Data',
+                            ID,
+                            Name,
+                            Table,
+                            'Created On',
+                            Status
+                        ),
+                        JSONFormat.IncludeBinaryData & JSONFormat.IgnoreUnsupportedTypes
+                    )
+                }
+            );
+        ShowScrollbar: =false
+        TemplatePadding: =20
+        TemplateSize: =200
+        Width: =Parent.Width
+        Y: =250
+        ZIndex: =3
+
+        Button1_2 As button:
+            BorderThickness: =0
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =Gallery_Ecommerce.TemplateHeight
+            HoverBorderColor: =
+            HoverFill: =
+            OnSelect: =Select(Parent)
+            PressedBorderColor: =
+            PressedFill: =
+            RadiusBottomLeft: =20
+            RadiusBottomRight: =20
+            RadiusTopLeft: =20
+            RadiusTopRight: =20
+            Size: =24
+            Text: =""
+            Width: =Gallery_Ecommerce.TemplateWidth
+            ZIndex: =1
+
+        lbl_Title As label:
+            Color: =RGBA(4, 161, 179, 1)
+            Font: =Font.Arial
+            FontWeight: =FontWeight.Bold
+            Height: =200
+            OnSelect: =Select(Parent)
+            PaddingLeft: =20
+            PaddingTop: =0
+            Size: =22
+            Text: |
+                =ThisItem.Title
+            Width: =Gallery_Ecommerce.TemplateWidth
+            ZIndex: =2
+
+    Container_Notify As groupContainer.manualLayoutContainer:
+        BorderColor: =RGBA(214, 221, 224, 1)
+        BorderThickness: =1
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =1366
+        LayoutGridColumns: =6
+        LayoutGridRows: =6
+        Visible: =show_Notify_CT
+        Width: =768
+        ZIndex: =4
+
+        lbl_tile As label:
+            Align: =Align.Center
+            Font: =Font.Arial
+            FontWeight: =FontWeight.Bold
+            Height: =90
+            Size: =15
+            Text: =Gallery_Ecommerce.Selected.Title
+            Visible: =false
+            Width: =768
+            Y: =5
+            ZIndex: =1
+
+        HtmlText5_3 As htmlViewer:
+            Height: =397
+            HtmlText: |
+                ="<div style='
+                  width:100%;
+                  font-family:Segoe UI, Arial;
+                  font-size:16px;
+                  color:#1a1a1a;
+                  border:1px solid #cce4ff;
+                  border-radius:10px;
+                  padding:12px 18px 12px 14px;
+                  background-color:#f9fcff;
+                  box-shadow:0px 2px 4px rgba(0,0,0,0.04);
+                  line-height:1.5;
+                  overflow-x:hidden;
+                  overflow-y:hidden;
+                  box-sizing:border-box;
+                '>
+                    <!-- tile Name -->
+                  <div style='
+                    font-weight:700;
+                    color:#04a1b3;
+                    font-size:19px;
+                    margin-bottom:8px;
+                    text-align:center;
+                    word-wrap:break-word;
+                  '>
+                    " & Gallery_Ecommerce.Selected.Title & "
+                  </div>
+                  
+                  <!-- Time Range -->
+                  " & If(
+                      !IsBlank(Gallery_Ecommerce.Selected.'Start Date') || !IsBlank(Gallery_Ecommerce.Selected.'End Date'),
+                      "<div style='margin-bottom:10px;'>
+                        <b>🕒 Thời gian áp dụng:</b> " &
+                          If(!IsBlank(Gallery_Ecommerce.Selected.'Start Date'),
+                             Text(Gallery_Ecommerce.Selected.'Start Date', "dd/mm/yyyy"),
+                             ""
+                          ) &
+                          If(!IsBlank(Gallery_Ecommerce.Selected.'End Date'),
+                             " - " & Text(Gallery_Ecommerce.Selected.'End Date', "dd/mm/yyyy"),
+                             " - Đến khi có thông báo mới"
+                          ) &
+                      "</div>",
+                      ""
+                    ) & "
+                
+                    <!-- Payment Conditions -->
+                  " & If(
+                      !IsBlank(Gallery_Ecommerce.Selected.Content),
+                      "<div style='margin-bottom:10px; display:flex; align-items:flex-start;'>
+                        <span style='font-size:16px; margin-right:4px; flex-shrink:0;'>💳</span>
+                        <span style='white-space: pre-wrap; word-wrap: break-word; flex-grow:1;'><b>Mô tả:</b> " & 
+                        Gallery_Ecommerce.Selected.Content &
+                        "</span>
+                      </div>",
+                      ""
+                    ) & "
+                
+                </div>"
+            Width: =768
+            Y: =62
+            ZIndex: =2
+
+        lbl_ngay As label:
+            Font: =Font.Arial
+            PaddingLeft: =10
+            Size: =14
+            Text: |-
+                ="🕒Thời gian áp dụng: " & Text(Gallery_Ecommerce.Selected.'Start Date',"dd/mm/yyyy") & " - " & Text(Gallery_Ecommerce.Selected.'End Date',"dd/mm/yyyy")
+            Visible: =false
+            Width: =768
+            Y: =lbl_tile.Y + lbl_tile.Height
+            ZIndex: =3
+
+        lbl_ngay_1 As label:
+            Align: =Align.Center
+            Font: =Font.Arial
+            Height: =400
+            Overflow: =Overflow.Scroll
+            Size: =14
+            Text: =
+            Visible: =false
+            Width: =768
+            ZIndex: =4
+
+        Icon12 As icon:
+            Height: =35
+            Icon: =Icon.Cancel
+            OnSelect: |
+                =UpdateContext({show_Notify_CT: !show_Notify_CT});
+                UpdateContext({varShowPDF: false});
+            Width: =35
+            X: =725
+            Y: =5
+            ZIndex: =5
+
+        "ImportMultiImageCanvas3 As 'Import Multi Image Canvas'":
+            ContentLanguage: =""
+            DisplayMode: =DisplayMode.Edit
+            Height: =475
+            HeightControl: =890
+            JsonDataImage: =Json_result
+            maxFiles: =10
+            maxFileSize: =5
+            OnChange: =false
+            TabIndex: =0
+            Tooltip: ="Import multiple images for Canvas App with drag drop and paste support"
+            ViewOnly: =true
+            Visible: =true
+            Width: =725
+            WidthControl: =750
+            X: =0
+            Y: =461
+            ZIndex: =6
+
+        lbl_tile_1 As label:
+            Align: =Align.Center
+            Font: =Font.Arial
+            FontWeight: =FontWeight.Bold
+            Height: =90
+            Size: =15
+            Text: =Gallery_Ecommerce.Selected.Title
+            Visible: =false
+            Width: =768
+            Y: =25
+            ZIndex: =7
+
+    PdfViewer3 As pdfViewer:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        Document: =Gallery_Ecommerce.Selected.'Hình ảnh'.Value
+        Fill: =RGBA(0, 0, 0, 0.5)
+        FindText: =""
+        Height: =427
+        Password: =""
+        Visible: =varShowPDF && If(!IsBlank(Gallery_Ecommerce.Selected.'Hình ảnh'.Value),true,false )
+        Width: =717
+        X: =30
+        Y: =939
+        ZIndex: =5
+

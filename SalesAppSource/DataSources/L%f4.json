@@ -1,0 +1,174 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "crdfd_los",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "crdfd_lo",
+    "MaxGetRowsCount": 2000,
+    "Name": "Lô",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr1bb_crdfd_kehoachsoanhang_Lohang_crdfd_lo": "Kế hoạch soạn hàng",
+      "cr1bb_crdfd_lotxquanhuyen_Lot_crdfd_lo": "Lô x Quận huyện",
+      "cr1bb_loaica": "Loại ca",
+      "crdfd_giobatau": "Giờ bắt đầu",
+      "crdfd_gioketthuc": "Giờ kết thúc",
+      "crdfd_lo_AsyncOperations": "System Jobs",
+      "crdfd_lo_BulkDeleteFailures": "Bulk Delete Failures",
+      "crdfd_lo_DuplicateBaseRecord": "Duplicate Records (crdfd_lo_DuplicateBaseRecord)",
+      "crdfd_lo_DuplicateMatchingRecord": "Duplicate Records (crdfd_lo_DuplicateMatchingRecord)",
+      "crdfd_lo_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "crdfd_lo_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "crdfd_lo_ProcessSession": "Process Sessions",
+      "crdfd_lo_SyncErrors": "Sync Errors",
+      "crdfd_loid": "ID",
+      "crdfd_name": "Lot name",
+      "crdfd_sogio": "Số giờ",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Lô",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Lô (Views)",
+    "Name": "_crdfd_lo_views",
+    "RelatedEntityName": "Lô",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "2a44a2fb-cfce-4107-8bdd-7e815e5a1d87": "Inactive Lô",
+      "46e69cba-8229-44c2-917b-6eeebbcbffa8": "Lô Advanced Find View",
+      "4d648c38-95f4-408c-915f-6418ffac1ba6": "Lô Associated View",
+      "929b18cf-3878-44ea-b09a-ea87df54fcf1": "Lô Lookup View",
+      "f6ee8bd1-a273-468a-9094-925f84da6424": "Lô"
+    }
+  },
+  {
+    "DisplayName": "Loại ca (Lô)",
+    "Name": "cr1bb_crdfd_lo_cr1bb_loaica",
+    "OptionSetInfoNameMapping": {
+      "283640000": "Ca xoay",
+      "283640001": "Ca hành chính"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr1bb_loaica",
+        "OptionSetReferenceEntityName": "Lô"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr1bb_loaica",
+    "RelatedEntityName": "Lô",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Giờ bắt đầu (Lô)",
+    "Name": "crdfd_lo_crdfd_giobatau",
+    "OptionSetInfoNameMapping": {
+      "191920000": "07:00",
+      "191920001": "09:00",
+      "191920002": "13:00",
+      "191920003": "15:00",
+      "191920004": "16:30",
+      "283640001": "08:00",
+      "283640002": "10:00"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_giobatau",
+        "OptionSetReferenceEntityName": "Lô"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_giobatau",
+    "RelatedEntityName": "Lô",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Giờ kết thúc (Lô)",
+    "Name": "crdfd_lo_crdfd_gioketthuc",
+    "OptionSetInfoNameMapping": {
+      "191920000": "09:00",
+      "191920001": "11:30",
+      "191920002": "15:00",
+      "191920003": "16:30",
+      "191920004": "20:00",
+      "283640001": "10:00",
+      "283640002": "12:00",
+      "283640003": "17:00"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_gioketthuc",
+        "OptionSetReferenceEntityName": "Lô"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_gioketthuc",
+    "RelatedEntityName": "Lô",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Lô)",
+    "Name": "crdfd_lo_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Lô"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Lô",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Lô)",
+    "Name": "crdfd_lo_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Lô"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Lô",
+    "Type": "OptionSetInfo"
+  }
+]

@@ -1,0 +1,95 @@
+Screen_report As screen:
+
+    Container_SP_1 As groupContainer.manualLayoutContainer:
+        DropShadow: =DropShadow.Semibold
+        Fill: =RGBA(4, 161, 179, 1)
+        Height: =Label3_14.Y + Label3_14.Height + 20
+        LayoutGridColumns: =6
+        LayoutGridRows: =6
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =768
+        ZIndex: =1
+
+        Label3_14 As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =2
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledColor: =RGBA(161, 159, 157, 1)
+            FocusedBorderThickness: =4
+            Font: =Font.Arial
+            FontWeight: =FontWeight.Bold
+            Height: =90
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =28
+            Text: ="Report"
+            Width: =Parent.Width
+            ZIndex: =4
+
+        Icon7 As icon.ArrowLeft:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =60
+            Icon: =Icon.ArrowLeft
+            OnSelect: =Back()
+            Width: =60
+            X: =20
+            Y: =10
+            ZIndex: =5
+
+    Container2_3 As groupContainer.manualLayoutContainer:
+        Height: =1276
+        LayoutGridColumns: =6
+        LayoutGridRows: =6
+        Width: =768
+        Y: =90
+        ZIndex: =2
+
+        Gallery3 As gallery.galleryVertical:
+            '#CopilotOverlayLabel': ="Filtered"
+            DelayItemLoading: =true
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: |
+                =80
+            Items: =["Công nợ KH V2"] //, "KPI", "CHKD", "Độ phủ"
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            OnSelect: =//Switch(Gallery3.Selected.Value,"Công nợ KH",Notify("Công nợ hiện chưa chính xác. Vui lòng chờ hệ thống cập nhật.",NotificationType.Information,5000);)
+            ShowNavigation: =true
+            ShowScrollbar: =false
+            TemplatePadding: =10
+            TemplateSize: =60
+            Width: =Parent.Width + 300
+            WrapCount: =4
+            ZIndex: =1
+
+            Label8 As label:
+                Align: =Align.Center
+                Fill: =If(ThisItem.IsSelected, RGBA(132, 234, 245, 1) ,RGBA(255, 255, 255, 1))
+                Font: =Font.Arial
+                Height: =60
+                OnSelect: =Select(Parent)
+                Size: =20
+                Text: =ThisItem.Value
+                Width: =Parent.TemplateWidth
+                Y: =2
+                ZIndex: =1
+
+        PowerBI1 As powerbi:
+            BorderColor: =RGBA(245, 245, 245, 1)
+            Height: =1196
+            TileUrl: |-
+                =LookUp('Tech Resource',Name = "Báo cáo công nợ khách hàng - Mobile").'Resource Link'
+                //"https://app.powerbi.com/view?r=eyJrIjoiMjFkYjUxNTAtNjNkNy00ZjliLWE5YzYtODcyMjc2MzhhZDUzIiwidCI6IjA4ZGQ3MGFiLWFjM2ItNGEzMy1hY2QxLWVmM2ZlMTcyOWU2MSIsImMiOjEwfQ%3D%3D"
+            Width: =768
+            WorkspaceId: ="16ad3f25-8834-453f-b3a5-b7adcc6a32d6"
+            Y: =Gallery3.Y + Gallery3.Height
+            ZIndex: =1
+

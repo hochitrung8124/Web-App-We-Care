@@ -12,7 +12,7 @@ export interface Lead {
   statusCode?: number; // Added for precise filtering
   taxCode: string;
   avatarColorClass: string;
-  
+
   // New fields
   birthDate?: string;
   detailedIndustry?: string;
@@ -28,6 +28,7 @@ export interface Lead {
   repDescription?: string;
   keyIndustry?: string;
   subIndustry?: string;
+  loaiCuaHang?: string; // Loại cửa hàng
 }
 
 export type ConsultationResult = 'high_interest' | 'no_answer' | 'wrong_number' | 'call_back';

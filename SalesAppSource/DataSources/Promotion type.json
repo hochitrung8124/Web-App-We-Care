@@ -1,0 +1,175 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "crdfd_promotion_types",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "crdfd_promotion_type",
+    "MaxGetRowsCount": 2000,
+    "Name": "Promotion type",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "crdfd_description": "Description",
+      "crdfd_mahinhanh": "Mã hình ảnh",
+      "crdfd_name": "Promotion name",
+      "crdfd_promotion_Promotion_crdfd_promotion_type": "Promotion",
+      "crdfd_promotion_type_AsyncOperations": "System Jobs",
+      "crdfd_promotion_type_BulkDeleteFailures": "Bulk Delete Failures",
+      "crdfd_promotion_type_DuplicateBaseRecord": "Duplicate Records (crdfd_promotion_type_DuplicateBaseRecord)",
+      "crdfd_promotion_type_DuplicateMatchingRecord": "Duplicate Records (crdfd_promotion_type_DuplicateMatchingRecord)",
+      "crdfd_promotion_type_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "crdfd_promotion_type_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "crdfd_promotion_type_ProcessSession": "Process Sessions",
+      "crdfd_promotion_type_SyncErrors": "Sync Errors",
+      "crdfd_promotion_typeid": "ID",
+      "crdfd_tinhthanh": "Tỉnh thành",
+      "crdfd_type": "Type",
+      "crdfd_typetext": "Type (text)",
+      "crdfd_unit": "Unit",
+      "crdfd_url_ctkhuyenmai": "Url_CT khuyến mãi",
+      "crdfd_value": "Value",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Promotion type",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Promotion type (Views)",
+    "Name": "_crdfd_promotion_type_views",
+    "RelatedEntityName": "Promotion type",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "28959bad-5cc2-4edf-8cef-47af2bdad289": "Promotion type Associated View",
+      "6547af14-1110-46d1-89ec-5bf2fefe5d41": "Promotion type Lookup View",
+      "a1602721-4974-4b30-8c1f-d50b357a8ea1": "Inactive Promotion type",
+      "c7467594-56c5-445e-a3b6-ff976bd626d8": "Promotion type",
+      "e31ed817-bdbd-4e3b-8c42-76669810b14e": "Promotion type Advanced Find View"
+    }
+  },
+  {
+    "DisplayName": "Tỉnh thành (Promotion type)",
+    "Name": "crdfd_promotion_type_crdfd_tinhthanh",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Kon Tum",
+      "191920001": "Quảng Ngãi",
+      "191920002": "Khánh Hòa",
+      "191920003": "Đắk Lắk",
+      "191920004": "Bình Định",
+      "191920005": "Phú Yên",
+      "191920006": "Gia Lai"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_tinhthanh",
+        "OptionSetReferenceEntityName": "Promotion type"
+      }
+    },
+    "OptionSetTypeKey": "MultiSelectPicklistType",
+    "RelatedColumnInvariantName": "crdfd_tinhthanh",
+    "RelatedEntityName": "Promotion type",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Type (Promotion type)",
+    "Name": "crdfd_promotion_type_crdfd_type",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Order",
+      "191920001": "Product",
+      "191920002": "All product",
+      "191920003": "Custom product",
+      "191920004": "Product detail",
+      "191920005": "Revenue"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_type",
+        "OptionSetReferenceEntityName": "Promotion type"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_type",
+    "RelatedEntityName": "Promotion type",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Unit (Promotion type)",
+    "Name": "crdfd_promotion_type_crdfd_unit",
+    "OptionSetInfoNameMapping": {
+      "191920000": "%",
+      "191920001": "VND"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_unit",
+        "OptionSetReferenceEntityName": "Promotion type"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_unit",
+    "RelatedEntityName": "Promotion type",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Promotion type)",
+    "Name": "crdfd_promotion_type_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Promotion type"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Promotion type",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Promotion type)",
+    "Name": "crdfd_promotion_type_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Promotion type"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Promotion type",
+    "Type": "OptionSetInfo"
+  }
+]

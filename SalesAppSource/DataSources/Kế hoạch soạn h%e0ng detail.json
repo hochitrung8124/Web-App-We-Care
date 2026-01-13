@@ -1,0 +1,320 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "crdfd_kehoachsoanhangdetails",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "crdfd_kehoachsoanhangdetail",
+    "MaxGetRowsCount": 2000,
+    "Name": "Kế hoạch soạn hàng detail",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr1bb_chinhanhkh": "Chi nhánh KH",
+      "cr1bb_danhsachkien": "Danh sách kiện",
+      "cr1bb_dev": "dev",
+      "cr1bb_dev1": "dev1",
+      "cr1bb_dev2": "dev2",
+      "cr1bb_ghichu": "Ghi chú SOD",
+      "cr1bb_ghichuso": "Ghi chú SO",
+      "cr1bb_hinhthucgiaohang": "Hình thức giao hàng",
+      "cr1bb_ketang": "Kệ, tầng",
+      "cr1bb_khongmkh": "Không MKH",
+      "cr1bb_kttkhachhang": "ĐKTT khách hàng",
+      "cr1bb_lo": "Lô",
+      "cr1bb_loaionhang": "Loại đơn hàng",
+      "cr1bb_machuyenkho": "Mã chuyển kho",
+      "cr1bb_machuyenkhochitiettext": "Mã chuyển kho chi tiết text",
+      "cr1bb_mailnvsales": "Mail NV sales",
+      "cr1bb_makehoachtext": "Mã kế hoạch text",
+      "cr1bb_makh": "Mã KH",
+      "cr1bb_manhomsp": "Mã nhóm SP",
+      "cr1bb_maphieusoan": "Mã phiếu soạn",
+      "cr1bb_masanpham": "Mã sản phẩm",
+      "cr1bb_Maxuatxi": "Mã xuất xi",
+      "cr1bb_maxuatxitext": "Mã xuất xi text",
+      "cr1bb_nganhnghe": "Ngành nghề",
+      "cr1bb_ngaygiaodukiensort": "Sort",
+      "cr1bb_ngaygiaodukientonghop": "Ngày giao dự kiến tổng hợp",
+      "cr1bb_ngaykiemhang": "Ngày kiểm hàng",
+      "cr1bb_ngayonggoi": "Ngày đóng gói",
+      "cr1bb_ngaysoanhang": "Ngày soạn hàng",
+      "cr1bb_ngaytaoso": "Ngày tạo SO",
+      "cr1bb_nguoikiemhang": "Người kiểm hàng",
+      "cr1bb_nguoionggoi": "Người đóng gói",
+      "cr1bb_note": "Note",
+      "cr1bb_onban": "Đơn bán",
+      "cr1bb_onbanchitiettext": "Đơn bán chi tiết text",
+      "cr1bb_onvikho": "Đơn vị kho",
+      "cr1bb_onvionggoi1": "Đơn vị đóng gói 1",
+      "cr1bb_onvionggoi2": "Đơn vị đóng gói 2",
+      "cr1bb_onvionggoi3": "Đơn vị đóng gói 3",
+      "cr1bb_onvionggoi4": "Đơn vị đóng gói 4",
+      "cr1bb_onvionggoi5": "Đơn vị đóng gói 5",
+      "cr1bb_onvionggoi6": "Đơn vị đóng gói 6",
+      "cr1bb_onvionggoi7": "Đơn vị đóng gói 7",
+      "cr1bb_onvionggoi8": "Đơn vị đóng gói 8",
+      "cr1bb_onvionhang": "Đơn vị đơn hàng",
+      "cr1bb_quanhuyenkeycal": "Quận huyện",
+      "cr1bb_quycachonggoi": "Quy cách đóng gói",
+      "cr1bb_salemaildirect": "Sale - mail direct",
+      "cr1bb_Sanpham": "Sản phẩm",
+      "cr1bb_scanned": "Scanned",
+      "cr1bb_so_auto": "SO_auto",
+      "cr1bb_soansaihang": "Soạn sai hàng",
+      "cr1bb_soantre": "Soạn trễ",
+      "cr1bb_sod_auto": "SOD_auto",
+      "cr1bb_sodstatus": "SOD status",
+      "cr1bb_solangiaoso": "Số lần giao SO",
+      "cr1bb_soluongconlaitheokho": "Số lượng còn lại theo kho",
+      "cr1bb_soluongconlaitheoon": "Số lượng còn lại theo đơn",
+      "cr1bb_soluongkehoachsoanhang": "Số lượng kế hoạch soạn hàng",
+      "cr1bb_soluongkiem": "Số lượng kiểm",
+      "cr1bb_soluongonggoi1": "Số lượng đóng gói 1",
+      "cr1bb_soluongonggoi2": "Số lượng đóng gói 2",
+      "cr1bb_soluongonggoi3": "Số lượng đóng gói 3",
+      "cr1bb_soluongonggoi4": "Số lượng đóng gói 4",
+      "cr1bb_soluongonggoi5": "Số lượng đóng gói 5",
+      "cr1bb_soluongonggoi6": "Số lượng đóng gói 6",
+      "cr1bb_soluongonggoi7": "Số lượng đóng gói 7",
+      "cr1bb_soluongonggoi8": "Số lượng đóng gói 8",
+      "cr1bb_soluongtheoon": "Số lượng theo đơn",
+      "cr1bb_soluongthucsoanhtheokho": "Số lượng thực soạn theo kho",
+      "cr1bb_supervisormail": "Supervisor - mail",
+      "cr1bb_tenkhachhang": "Tên khách hàng",
+      "cr1bb_tenkhachhangtext": "Tên khách hàng text",
+      "cr1bb_tenthuongmai": "Tên thương mại",
+      "cr1bb_thoigiannhaxe": "Thời gian (nhà xe)",
+      "cr1bb_tinhthanhcal": "Tỉnh thành",
+      "cr1bb_tongtiensod": "Tổng tiền SOD",
+      "cr1bb_tongtiensod_base": "Tổng tiền SOD (Base)",
+      "cr1bb_tonkho": "Tồn kho",
+      "cr1bb_trangthaigiaohangso": "Trạng thái giao hàng SO",
+      "cr1bb_trangthaionhang": "Trạng thái đơn hàng",
+      "cr1bb_tylechuyenoi": "Tỷ lệ chuyển đổi",
+      "cr1bb_vat": "VAT",
+      "cr1bb_vitrikho": "Vị trí kho",
+      "cr1bb_vitrisoan": "Vị trí soạn",
+      "cr1bb_weight": "Weight",
+      "cr1bb_xacnhanthanhtoan": "Xác nhận thanh toán",
+      "crdfd_kehoachsoanhangdetail_AsyncOperations": "System Jobs",
+      "crdfd_kehoachsoanhangdetail_BulkDeleteFailures": "Bulk Delete Failures",
+      "crdfd_kehoachsoanhangdetail_DuplicateBaseRecord": "Duplicate Records (crdfd_kehoachsoanhangdetail_DuplicateBaseRecord)",
+      "crdfd_kehoachsoanhangdetail_DuplicateMatchingRecord": "Duplicate Records (crdfd_kehoachsoanhangdetail_DuplicateMatchingRecord)",
+      "crdfd_kehoachsoanhangdetail_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "crdfd_kehoachsoanhangdetail_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "crdfd_kehoachsoanhangdetail_ProcessSession": "Process Sessions",
+      "crdfd_kehoachsoanhangdetail_SyncErrors": "Sync Errors",
+      "crdfd_kehoachsoanhangdetailid": "ID",
+      "crdfd_Machuyenkhochitiet": "Mã chuyển kho chi tiết",
+      "crdfd_Makehoach": "Mã kế hoạch",
+      "crdfd_name": "Rank",
+      "crdfd_nhanviensoan": "Nhân viên soạn",
+      "crdfd_nv_mua_hang": "NV mua hàng",
+      "crdfd_onbanchitiet": "Đơn bán chi tiết",
+      "crdfd_sanpham": "Sản phẩm CAL",
+      "crdfd_soluongkehoachsoan": "Số lượng kế hoạch soạn",
+      "crdfd_soluongthucsoan": "Số lượng thực soạn",
+      "crdfd_thoigianhoanthanh": "Thời gian hoàn thành",
+      "crdfd_ton_kho_theo_ke_hoach": "Tồn kho theo kế hoạch",
+      "crdfd_trangthai": "Trạng thái",
+      "crdfd_trangthaikehoach": "Trạng thái kế hoạch",
+      "crdfd_trangthaikehoachchitiet": "Trạng thái kế hoạch chi tiết",
+      "createdby": "Created By",
+      "createdon": "CreatedOn",
+      "createdonbehalfby": "Created By (Delegate)",
+      "exchangerate": "Exchange Rate",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "transactioncurrencyid": "Currency",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Kế hoạch soạn hàng detail",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Kế hoạch soạn hàng detail (Views)",
+    "Name": "_crdfd_kehoachsoanhangdetail_views",
+    "RelatedEntityName": "Kế hoạch soạn hàng detail",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "060dd32f-5ce7-4cb1-8e50-30fb641de8d1": "Inactive data",
+      "1c231a5e-3861-f011-bec2-000d3aa25b1d": "All data",
+      "3183cac6-d0a0-f011-bbd2-000d3aa133da": "Đã đóng gói",
+      "5395370f-8148-41a6-8d69-c29995b28df0": "Kế hoạch soạn hàng detail Advanced Find View",
+      "5597803d-0ba0-f011-bbd2-000d3aa358ba": "All data - Kho Bình Định",
+      "5eeb6432-c3a0-f011-bbd2-000d3aa1d932": "All data - Kho Tp Hồ Chí Minh",
+      "6e9dcd5f-4b4b-f011-877b-6045bd220341": "Kế hoạch soạn hàng detail - Subview",
+      "7b61236e-3b61-f011-bec2-00224857ebaf": "Soạn hàng - Nhà máy",
+      "ab1e93eb-3a61-f011-bec2-00224858fdb1": "Chưa vào kế hoạch soạn",
+      "b61d461e-7969-45cf-830f-0930caa6e4cf": "Kế hoạch soạn hàng detail",
+      "b7b75dc8-277b-4bdc-a341-3bd429cdf4d0": "Kế hoạch soạn hàng detail Lookup View",
+      "bc01d689-d0a0-f011-bbd2-000d3a08d310": "Đã kiểm",
+      "bdd2e5b0-d0a0-f011-bbd2-000d3aa1cd1e": "Đã soạn",
+      "c02e103f-3b61-f011-bec2-00224858fdb1": "Soạn hàng - Shop",
+      "dcde68c2-d97f-408f-8dc4-f03ce53ec7be": "Kế hoạch soạn hàng detail Associated View"
+    }
+  },
+  {
+    "DisplayName": "Scanned (Kế hoạch soạn hàng detail)",
+    "Name": "cr1bb_crdfd_kehoachsoanhangdetail_cr1bb_scanned",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr1bb_scanned",
+        "OptionSetReferenceEntityName": "Kế hoạch soạn hàng detail"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "cr1bb_scanned",
+    "RelatedEntityName": "Kế hoạch soạn hàng detail",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Trạng thái đơn hàng (Kế hoạch soạn hàng detail)",
+    "Name": "cr1bb_crdfd_kehoachsoanhangdetail_cr1bb_trangthaionhang",
+    "OptionSetInfoNameMapping": {
+      "283640000": "Đơn hàng gấp",
+      "283640001": "Không phải đơn hàng gấp"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr1bb_trangthaionhang",
+        "OptionSetReferenceEntityName": "Kế hoạch soạn hàng detail"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr1bb_trangthaionhang",
+    "RelatedEntityName": "Kế hoạch soạn hàng detail",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "HT_giaohang",
+    "Name": "cr1bb_ht_giaohang",
+    "OptionSetInfoNameMapping": {
+      "283640000": "Giao 1 lần",
+      "283640001": "Giao theo tiến độ"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr1bb_hinhthucgiaohang",
+        "OptionSetReferenceEntityName": "Kế hoạch soạn hàng detail"
+      },
+      "OptionSetReferenceItem1": {
+        "OptionSetReferenceColumnName": "cr1bb_hinhthucgiaohang",
+        "OptionSetReferenceEntityName": "Sale_Orders"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr1bb_hinhthucgiaohang",
+    "RelatedEntityName": "Kế hoạch soạn hàng detail",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Trạng thái (Kế hoạch soạn hàng detail)",
+    "Name": "crdfd_kehoachsoanhangdetail_crdfd_trangthai",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Chưa soạn",
+      "191920001": "Đã soạn",
+      "283640001": "Đang soạn",
+      "283640002": "Đã kiểm",
+      "283640003": "Đã đóng gói",
+      "283640004": "Đã xuất",
+      "283640005": "Không có hàng",
+      "283640006": "Chờ hàng",
+      "283640007": "Đang soạn (Chờ hàng)"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_trangthai",
+        "OptionSetReferenceEntityName": "Kế hoạch soạn hàng detail"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_trangthai",
+    "RelatedEntityName": "Kế hoạch soạn hàng detail",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Trạng thái kế hoạch (Kế hoạch soạn hàng detail)",
+    "Name": "crdfd_kehoachsoanhangdetail_crdfd_trangthaikehoach",
+    "OptionSetInfoNameMapping": {
+      "0": "Chưa có",
+      "1": "Đã có"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_trangthaikehoach",
+        "OptionSetReferenceEntityName": "Kế hoạch soạn hàng detail"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_trangthaikehoach",
+    "RelatedEntityName": "Kế hoạch soạn hàng detail",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Kế hoạch soạn hàng detail)",
+    "Name": "crdfd_kehoachsoanhangdetail_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Kế hoạch soạn hàng detail"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Kế hoạch soạn hàng detail",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Kế hoạch soạn hàng detail)",
+    "Name": "crdfd_kehoachsoanhangdetail_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Kế hoạch soạn hàng detail"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Kế hoạch soạn hàng detail",
+    "Type": "OptionSetInfo"
+  }
+]

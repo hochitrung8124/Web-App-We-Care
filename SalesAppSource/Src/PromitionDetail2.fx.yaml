@@ -1,0 +1,202 @@
+PromitionDetail2 As screen:
+    ContentLanguage: =""
+
+    Container4_3 As groupContainer.manualLayoutContainer:
+        BorderColor: =RGBA(219, 219, 219, 1)
+        Fill: =RGBA(4, 161, 179, 1)
+        Height: =121
+        LayoutGridColumns: =6
+        LayoutGridRows: =6
+        Width: =766
+        ZIndex: =2
+
+        Label8_1 As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(77, 77, 77, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(4, 161, 179, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =111
+            Size: =30
+            Text: ="Promotion Detail"
+            Width: =765
+            X: =1
+            Y: =10
+            ZIndex: =1
+
+        Icon2 As icon:
+            BorderColor: =RGBA(77, 77, 77, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(4, 161, 179, 1)
+            Height: =118
+            Icon: =Icon.ArrowLeft
+            OnSelect: |-
+                =
+                Set(
+                    varShowPDF, false
+                );
+                Back();
+            Width: =60
+            X: =17
+            Y: =3
+            ZIndex: =2
+
+    HtmlText2 As htmlViewer:
+        Fill: =RGBA(219, 219, 219, 1)
+        Height: =534
+        HtmlText: |
+            ="<div style='
+              width:100%;
+              font-family:Segoe UI, Arial;
+              font-size:16px;
+              color:#1a1a1a;
+              border:1px solid #cce4ff;
+              border-radius:10px;
+              padding:12px 18px 12px 14px;
+              background-color:#f9fcff;
+              box-shadow:0px 2px 4px rgba(0,0,0,0.04);
+              line-height:1.5;
+              overflow-x:hidden;
+              overflow-y:hidden;
+              box-sizing:border-box;
+            '>
+            
+              <!-- Poster -->
+              " & If(
+                  !IsBlank(SelectedPromotion.'Url Image'),
+                  "<div style='text-align:center; margin-bottom:12px;'>
+                     <img src='" & SelectedPromotion.'Url Image' & "' 
+                          style='max-width:100%; border-radius:10px; 
+                                 box-shadow:0 1px 4px rgba(0,0,0,0.15); display:block; margin:auto;'/>
+                   </div>",
+                  ""
+                ) & "
+            
+              <!-- Promotion Name -->
+              <div style='
+                font-weight:700;
+                color:#04a1b3;
+                font-size:19px;
+                margin-bottom:8px;
+                text-align:center;
+                word-wrap:break-word;
+              '>
+                " & SelectedPromotion.Promotion & "
+              </div>
+            
+              <!-- Time Range -->
+              " & If(
+                  !IsBlank(SelectedPromotion.'Start date') || !IsBlank(SelectedPromotion.'End date'),
+                  "<div style='margin-bottom:10px;'>
+                    <b>🕒 Thời gian áp dụng:</b> " &
+                      If(!IsBlank(SelectedPromotion.'Start date'),
+                         Text(SelectedPromotion.'Start date', "dd/mm/yyyy"),
+                         ""
+                      ) &
+                      If(!IsBlank(SelectedPromotion.'End date'),
+                         " - " & Text(SelectedPromotion.'End date', "dd/mm/yyyy"),
+                         " - Đến khi có thông báo mới"
+                      ) &
+                  "</div>",
+                  ""
+                ) & "
+            
+              <!-- Payment Conditions -->
+              " & If(
+                  !IsBlank(SelectedPromotion.'Điều khoản thanh toán áp dụng'),
+                  "<div style='margin-bottom:10px; display:flex; align-items:center;'>
+                    <span style='font-size:16px; margin-right:4px;'>💳</span>
+                    <span><b>Điều khoản thanh toán áp dụng:</b> " & 
+                    Concat(SelectedPromotion.'Điều khoản thanh toán áp dụng', Value, ", ") &
+                    "</span>
+                  </div>",
+                  ""
+                ) & "
+            
+              <!-- Description -->
+              " & If(
+                  !IsBlank(SelectedPromotion.Details),
+                  "<div style='margin-bottom:10px;'>
+                    <b>📝 Mô tả:</b><br/>" &
+                    SelectedPromotion.Details &
+                  "</div>",
+                  ""
+                ) & "
+            </div>"
+        OnSelect: |-
+            =Set(
+                varShowPDF, true
+            );
+        Width: =766
+        Y: =121
+        ZIndex: =3
+
+    PdfViewer1_1 As pdfViewer:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        DisplayMode: =DisplayMode.View
+        Document: =SelectedPromotion.'File báo giá promotion'.Value
+        Fill: =RGBA(0, 0, 0, 0.5)
+        FindText: =""
+        Height: =701
+        Password: =""
+        Visible: |
+            =varShowPDF1 &&
+            With(
+              {
+                u_text: SelectedPromotion.'File báo giá promotion'.Value,
+                u_rec: SelectedPromotion.'File báo giá promotion'
+              },
+              // Nếu .Value tồn tại và kết thúc bằng .pdf
+              (
+                !IsBlank(u_text) &&
+                EndsWith(SelectedPromotion.'File báo giá promotion'.FileName,".pdf")
+              )
+              ||
+              // Nếu field là table/record và First(...).Name tồn tại và kết thúc bằng .pdf
+              (
+                !IsBlank(u_rec) &&
+                EndsWith(SelectedPromotion.'File báo giá promotion'.FileName,".pdf")
+              )
+              ||
+              // Nếu field là table/record và First(...).Value tồn tại và kết thúc bằng .pdf
+              (
+                !IsBlank(u_rec) &&
+                EndsWith(SelectedPromotion.'File báo giá promotion'.FileName,".pdf")
+              )
+            )
+        Width: =766
+        Y: =665
+        ZIndex: =4
+
+    Image4 As image:
+        Height: =528
+        Image: =SelectedPromotion.'File báo giá promotion'.Value
+        Visible: |
+            =varShowPDF1 &&
+            With(
+              {
+                u_text: SelectedPromotion.'File báo giá promotion'.Value,
+                u_rec: SelectedPromotion.'File báo giá promotion'
+              },
+              // Nếu .Value tồn tại và kết thúc bằng .pdf
+              (
+                !IsBlank(u_text) &&
+                EndsWith(SelectedPromotion.'File báo giá promotion'.FileName,".png")
+              )
+              ||
+              // Nếu field là table/record và First(...).Name tồn tại và kết thúc bằng .pdf
+              (
+                !IsBlank(u_rec) &&
+                EndsWith(SelectedPromotion.'File báo giá promotion'.FileName,".png")
+              )
+              ||
+              // Nếu field là table/record và First(...).Value tồn tại và kết thúc bằng .pdf
+              (
+                !IsBlank(u_rec) &&
+                EndsWith(SelectedPromotion.'File báo giá promotion'.FileName,".png")
+              )
+            )
+        Width: =766
+        Y: =665
+        ZIndex: =7
+

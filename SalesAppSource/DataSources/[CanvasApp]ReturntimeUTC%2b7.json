@@ -1,0 +1,10 @@
+[
+  {
+    "ApiId": "/providers/microsoft.powerapps/apis/shared_logicflows",
+    "FlowNameId": "fc7018c6-916e-4f24-9a40-95b56cce4180",
+    "Name": "[CanvasApp]ReturntimeUTC+7",
+    "ServiceKind": "ConnectedWadl",
+    "Type": "ServiceInfo",
+    "WorkflowEntityId": "632a97a0-9c2f-f011-8c4e-0022485928d6"
+  }
+]

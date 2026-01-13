@@ -1,0 +1,368 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "crdfd_vantais",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "crdfd_vantai",
+    "MaxGetRowsCount": 2000,
+    "Name": "Vận tải",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "{Attachments}": "Attachments",
+      "cr1bb_cuocvanchuyen5": "Cước vận chuyển 5",
+      "cr1bb_cuocvanchuyen6": "Cước vận chuyển 6",
+      "cr1bb_cuocvanchuyen7": "Cước vận chuyển 7",
+      "cr1bb_cuocvanchuyen8": "Cước vận chuyển 8",
+      "cr1bb_ghichu": "Ghi chú (cr1bb_ghichu)",
+      "cr1bb_gioonvivanchuyen": "Giờ đơn vị vận chuyển",
+      "cr1bb_Mavantai": "Mã vận tải",
+      "cr1bb_ongia5": "Đơn giá 5",
+      "cr1bb_ongia6": "Đơn giá 6",
+      "cr1bb_ongia7": "Đơn giá 7",
+      "cr1bb_ongia8": "Đơn giá 8",
+      "cr1bb_onvionggoi5": "Đơn vị đóng gói 5",
+      "cr1bb_onvionggoi6": "Đơn vị đóng gói 6",
+      "cr1bb_onvionggoi7": "Đơn vị đóng gói 7",
+      "cr1bb_onvionggoi8": "Đơn vị đóng gói 8",
+      "cr1bb_soluong5": "Số lượng 5",
+      "cr1bb_soluong6": "Số lượng 6",
+      "cr1bb_soluong7": "Số lượng 7",
+      "cr1bb_soluong8": "Số lượng 8",
+      "cr1bb_thoigianquet": "Thời gian quét chành",
+      "cr1bb_thoigianquetkho": "Thời gian quét kho",
+      "cr1bb_thongtintongkienraw": "Thông tin tổng kiện raw",
+      "cr1bb_tonggiatrionhang": "Tổng giá trị đơn hàng",
+      "crdfd_Chanh_xe": "Chành xe",
+      "crdfd_chanhghichu": "Chành - ghi chú",
+      "crdfd_chanhxe_sldvi": "Chành xe - SL,DV",
+      "crdfd_chanhxe_sldvi2": "Chành xe - SL,DV 2",
+      "crdfd_chanhxe_sldvi3": "Chành xe - SL,DV 3",
+      "crdfd_chanhxe_summary": "Chành xe - Summary",
+      "crdfd_chanhxe_summary2": "Chành xe - Summary 2",
+      "crdfd_chanhxe_summary3": "Chành xe - Summary 3",
+      "crdfd_chanhxesldv4": "Chành xe - SL,DV 4",
+      "crdfd_chanhxesummary4": "Chành xe - Summary 4",
+      "crdfd_chanhxetext": "Chành xe text",
+      "crdfd_cr1bb_giaobuhangsailech_Vantai_crdfd_vantai": "Giao bù hàng sai lệches",
+      "crdfd_cuoc_van_chuyen": "Cước vận chuyển",
+      "crdfd_cuoc_van_chuyen2": "Cước vận chuyển 2",
+      "crdfd_cuoc_van_chuyen3": "Cước vận chuyển 3",
+      "crdfd_cuoctrungchuyen": "Cước trung chuyển",
+      "crdfd_cuocvanchuyen4": "Cước vận chuyển 4",
+      "crdfd_don_gia": "Đơn giá",
+      "crdfd_dongia": "Đơn giá 2",
+      "crdfd_dongia3": "Đơn giá 3",
+      "crdfd_donvi_donggoi2": "Đơn vị đóng gói 2",
+      "crdfd_donvi_donggoi3": "Đơn vị đóng gói 3",
+      "crdfd_enghithanhtoan": "Đề nghị thanh toán",
+      "crdfd_fromday": "From day",
+      "crdfd_ghichu": "Ghi chú (crdfd_ghichu)",
+      "crdfd_hinh_anh": "Hình ảnh",
+      "crdfd_hinh_anhid": "crdfd_Hinh_anhId",
+      "crdfd_Khachhang": "Khách hàng",
+      "crdfd_khachhangtext": "Khách hàng text",
+      "crdfd_kien": "Kiện",
+      "crdfd_loai": "Loại",
+      "crdfd_mailsale": "Mail sale",
+      "crdfd_name": "Mã phiếu xuất",
+      "crdfd_nguoilienhe": "Người liên hệ",
+      "crdfd_nguyennhanoitra": "Nguyên nhân đổi trả",
+      "crdfd_nhanhang": "Nhận hàng",
+      "crdfd_Nhaxe": "Nhà xe",
+      "crdfd_nhaxe_text": "Nhà xe_text",
+      "crdfd_note_mpx_json": "Note MPX Json",
+      "crdfd_ongia4": "Đơn giá 4",
+      "crdfd_onvi": "Đơn vị đóng gói",
+      "crdfd_onvichiuphi": "Đơn vị chịu phí",
+      "crdfd_onvionggoi4": "Đơn vị đóng gói 4",
+      "crdfd_phivanchuyen": "Phí vận chuyển",
+      "crdfd_soienthoai": "Số điện thoại",
+      "crdfd_soluong": "Số lượng",
+      "crdfd_soluong2": "Số lượng 2",
+      "crdfd_soluong3": "Số lượng 3",
+      "crdfd_soluong4": "Số lượng 4",
+      "crdfd_supervisormail": "Supervisor - mail",
+      "crdfd_thongtintongkien": "Thông tin tổng kiện",
+      "crdfd_tinhtranghanghoa": "Tình trạng hàng hóa",
+      "crdfd_today": "To day",
+      "crdfd_tongcuocvanchuyen2": "Tổng cước vận chuyển",
+      "crdfd_trangthai": "Trạng thái",
+      "crdfd_tuyengiahang_": "Tuyến giao hàng",
+      "crdfd_url_": "URL",
+      "crdfd_vantai_Annotations": "Notes",
+      "crdfd_vantai_AsyncOperations": "System Jobs",
+      "crdfd_vantai_BulkDeleteFailures": "Bulk Delete Failures",
+      "crdfd_vantai_DuplicateBaseRecord": "Duplicate Records (crdfd_vantai_DuplicateBaseRecord)",
+      "crdfd_vantai_DuplicateMatchingRecord": "Duplicate Records (crdfd_vantai_DuplicateMatchingRecord)",
+      "crdfd_vantai_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "crdfd_vantai_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "crdfd_vantai_ProcessSession": "Process Sessions",
+      "crdfd_vantai_SyncErrors": "Sync Errors",
+      "crdfd_vantaiid": "ID",
+      "crdfd_vitrikho": "Vị trí kho",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number",
+      "wc001_apppatch": "App patch"
+    },
+    "PreferredName": "Vận tải",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Vận tải (Views)",
+    "Name": "_crdfd_vantai_views",
+    "RelatedEntityName": "Vận tải",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "05c06203-ae3a-ef11-a316-000d3a07d778": "Vận tải - Đổi trả hàng",
+      "0d79fa56-a6b2-ef11-b8e8-0022485a911e": "Update trạng thái nhận hàng",
+      "1c9a5f66-fe35-f011-8c4d-000d3a08da2a": "Vận tải - Xuất hàng (dev)",
+      "1e8b45d3-b06a-496b-b43d-ad5338268a7f": "Vận tải Advanced Find View",
+      "5cdf0ce7-1294-4f58-a294-c581ea5e1dd1": "Vận tải Lookup View",
+      "6e32a21c-7587-45b5-b45b-0943eea0e7a0": "Vận tải Associated View",
+      "9c0e880a-e85c-43ed-9be8-3efb27281914": "Inactive Vận tải",
+      "a3ebb045-89d5-f011-8544-000d3aa350f3": "Vận tải - Xuất hàng - Hub Cần Thơ",
+      "b1ed9e6b-6074-4e09-88e4-cf5ec25070f7": "Vận tải - Xuất hàng",
+      "b2eb0e94-4ff3-ef11-be20-000d3aa25b1d": "Vận tải - Xuất hàng - Kho Khánh Hòa",
+      "cd7486fa-4b98-f011-b41c-000d3a090417": "Vận tải - Xuất hàng - Kho Bình Định",
+      "e6821ec4-bd86-ef11-ac21-6045bd20b833": "Kho trung chuyển",
+      "f508ba5a-c756-ef11-bfe2-6045bd1ed232": "Xác nhận hàng đã ra chành",
+      "fb4adf5c-4c98-f011-b41c-000d3aa2c03b": "Vận tải - Xuất hàng - Kho Tp Hồ Chí Minh"
+    }
+  },
+  {
+    "DisplayName": "Nguyên nhân đổi trả - Bán",
+    "Name": "crdfd_nguyennhanoitraban",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Khách hàng đặt sai mã, sai quy cách",
+      "191920001": "Khách đã nhận hàng bên mình, so sánh với mẫu mà KH đang bán và chất lượng ( mỏng dày), màu sắc không giống nhau",
+      "191920002": "Khách cần đơn gấp , đợi lâu KH hủy đơn",
+      "191920003": "Khách kiểm kho lại còn nhiều hàng",
+      "191920004": "Khách không nhận hàng nữa",
+      "191920005": "Khách báo giá cao",
+      "191920006": "Hàng khó bán khách trả lại",
+      "191920007": "Sale thị trường lên đơn sai",
+      "191920008": "Kho soạn/ giao thiếu hàng",
+      "191920009": "Thời hạn sử dụng của sản phẩm cận ngày",
+      "191920010": "Sản phẩm sai quy cách/ không đúng mẫu",
+      "191920011": "Đơn nhỏ lẻ sale báo chốt đơn",
+      "191920012": "Cấn trừ công nợ",
+      "191920013": "Sản phẩm bị lỗi",
+      "191920014": "Sale luân chuyển",
+      "191920015": "Sản phẩm sai kích thước",
+      "283640001": "Admin lên đơn sai"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_nguyennhanoitra",
+        "OptionSetReferenceEntityName": "Vận tải"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_nguyennhanoitra",
+    "RelatedEntityName": "Vận tải",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Đề nghị thanh toán (Vận tải)",
+    "Name": "crdfd_vantai_crdfd_enghithanhtoan",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Đã lập",
+      "191920001": "Chưa lập"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_enghithanhtoan",
+        "OptionSetReferenceEntityName": "Vận tải"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_enghithanhtoan",
+    "RelatedEntityName": "Vận tải",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Kiện (Vận tải)",
+    "Name": "crdfd_vantai_crdfd_kien",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Thùng",
+      "191920001": "Bao",
+      "191920002": "Lố"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_kien",
+        "OptionSetReferenceEntityName": "Vận tải"
+      }
+    },
+    "OptionSetTypeKey": "MultiSelectPicklistType",
+    "RelatedColumnInvariantName": "crdfd_kien",
+    "RelatedEntityName": "Vận tải",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Loại (Vận tải)",
+    "Name": "crdfd_vantai_crdfd_loai",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Xuất hàng",
+      "191920001": "Đổi trả hàng",
+      "191920002": "Chuyển kho"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_loai",
+        "OptionSetReferenceEntityName": "Vận tải"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_loai",
+    "RelatedEntityName": "Vận tải",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Nhận hàng (Vận tải)",
+    "Name": "crdfd_vantai_crdfd_nhanhang",
+    "OptionSetInfoNameMapping": {
+      "0": "Chưa nhận",
+      "1": "Đã nhận"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_nhanhang",
+        "OptionSetReferenceEntityName": "Vận tải"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "crdfd_nhanhang",
+    "RelatedEntityName": "Vận tải",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Đơn vị chịu phí (Vận tải)",
+    "Name": "crdfd_vantai_crdfd_onvichiuphi",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Khách hàng",
+      "191920001": "Công ty",
+      "191920002": "Khác"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_onvichiuphi",
+        "OptionSetReferenceEntityName": "Vận tải"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_onvichiuphi",
+    "RelatedEntityName": "Vận tải",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Tình trạng hàng hóa (Vận tải)",
+    "Name": "crdfd_vantai_crdfd_tinhtranghanghoa",
+    "OptionSetInfoNameMapping": {
+      "0": "Không tốt",
+      "1": "Tốt"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_tinhtranghanghoa",
+        "OptionSetReferenceEntityName": "Vận tải"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "crdfd_tinhtranghanghoa",
+    "RelatedEntityName": "Vận tải",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Trạng thái (Vận tải)",
+    "Name": "crdfd_vantai_crdfd_trangthai",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Hàng trong kho",
+      "191920001": "Đã gửi",
+      "191920002": "Đã nhận hàng"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_trangthai",
+        "OptionSetReferenceEntityName": "Vận tải"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_trangthai",
+    "RelatedEntityName": "Vận tải",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Vận tải)",
+    "Name": "crdfd_vantai_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Vận tải"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Vận tải",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Vận tải)",
+    "Name": "crdfd_vantai_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Vận tải"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Vận tải",
+    "Type": "OptionSetInfo"
+  }
+]

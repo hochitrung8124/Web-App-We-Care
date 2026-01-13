@@ -1,0 +1,309 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "crdfd_transactionsaleses",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "crdfd_transactionsales",
+    "MaxGetRowsCount": 2000,
+    "Name": "Transaction Sales",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr1bb_check_notify": "Check_notify",
+      "cr1bb_cr44a_banhangchitiet_TransactionSale_crdf": "Bán hàng - chi tiếts",
+      "cr1bb_DataLockUnlock": "Data Lock/Unlock",
+      "cr1bb_giaobuhangsailech_PXK_crdfd_transactionsales": "Giao bù hàng sai lệches (cr1bb_giaobuhangsailech_PXK_crdfd_transactionsales)",
+      "cr1bb_giaobuhangsailech_PXKgiaobu_crdfd_transactionsales": "Giao bù hàng sai lệches (cr1bb_giaobuhangsailech_PXKgiaobu_crdfd_transactionsales)",
+      "cr1bb_giatriconlai": "Giá trị còn lại",
+      "cr1bb_lydooitra": "Lý do đổi trả",
+      "cr1bb_makhachhang": "Mã khách hàng",
+      "cr1bb_makienhang": "Mã kiện hàng",
+      "cr1bb_ngaykiemhang": "Ngày kiểm hàng",
+      "cr1bb_ngayonggoi": "Ngày đóng gói",
+      "cr1bb_ngaysoanhang": "Ngày soạn hàng",
+      "cr1bb_ngaytrahang": "Ngày trả hàng",
+      "cr1bb_ngaytrahang_date": "Ngày trả hàng (Last Updated On)",
+      "cr1bb_ngaytrahang_state": "Ngày trả hàng (State)",
+      "cr1bb_nguoionggoi": "Người đóng gói",
+      "cr1bb_onvivanchuyen": "Đơn vị vận chuyển",
+      "cr1bb_statuslockunlock": "Status lock/unlock",
+      "crdfd_activedata": "Active data",
+      "crdfd_app": "App",
+      "crdfd_cr1bb_cngnbnl_TransactionSale_crdfd_trans": "Công nợ bán lẻ",
+      "crdfd_Danhsachkienhang_Transactionsale_cr": "Danh sách kiện hàngs",
+      "crdfd_dataedited": "Data edited",
+      "crdfd_fromdate": "From date",
+      "crdfd_giatrivat": "Giá trị VAT",
+      "crdfd_giatrixuatkho": "Giá trị xuất kho",
+      "crdfd_hangloi_Maphieuxuat_crdfd_transactionsale": "Hàng lỗi",
+      "crdfd_iachikh": "Địa chỉ KH",
+      "crdfd_IDchitietonhang": "Mã đơn hàng chi tiết",
+      "crdfd_incongno": "In công nợ",
+      "crdfd_loai_don_hang": "Loại đơn hàng",
+      "crdfd_loaihoaon": "Loại hóa đơn",
+      "crdfd_mailnhanviensales": "Mail nhân viên sales",
+      "crdfd_maonhangchitiettext": "Mã đơn hàng chi tiết text",
+      "crdfd_maonhangtext": "Mã đơn hàng text",
+      "crdfd_maphieuxuat": "Mã phiếu xuất",
+      "crdfd_masanpham": "Mã sản phẩm",
+      "crdfd_mpx_temp": "MPX_temp",
+      "crdfd_mpxnumer2": "MPX numer 2",
+      "crdfd_mstkh": "MST KH",
+      "crdfd_name": "Mã xuất kho",
+      "crdfd_nganhnghe": "Ngành nghề",
+      "crdfd_ngaygiaothucte": "Ngày giao thực tế",
+      "crdfd_ngaynumber": "Ngày tạo (number)",
+      "crdfd_ngaytaotext": "Ngày tạo (text)",
+      "crdfd_nguoikiemhang": "Người kiểm hàng",
+      "crdfd_nguoisoan": "Người soạn",
+      "crdfd_Nguoitao": "Người tạo",
+      "crdfd_nha_xe": "Nhà xe",
+      "crdfd_nhanviensale": "Nhân viên Sale",
+      "crdfd_noixuat": "Nơi xuất",
+      "crdfd_notes": "Notes",
+      "crdfd_numberbalance": "flag_OA",
+      "crdfd_oitrahangban_Phieuxuatkho_crdfd_transacti": "Trả lại hàng bán",
+      "crdfd_ongia": "Đơn giá",
+      "crdfd_onvigiaonhan": "Đơn vị giao nhận",
+      "crdfd_onvionhang": "Đơn vị đơn hàng",
+      "crdfd_onvitheokho": "Đơn vị theo kho",
+      "crdfd_quy": "Quý",
+      "crdfd_quycachonggoi": "Quy cách đóng gói",
+      "crdfd_slconlai": "SL còn lại theo đơn hàng",
+      "crdfd_soansai": "Soạn sai",
+      "crdfd_soluonggiaotheokho": "Số lượng giao theo kho",
+      "crdfd_soluonggiaotheoon": "Số lượng giao theo đơn",
+      "crdfd_soluongoitratheokho": "Số lượng đổi trả theo kho",
+      "crdfd_soluongoitratheokho_date": "Số lượng đổi trả theo kho (Last Updated On)",
+      "crdfd_soluongoitratheokho_state": "Số lượng đổi trả theo kho (State)",
+      "crdfd_soluongoitratheokhonew": "Số lượng đổi trả theo kho New",
+      "crdfd_soluongoitratheoon": "Số lượng đổi trả theo đơn",
+      "crdfd_soluongoitratheoon_date": "Số lượng đổi trả theo đơn (Last Updated On)",
+      "crdfd_soluongoitratheoon_state": "Số lượng đổi trả theo đơn (State)",
+      "crdfd_soluongoitratheoonnew": "Số lượng đổi trả theo đơn New",
+      "crdfd_somaxuatkho": "Số mã xuất kho",
+      "crdfd_Specialevent_Maxuatkho_crdfd_Transa": "Special events",
+      "crdfd_tensanphamtex": "Tên sản phẩm",
+      "crdfd_tenthuongmai": "Tên thương mại",
+      "crdfd_thongtinin": "Trạng thái in",
+      "crdfd_tinhthanh": "Tỉnh/thành",
+      "crdfd_todate": "To date",
+      "crdfd_tongtienchuavat_formprint": "Tổng tiền chưa VAT _ Form Print",
+      "crdfd_trahang": "Trả hàng",
+      "crdfd_trangthaioitra": "Trạng thái đổi trả",
+      "crdfd_transactionsales_AsyncOperations": "System Jobs",
+      "crdfd_transactionsales_BulkDeleteFailures": "Bulk Delete Failures",
+      "crdfd_transactionsales_DuplicateBaseRecord": "Duplicate Records (crdfd_transactionsales_DuplicateBaseRecord)",
+      "crdfd_transactionsales_DuplicateMatchingRecord": "Duplicate Records (crdfd_transactionsales_DuplicateMatchingRecord)",
+      "crdfd_transactionsales_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "crdfd_transactionsales_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "crdfd_transactionsales_ProcessSession": "Process Sessions",
+      "crdfd_transactionsales_SyncErrors": "Sync Errors",
+      "crdfd_transactionsalesid": "ID",
+      "crdfd_ts_auto": "TS_auto",
+      "crdfd_ts_code": "TS_code",
+      "crdfd_vat": "VAT",
+      "crdfd_vitri": "Vị trí temp",
+      "crdfd_vitri2": "Vị trí",
+      "crdfd_vitrikho": "Vị trí kho",
+      "crdfd_vitritheocreateby": "Vị trí theo createBY",
+      "crdfd_xulyhangsailech_Phieuxuatkho_crdfd_transactionsales": "Xử lý hàng sai lệches",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "exchangerate": "Exchange Rate",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "transactioncurrencyid": "Currency",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Transaction Sales",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Transaction Sales (Views)",
+    "Name": "_crdfd_transactionsales_views",
+    "RelatedEntityName": "Transaction Sales",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "03fa63ef-fbd0-ec11-a7b5-002248190f0f": "Lịch sử xuất kho-Giá-Quy Nhơn",
+      "0c9794cf-d6ed-ef11-be1f-000d3ac69dad": "Lịch sử xuất 15 ngày - Lookup",
+      "21dd3dbd-c027-46f2-9518-0446d178cdd4": "Transaction Sales Associated View",
+      "27d94aa0-bc53-4469-ad11-99217f0e2931": "Transaction Sales Lookup View",
+      "2f3f1912-b92d-4d1d-926d-45ece337abde": "Transaction Sales Advanced Find View",
+      "4b145253-0369-f011-bec3-000d3aa129b6": "Lịch sử xuất 30day Giao bù - Lookup",
+      "515a7702-d983-f011-b4cc-002248568a28": "Lịch sử xuất kho - Kho Bình Định",
+      "8accecd1-6dd7-ee11-904c-000d3a07ded5": "Lịch sử xuất kho",
+      "8e890738-a4d7-ef11-a731-0022485a2a40": "Lịch sử xuất kho - Khánh Hòa",
+      "9bf7673e-cd76-ed11-81ac-002248593e2d": "Lịch sử xuất kho - SC",
+      "ac5f6138-e3d0-ec11-a7b5-002248190f0f": "Lịch sử xuất kho-Giá-Sài Gòn",
+      "afb0fe9f-ec0d-f011-998a-000d3a090417": "Lịch sử xuất kho - HCM",
+      "d07b0182-e37f-ec11-8d21-000d3a81f02d": "Lịch sử xuất kho - giá",
+      "efc76211-6028-46fb-9cc5-5ad531f539bd": "Inactive Transaction Sales",
+      "f7b2e78f-97df-459d-99bc-92c6d0bd1fc7": "Lịch sử xuất kho full"
+    }
+  },
+  {
+    "DisplayName": "local",
+    "Name": "crdfd_local",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Quy Nhơn",
+      "191920001": "Sài Gòn",
+      "191920002": "Khánh Hòa"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_noixuat",
+        "OptionSetReferenceEntityName": "Transaction Sales"
+      },
+      "OptionSetReferenceItem1": {
+        "OptionSetReferenceColumnName": "crdfd_local",
+        "OptionSetReferenceEntityName": "Users"
+      },
+      "OptionSetReferenceItem2": {
+        "OptionSetReferenceColumnName": "crdfd_chinhanhso",
+        "OptionSetReferenceEntityName": "Sale_Orders"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_noixuat",
+    "RelatedEntityName": "Transaction Sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Trạng thái đổi trả",
+    "Name": "crdfd_trangthaioitra",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Đổi trả 1 phần",
+      "191920001": "Đổi trả hết",
+      "191920002": "Xuất kho"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_trangthaioitra",
+        "OptionSetReferenceEntityName": "Transaction Sales"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_trangthaioitra",
+    "RelatedEntityName": "Transaction Sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Active data (Transaction Sales)",
+    "Name": "crdfd_transactionsales_crdfd_activedata",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Deactivate"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_activedata",
+        "OptionSetReferenceEntityName": "Transaction Sales"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "crdfd_activedata",
+    "RelatedEntityName": "Transaction Sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "App (Transaction Sales)",
+    "Name": "crdfd_transactionsales_crdfd_app",
+    "OptionSetInfoNameMapping": {
+      "191920000": "App xuất kho",
+      "191920001": "Quét QR code",
+      "191920002": "Khác"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_app",
+        "OptionSetReferenceEntityName": "Transaction Sales"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_app",
+    "RelatedEntityName": "Transaction Sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Data edited (Transaction Sales)",
+    "Name": "crdfd_transactionsales_crdfd_dataedited",
+    "OptionSetInfoNameMapping": {
+      "0": "Original",
+      "1": "Edited"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_dataedited",
+        "OptionSetReferenceEntityName": "Transaction Sales"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "crdfd_dataedited",
+    "RelatedEntityName": "Transaction Sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Transaction Sales)",
+    "Name": "crdfd_transactionsales_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Transaction Sales"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Transaction Sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Transaction Sales)",
+    "Name": "crdfd_transactionsales_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Transaction Sales"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Transaction Sales",
+    "Type": "OptionSetInfo"
+  }
+]

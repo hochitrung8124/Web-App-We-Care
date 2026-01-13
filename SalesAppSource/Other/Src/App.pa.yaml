@@ -1,0 +1,410 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+App:
+  Properties:
+    ConfirmExit: =
+    Formulas: |-
+      =mail_sale = If(
+          User().Email = "diem.pham@wecare-i.com" || User().Email = "khoi.tran@wecare.com.vn" || User().Email = "hieu.le@wecare-i.com" || User().Email = "nhan.cao@wecare-i.com" || User().Email = "de.nguyen@wecare-i.com" || User().Email = "thong.le@wecare.com.vn" || User().Email = "tien.tranvan@wecare.com.vn" || User().Email = "khoa.nguyen@wecare-i.com.vn" || User().Email = "manh.le@wecare-i.com" || User().Email = "le.hung@wecare-i.com"|| User().Email = "trung.ho@wecare-i.com",
+      //"dung.bui@wecare.com.vn",
+      //"diem.pham@wecare-i.com",
+      //"phong.tran@wecare.com.vn",
+      //"manh.le@wecare-i.com",
+      //"trung.dinh@wecare.com.vn",
+      "tam.vominh@wecare.com.vn",
+      //"tinh.nguyen@wecare.com.vn",
+
+
+          //"an.nguyen@wecare.com.vn",
+          User().Email
+      );
+      nv_sale = LookUp(
+          Employees,
+          Email = mail_sale
+      );
+      Sales_Manage = Filter(
+          Employees,
+          ('Direct Management'.EmployeeID = nv_sale.EmployeeID || Email = mail_sale) And 'Trạng thái' = 'Trạng thái choice hr'.'Đang làm'
+      );
+      KPI_User = LookUp(
+          Sales_Manage,
+          Email = Combobox_Sales.Selected.Email
+      ).'Json KPI';
+      //check_role = nv_sale.cr1bb_Capbac.'Cấp bậc' = "Sale Manager" Or nv_sale.cr1bb_Capbac.'Cấp bậc' = "Sale Leader" Or nv_sale.cr1bb_Capbac.'Cấp bậc' = "Sale Admin";
+
+      check_role_sup = nv_sale.Position = 'Vị trí - employee choice'.'Trưởng nhóm khu vực Kinh doanh bán lẻ' || nv_sale.Position = 'Vị trí - employee choice'.'Quản lý Đội ngũ hiện trường' || nv_sale.Position = 'Vị trí - employee choice'.'Giám sát vùng Kinh doanh bán lẻ';
+      check_role_leader_sales = User().Email = "bong.ha@wecare.com.vn" || User().Email = "trung.huynh@wecare.com.vn" || User().Email = "phuong.la@wecare.com.vn" || nv_sale.Position = 'Vị trí - employee choice'.'Trưởng nhóm Kinh doanh Online' || User().Email = "diem.pham@wecare-i.com";
+      dsTinhSupQL = If(
+          check_role_sup,
+          Filter(
+              'Tỉnh/Thành',
+              Supervisor.'Employee Code' = nv_sale.'Employee Code' && Status = 'Status (Tỉnh/Thành)'.Active
+          )
+      );
+      check_role_sale_online = nv_sale.Position = 'Vị trí - employee choice'.'Chuyên viên Kinh doanh Online' Or nv_sale.Position = 'Vị trí - employee choice'.'Nhân viên Kinh doanh Online';
+      // nv_sale.Email="chinh.nguyen@wecare.com.vn"||nv_sale.Email="phong.tran@wecare.com.vn"||nv_sale.Email="dung.bui@wecare.com.vn";
+      checkrole_saleleader_online = nv_sale.Email = "trang.bui@wecare.com.vn" || nv_sale.Email = "bong.ha@wecare.com.vn";
+      List_KPI = Sort(
+          AddColumns(
+              Table(ParseJSON(KPI_User)),
+              NameKPI,
+              Value.crdfd_name,
+              Doi_Tuong,
+              Text(Value.doi_tuong_name),
+              Loai_doi_tuong,
+              Value.cr1bb_loaioituongname,
+              Tan_suat,
+              Value.cr1bb_tansuatname,
+              Tuan,
+              Value.cr1bb_tuan,
+              Thang,
+              Value.cr1bb_thang1,
+              KPI_Value,
+              Value(Value.crdfd_kpivalue),
+              KPI_Actual,
+              Value(Value.cr1bb_kpiactual)
+          ),
+          Doi_Tuong,
+          SortOrder.Ascending
+      );
+
+      list_checkInOut = SortByColumns(
+          Filter(
+              data_CNKH,
+              'Thời gian check in' >= DateValue(
+                  Button8.Text,
+                  "vi-VN"
+              ) And 'Thời gian check in' <= DateAdd(
+                  DateValue(
+                      Button8.Text,
+                      "vi-VN"
+                  ),
+                  1
+              )
+          ),
+          "cr3b9_thoigian_checkout",
+          SortOrder.Descending
+      );
+      list_checkInOut_CNKH = SortByColumns(
+          Filter(
+              data_CNKH_Src,
+              'Thời gian check in' >= DateValue(
+                  Text(
+                      DatePickerCanvas1.SelectedDate,
+                      "dd/mm/yyyy"
+                  ),
+                  "vi-VN"
+              ) And 'Thời gian check in' <= DateAdd(
+                  DateValue(
+                      Text(
+                          DatePickerCanvas1.SelectedDate,
+                          "dd/mm/yyyy"
+                      ),
+                      "vi-VN"
+                  ),
+                  1
+              )
+          ),
+          "cr3b9_thoigian_checkout",
+          SortOrder.Descending
+      );
+      //tinh khoan cach
+      toa_do = Substitute(
+          Location.Latitude,
+          ",",
+          "."
+      ) & "," & Substitute(
+          Location.Longitude,
+          ",",
+          "."
+      );
+      lat = Location.Latitude;
+      lon = Location.Longitude;
+      location_kh = If(
+          !IsBlank(lat) && !IsBlank(g_KH_list.Selected.'Tọa độ xác minh'),
+          Trim(g_KH_list.Selected.'Tọa độ xác minh'),
+          0
+      );
+      from_location_lat = Substitute(
+          First(
+              Split(
+                  location_kh,
+                  ","
+              )
+          ).Value,
+          ".",
+          ","
+      );
+      from_location_long = Substitute(
+          Last(
+              Split(
+                  location_kh,
+                  ","
+              )
+          ).Value,
+          ".",
+          ","
+      );
+      dLat = ((lat - from_location_lat) * 3.141592) / 180;
+      dLon = ((lon - from_location_long) * 3.141592) / 180;
+      toRadiansLat = (from_location_lat * 3.141592) / 180;
+      fromRadiansLat = (lat * 3.141592) / 180;
+      a = Sin(dLat / 2) * Sin(dLat / 2) + Cos(fromRadiansLat) * Cos(toRadiansLat) * Sin(dLon / 2) * Sin(dLon / 2);
+      c = 2 * IfError(
+          Atan2(
+              Sqrt(1 - a),
+              Sqrt(a)
+          ),
+          0
+      );
+      d = 6371 * c;
+      khoang_cach = If(
+          !IsBlank(g_KH_list.Selected.'Tọa độ xác minh'),
+          If(
+              d < 1,
+              Text(
+                  d * 1000,
+                  "#,###.#"
+              ) & " m",
+              Text(
+                  d,
+                  "#,###.#"
+              ) & " km"
+          ),
+          0 & " m"
+      );
+      Check_khoangcach = If(
+          IsBlank(g_KH_list.Selected.'Tọa độ xác minh'),
+          true,
+          d < 1 And d * 1000 < 200,// < 100 m
+
+          true,
+          false
+      );
+      data_service_request = Sort(
+          Filter(
+              'Service Requests',
+              Status = 'Status (Service Requests)'.Active,
+              'Khách hàng'.'Sale name'.Email = User().Email Or 'Khách hàng'.'Quận huyện'.'Sale online mail' = User().Email,
+              'Created On' >= DateAdd(
+                  Now(),
+                  -3,
+                  TimeUnit.Days
+              )
+          ),
+          'Created On',
+          SortOrder.Ascending
+      );
+      vungmien = drop_emp.Selected.Location.'Vùng miền';
+      vungMien_Sale = nv_sale.Location.'Vùng miền';
+      chucvu = drop_emp.Selected.'Chức vụ ( text)';
+      tinhThanh = drop_emp.Selected.'Tỉnh/thành CAL';
+      // Miền Trung (bao gồm cả 3 tỉnh đặc biệt)
+      isApplyMienTrungLogic = If(
+          vungmien = 283640000 Or tinhThanh = "Tp. Hồ Chí Minh" Or tinhThanh = "Bình Dương" Or tinhThanh = "Đồng Nai",
+          true,
+          false
+      );
+      // Miền Nam thuần túy (loại trừ 3 tỉnh đặc biệt)
+      isApplyMienNamLogic = If(
+          vungmien = 283640001 And tinhThanh <> "Tp. Hồ Chí Minh" And tinhThanh <> "Bình Dương" And tinhThanh <> "Đồng Nai",
+          true,
+          false
+      );
+      soKhCheckIn = CountRows(
+          Filter(
+              list_checkInOut_CNKH,
+              !IsBlank('Thời gian check out') And 'Trạng thái gặp khách' <> 'Trạng thái gặp khách (Cập nhật khách háng)'.'Không gặp được'
+          )
+      );
+      ischeckCong = If(
+          chucvu = "Nhân viên Kinh doanh bán lẻ",
+          If(
+              isApplyMienNamLogic,
+                  // Logic riêng cho Miền Nam (trừ 3 tỉnh)
+
+              If(
+                  soKhCheckIn >= 10,
+                  If(
+                      Weekday(Today()) = 1,
+                      1.3,
+                      1
+                  ),// Chủ nhật = 1 trong Power Fx
+
+                  If(
+                      soKhCheckIn >= 1,
+                      0.5,
+                      0
+                  )
+              ),
+              If(
+                  isApplyMienTrungLogic,
+                      // Logic cho Miền Trung (bao gồm 3 tỉnh đặc biệt)
+
+                  If(
+                      soKhCheckIn >= 8 && Sum(
+                          list_checkInOut_CNKH,
+                          'Tổng thời gian chăm sóc (s)'
+                      ) >= 3.8,
+                      If(
+                          Weekday(Today()) = 1,
+                          1.3,
+                          1
+                      ),
+                      If(
+                          soKhCheckIn >= 5 && Sum(
+                              list_checkInOut_CNKH,
+                              'Tổng thời gian chăm sóc (s)'
+                          ) >= 2.8,
+                          0.5,
+                          0
+                      )
+                  ),
+                  0// Trường hợp không xác định
+
+              )
+          ),
+              // Logic cho chức vụ khác
+
+          If(
+              soKhCheckIn >= 8,
+              If(
+                  Weekday(Today()) = 1,
+                  1.3,
+                  1
+              ),
+              If(
+                  soKhCheckIn >= 5,
+                  0.5,
+                  0
+              )
+          )
+      );
+      ///notify
+      CuoiNgay = DateValue(Today()) + Time(
+          23,
+          59,
+          0
+      );
+      DauNgay = DateValue(Today()) + Time(
+          1,
+          0,
+          0
+      );
+      list_notify = AddColumns(
+          Filter(
+              'Ecommerce Website',
+              Status = 'Status (Ecommerce Website)'.Active,
+              Loại = 'Loại text (Ecommerce Website)'.'Thông báo'
+          ),
+          Vung_mien,
+          If(
+              'Vùng miền' = 'Vùng miền (Ecommerce Website)'.'Miền Nam',
+              "Miền Nam",
+              "Miền Trung"
+          )
+      );
+      //promotion
+      Data_PromotionMienTrungLogic = Filter(
+          Promotion_1,
+          Status = 'Status (Promotion_1)'.Active && !IsBlank('Nhóm sản phẩm áp dụng'),
+          ("Tp. Hồ Chí Minh" in 'Tỉnh thành áp dụng' || "Bình Dương" in 'Tỉnh thành áp dụng' || "Đồng Nai" in 'Tỉnh thành áp dụng') && 'Promotion Deactive' = "Active"
+      );
+      Data_PromotionMienNamLogic = Filter(
+          Promotion_1,
+          Status = 'Status (Promotion_1)'.Active && !IsBlank('Nhóm sản phẩm áp dụng'),
+          !("Tp. Hồ Chí Minh" in 'Tỉnh thành áp dụng' || "Bình Dương" in 'Tỉnh thành áp dụng' || "Đồng Nai" in 'Tỉnh thành áp dụng') && 'Promotion Deactive' = "Active"
+      );
+      colUniqueIDs = Distinct(
+          Ungroup(
+              AddColumns(
+                  Switch(
+                      true,
+                      isApplyMienNamLogic,
+                      Data_PromotionMienNamLogic,
+                      isApplyMienTrungLogic,
+                      Data_PromotionMienTrungLogic
+                  ),
+                  SplitIDs,
+                  ForAll(
+                      Split(
+                          'Nhóm sản phẩm áp dụng',
+                          ","
+                      ),
+                      {Result: Trim(Value)}
+                  )
+              ),
+              SplitIDs
+          ),
+          Result
+      );
+      nofify_data = If(
+          IsBlank(txt_SearchNotify.Text),
+          Sort(
+              Filter(
+                  list_notify,
+                  Vung_mien = nv_sale.Location.'Vùng miền fx'
+              ),
+              'Created On',
+              SortOrder.Descending
+          ),
+          Sort(
+              Filter(
+                  Search(
+                      list_notify,
+                      txt_SearchNotify.Text,
+                      Title
+                  ),
+                  Vung_mien = nv_sale.Location.'Vùng miền fx'
+              ),
+              'Created On',
+              SortOrder.Descending
+          )
+      );
+      var_kh = Switch(
+          true,
+          check_role_leader_sales,
+          Sort(
+              Filter(
+                  Customers,
+                  Status = 'Status (Customers)'.Active And (IsBlank(var_SearchText) || var_SearchText in 'Customer name')
+              ),
+              'Customer name',
+              SortOrder.Ascending
+          ),
+          check_role_sale_online,
+          Sort(
+              Filter(
+                  Customers,
+                  Status = 'Status (Customers)'.Active And 'Sale online' = nv_sale.Name And (IsBlank(var_SearchText) || var_SearchText in 'Customer name')
+              ),
+              'Customer name',
+              SortOrder.Ascending
+          ),
+          check_role_sup,
+          Sort(
+              Filter(
+                  Customers,
+                  Status = 'Status (Customers)'.Active And (IsBlank(var_SearchText) || var_SearchText in 'Customer name'),
+                  mail_sale in 'Supervisor - mail'
+              ),
+              'Customer name',
+              SortOrder.Ascending
+          ),
+          Sort(
+              Filter(
+                  Customers,
+                  Status = 'Status (Customers)'.Active And (IsBlank(var_SearchText) || var_SearchText in 'Customer name'),
+                  mail_sale in 'Sale - mail'
+              ),
+              'Customer name',
+              SortOrder.Ascending
+          )
+      );
+    Theme: =PowerAppsTheme

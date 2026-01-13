@@ -1,0 +1,703 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "crdfd_suppliers",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "crdfd_supplier",
+    "MaxGetRowsCount": 2000,
+    "Name": "Suppliers",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "{Attachments}": "Attachments",
+      "cr1bb_checkcongno": "check công nợ",
+      "cr1bb_Chinhsachcongno": "Chính sách công nợ",
+      "cr1bb_cr1bb_congnonhacungcap_Nhacungcap_crdfd_s": "Công nợ nhà cung cấps",
+      "cr1bb_cr1bb_suggesttobuyproduct_Nhacungcap_crdf": "Suggest to Buy - Product",
+      "cr1bb_cr44a_hoaonmuahang_Nhacungcap_crdfd_supplier": "Hóa đơn mua (cr1bb_cr44a_hoaonmuahang_Nhacungcap_crdfd_supplier)",
+      "cr1bb_cr44a_khogiacong_Nhacungcap_crdfd_supplie": "Kho gia công",
+      "cr1bb_crdfd_event_details_Nhacungcap_crdfd_supplier": "Event Details",
+      "cr1bb_crdfd_kho_binh_dinh_oitac_crdfd_supplier": "Kho Bình Định",
+      "cr1bb_crdfd_oituongkpi_Nhacungcap_crdfd_supplie": "KPI > Đối tượng > Tần suấts",
+      "cr1bb_crdfd_tnghpitng_Nhacungcap_crdfd_supplier": "Tổng hợp đối tượngs",
+      "cr1bb_hanno": "Hạn nợ",
+      "cr1bb_idmoi": "ID mới",
+      "cr1bb_lichsutenphaply": "Lịch sử tên pháp lý",
+      "cr1bb_loaivip": "Loại VIP",
+      "cr1bb_manvsource": "Mã NV source",
+      "cr1bb_nccuutien": "NCC ưu tiên",
+      "cr1bb_ngayuutien": "Ngày ưu tiên",
+      "cr1bb_Nhacungcap_crdfd_supplier": "Phiếu nhận hàngs",
+      "cr1bb_nhacungcap_sanpham_Nha_cung_cap_crdfd_supplier": "Nhà cung cấp - Sản phẩms",
+      "cr1bb_oaid": "OA ID",
+      "cr1bb_oamessage": "OA message",
+      "cr1bb_phanloai": "Phân loại",
+      "cr1bb_soonhang": "Số Đơn Hàng 12 tháng",
+      "cr1bb_thongtinchungnhacungcap_Nhacungcap_crdfd_": "Thông tin chung nhà cung cấps",
+      "cr1bb_tnphpl": "Tn php l",
+      "cr1bb_tongtienlast30day": "Tổng tiền last 30 day",
+      "cr1bb_tongtienlast30day_base": "Tổng tiền last 30 day (Base)",
+      "cr1bb_tongtienlast30day_date": "Tổng tiền last 30 day (Last Updated On)",
+      "cr1bb_tongtienlast30day_state": "Tổng tiền last 30 day (State)",
+      "cr1bb_trancongno": "Trần công nợ",
+      "cr1bb_websitencc": "Website NCC",
+      "cr44a_cr1bb_kehoachphaitra_Nha_cung_cap_crdfd_supplier": "Kế hoạch phải trả",
+      "cr44a_cr1bb_oichieucongnonhacungcap_Nhacungcap_crdfd_supplier": "Đối chiếu công nợ nhà cung cấps",
+      "cr44a_cr44a_chungtubanhangaccounting2_Nhacungca": "Chứng từ bán hàng - Accounting 2S",
+      "cr44a_cr44a_chungtunghiepvukhacchitiet_Tennhacu": "Chứng từ nghiệp vụ khác-Chi tiết",
+      "cr44a_cr44a_chungtuquyettoantamungchitiet_Nhacu": "Chứng từ quyết toán tạm ứng chi tiết",
+      "cr44a_cr44a_hoaonmuahang_oituong_crdfd_supplier": "Hóa đơn mua (cr44a_cr44a_hoaonmuahang_oituong_crdfd_supplier)",
+      "cr44a_cr44a_muahang_NhacungcapLK_crdfd_supplier": "Mua hàngs",
+      "cr44a_cr44a_tiengui2_oituongchi_crdfd_supplier": "Tiền gửis",
+      "cr44a_cr44a_tienguichitiet_oituongchiLK_crdfd_s": "Tiền gửi - chi tiếts",
+      "cr44a_cr44a_tienmat2_oituongchi_crdfd_supplier": "Tiền mặts",
+      "cr44a_cr44a_tienmatchitiet_oituongchiLK_crdfd_s": "Tiền mặt - chi tiếts",
+      "cr44a_Ghitangtaisancoinh_Nhacungcap_crdfd": "Ghi tăng tài sản cố địnhs",
+      "cr44a_manhacungcap": "Mã nhà cung cấp",
+      "cr44a_sku_Nhacungcap_crdfd_supplier": "Mapping SKU",
+      "crdfd_acthugiaohang": "Đặc thù giao hàng",
+      "crdfd_actinh": "Đặc tính",
+      "crdfd_angkykinhdoanh": "Đăng ký kinh doanh",
+      "crdfd_arpolicy": "Chính sách nợ công",
+      "crdfd_BangghinhaninhluongSP_Nhacungcap_cr": "Bảng ghi nhận định lượng SP",
+      "crdfd_bankname": "Tên ngân hàng - VAT",
+      "crdfd_banknum": "STK ngân hàng - VAT",
+      "crdfd_BuyOrders_Nhacungcap_crdfd_Supplier": "BuyOrders",
+      "crdfd_cacvanehayecap": "Các vấn đề hay đề cập",
+      "crdfd_Chanhxevanchuyen": "Chành xe vận chuyển",
+      "crdfd_checkfile": "Check file",
+      "crdfd_checkstknganhang": "Check STK ngân hàng",
+      "crdfd_cobanob": "Có bán ở BĐ?",
+      "crdfd_congno": "Công nợ",
+      "crdfd_congnotinhenhomnay": "Công nợ tính đến hôm nay",
+      "crdfd_crdfd_athangbo_Nhacungcap_crdfd_supplier": "Đặt hàng BO",
+      "crdfd_crdfd_giamuachitiet_Nhacungcap_crdfd_supp": "Giá mua chi tiết",
+      "crdfd_crdfd_phieunhapkho_Nhacungcap_crdfd_suppl": "Phiếu nhập kho",
+      "crdfd_diachiphaply": "Địa chỉ pháp lý",
+      "crdfd_doithucanhtranh": "Đối thủ cạnh tranh",
+      "crdfd_doithuxkhachhang_Doithucanhtranh_crdfd_su": "Đối thủ x Khách hàngs",
+      "crdfd_doithuxquanhuyen_Tendoithu_crdfd_supplier": "Đối thủ x Quận huyệns",
+      "crdfd_doituongcapnhat": "Đối tượng cập nhật",
+      "crdfd_email": "Email",
+      "crdfd_eventinstance_Nhacungcap_crdfd_supplier": "Event instances",
+      "crdfd_ggmapurl": "GG Map URL",
+      "crdfd_giaiphap": "Giải pháp",
+      "crdfd_hangduloichuanhapkho_Nhacungcap_crdfd_supplier": "Hàng dư lỗi chưa nhập khos",
+      "crdfd_hinhanh": "Hình ảnh",
+      "crdfd_hinhanhid": "crdfd_HinhanhId",
+      "crdfd_hopdongnguyentac": "Hợp đồng nguyên tắc",
+      "crdfd_iemnhacc": "Điểm NCC",
+      "crdfd_ketquabaogiabanau": "Kết quả báo giá ban đầu",
+      "crdfd_khachhangtieubieu": "Khách hàng tiêu biểu",
+      "crdfd_khananggianno": "Khả năng giãn nợ",
+      "crdfd_kieunhacungcap": "Kiểu nhà cung cấp",
+      "crdfd_loai": "Mô hình hoạt động",
+      "crdfd_loaihinhkinhdoanh": "Loại hình kinh doanh",
+      "crdfd_loaioituong": "Loại đối tượng",
+      "crdfd_Location": "Location",
+      "crdfd_misacode": "Misa code",
+      "crdfd_misaname": "Tên pháp lý",
+      "crdfd_motachungdoithu": "Mô tả chung (đối thủ)",
+      "crdfd_mucdobaophukhachhangdoithu": "Mức độ bao phủ khách hàng (Đối thủ)",
+      "crdfd_namthanhlap": "Năm thành lập",
+      "crdfd_nccgiaiongap": "NCC giải đơn gấp",
+      "crdfd_ngay_tao": "Ngày tạo",
+      "crdfd_ngayhieuluctenphaply": "Ngày hiệu lực tên pháp lý",
+      "crdfd_Nguoitao": "Người tạo",
+      "crdfd_nguoithuhuong": "Người thụ hưởng - VAT",
+      "crdfd_nguoithuhuongkhongvat": "Người thụ hưởng - Không VAT",
+      "crdfd_nhacungcap": "Có bán cho công ty",
+      "crdfd_Nhanvienphutrachnangcap": "Nhân viên phụ trách nâng cấp",
+      "crdfd_nhomsanphammuilti": "Nhóm sản phẩm muilti",
+      "crdfd_nhomspchinh": "Nhóm sp chính",
+      "crdfd_notes": "Notes (crdfd_notes)",
+      "crdfd_password": "Password",
+      "crdfd_purchaseplandetail_Supplier_crdfd_supplier": "Purchase plan detail",
+      "crdfd_purchasesuggestionexclusion_Supplier_crdfd_supplier": "Purchase suggestion exclusion",
+      "crdfd_Quality_crdfd_Nhachungcap_crdfd_Sup": "Qualities",
+      "crdfd_quanhuyen": "Quận huyện",
+      "crdfd_quymo": "Quy mô",
+      "crdfd_rejectednote": "Rejected note",
+      "crdfd_Sanphamchinh": "Sản phẩm chính",
+      "crdfd_soluongbaogia": "Số lượng báo giá",
+      "crdfd_sonhomsanphamcohoi": "Số nhóm sản phẩm cơ hội",
+      "crdfd_sonhomsanphamcohoi_date": "Số nhóm sản phẩm cơ hội (Last Updated On)",
+      "crdfd_sonhomsanphamcohoi_state": "Số nhóm sản phẩm cơ hội (State)",
+      "crdfd_sonhomspamuatrong2thang": "Số nhóm sp đã mua trong 2 tháng",
+      "crdfd_soonhang": "Số đơn hàng",
+      "crdfd_soonhang_date": "Số đơn hàng (Last Updated On)",
+      "crdfd_soonhang_state": "Số đơn hàng (State)",
+      "crdfd_soonhangamuatrong2thang": "Số đơn hàng đã mua trong 2 tháng",
+      "crdfd_sourcing_opportunity_Supplier_crdfd_supplier": "Sourcing opportunities",
+      "crdfd_Sourcingchanel": "Sourcing chanel",
+      "crdfd_sourcingopportunity_nhacungcap_crdfd_supp": "Sourcing Opportunity (outdate)S",
+      "crdfd_sourcingPeople": "Nhân viên sourcing",
+      "crdfd_spaban": "SP đã mua",
+      "crdfd_SpecialOrder_oitac_crdfd_Supplier": "Special Orders",
+      "crdfd_stknganhangkhongvat": "STK ngân hàng - Không VAT",
+      "crdfd_summary": "Summary",
+      "crdfd_supplier_addr": "Địa chỉ",
+      "crdfd_supplier_Annotations": "Notes (crdfd_supplier_Annotations)",
+      "crdfd_supplier_AsyncOperations": "System Jobs",
+      "crdfd_supplier_BulkDeleteFailures": "Bulk Delete Failures",
+      "crdfd_supplier_DuplicateBaseRecord": "Duplicate Records (crdfd_supplier_DuplicateBaseRecord)",
+      "crdfd_supplier_DuplicateMatchingRecord": "Duplicate Records (crdfd_supplier_DuplicateMatchingRecord)",
+      "crdfd_supplier_FileAttachments": "FileAttachments",
+      "crdfd_supplier_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "crdfd_supplier_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "crdfd_supplier_ProcessSession": "Process Sessions",
+      "crdfd_supplier_SyncErrors": "Sync Errors",
+      "crdfd_supplierid": "Id",
+      "crdfd_supplierinteraction_Nha_cung_cap_crdfd_supplier": "Supplier Interaction",
+      "crdfd_suppliername": "SupplierName",
+      "crdfd_supplierphone": "Phone",
+      "crdfd_supplierquote_Supplier_crdfd_supplier": "Supplier Quote",
+      "crdfd_SupplierRegion": "Supplier Region",
+      "crdfd_supplychaindetails_Nhacungcap_crdfd_suppl": "Supply chain details",
+      "crdfd_tasks_Nhacungcap_crdfd_supplier": "Tasks_",
+      "crdfd_taxcode": "MST",
+      "crdfd_tennganhangkhongvat": "Tên ngân hàng - Không VAT",
+      "crdfd_Tenthuongmai": "Tên thương mại",
+      "crdfd_test": "test",
+      "crdfd_tinh_thanh": "Tỉnh/Thành",
+      "crdfd_tinhcach": "Tính cách",
+      "crdfd_toao": "Tọa độ",
+      "crdfd_tongquan": "Tổng quan",
+      "crdfd_tongtienlast30daynumber": "Tổng tiền last 30 day (Number)",
+      "crdfd_tongtienmuatrong2thang": "Tổng tiền mua trong 2 tháng",
+      "crdfd_trangthaibaogia": "Trạng thái báo giá",
+      "crdfd_trangthailenon": "Trạng thái lên đơn",
+      "crdfd_trangthaincc": "Trạng thái NCC",
+      "crdfd_trangthaiphanloai": "Trạng thái phê duyệt",
+      "crdfd_trangthaiphanloaincc": "Supplier Category",
+      "crdfd_tuongquangiasovoithitruong": "Tương quan giá so với thị trường",
+      "crdfd_type": "Type",
+      "crdfd_Warehouse": "Warehouse",
+      "crdfd_xulyhangloi_Nhacungcapchiuphi_crdfd_supplier": "Xử lý hàng lỗi (crdfd_xulyhangloi_Nhacungcapchiuphi_crdfd_supplier)",
+      "crdfd_xulyhangloi_Nhaxi_crdfd_supplier": "Xử lý hàng lỗi (crdfd_xulyhangloi_Nhaxi_crdfd_supplier)",
+      "crdfd_zalogroup": "Zalo Group",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "exchangerate": "Exchange Rate",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "transactioncurrencyid": "Tiền tệ",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Suppliers",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Suppliers (Views)",
+    "Name": "_crdfd_supplier_views",
+    "RelatedEntityName": "Suppliers",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "19785118-961c-ef11-840a-002248587727": "Supplier lookup accounting",
+      "1cc10158-57d3-43fd-baf2-c952b9315373": "Nhà cung cấp trong nước",
+      "42eb6473-d6e3-4805-9a25-79bf77653313": "Supplier Advanced Find View",
+      "669a16f9-f3b7-4abc-a482-edaee91fd979": "Inactive Suppliers",
+      "68e880f2-d9f6-ee11-a1fe-6045bd1f635f": "Nhà cung cấp - Accounting",
+      "7a810af5-bac6-47b2-8f53-4a47c7dcb2f9": "Supplier Lookup View",
+      "acbee5dc-e7e9-f011-8406-002248563990": "Nhà cung cấp quốc tế",
+      "badda99a-de10-ef11-9f89-000d3aa1fde0": "Đối thủ cạnh tranh",
+      "c127414a-afc7-469e-8730-5a9040d49eb0": "Supplier Associated View"
+    }
+  },
+  {
+    "DisplayName": "check công nợ (Suppliers)",
+    "Name": "cr1bb_crdfd_supplier_cr1bb_checkcongno",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr1bb_checkcongno",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "cr1bb_checkcongno",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Loại VIP (Suppliers)",
+    "Name": "cr1bb_crdfd_supplier_cr1bb_loaivip",
+    "OptionSetInfoNameMapping": {
+      "283640000": "VIP"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr1bb_loaivip",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr1bb_loaivip",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "NCC ưu tiên (Suppliers)",
+    "Name": "cr1bb_crdfd_supplier_cr1bb_nccuutien",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr1bb_nccuutien",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "cr1bb_nccuutien",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "OA message (Suppliers)",
+    "Name": "cr1bb_crdfd_supplier_cr1bb_oamessage",
+    "OptionSetInfoNameMapping": {
+      "0": "Chưa có",
+      "1": "Có"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr1bb_oamessage",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "cr1bb_oamessage",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Loại hình kinh doanh",
+    "Name": "crdfd_loaihinhkinhdoanh",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Hộ kinh doanh",
+      "191920001": "Doanh nghiệp"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_loaihinhkinhdoanh",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_loaihinhkinhdoanh",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Loại đối tượng - NCC",
+    "Name": "crdfd_loaioituong",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Nhà cung cấp",
+      "191920001": "Nhân viên",
+      "191920002": "Khác"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_loaioituong",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_loaioituong",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Đặc tính (Suppliers)",
+    "Name": "crdfd_supplier_crdfd_actinh",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Dễ có thể giãn lịch thanh toán",
+      "191920001": "Khó tính, nhưng thương lượng được",
+      "191920002": "Cần thanh toán đúng hạn",
+      "191920003": "Thanh toán trước mới giao hàng",
+      "191920004": "Ngừng hợp tác",
+      "191920005": "Khác"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_actinh",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_actinh",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Có bán ở BĐ? (Suppliers)",
+    "Name": "crdfd_supplier_crdfd_cobanob",
+    "OptionSetInfoNameMapping": {
+      "0": "Không",
+      "1": "Có"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_cobanob",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "crdfd_cobanob",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Đối thủ cạnh tranh (Suppliers)",
+    "Name": "crdfd_supplier_crdfd_doithucanhtranh",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_doithucanhtranh",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "crdfd_doithucanhtranh",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Đối tượng cập nhật (Suppliers)",
+    "Name": "crdfd_supplier_crdfd_doituongcapnhat",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Cơ hội mua hàng",
+      "191920001": "Thông tin bước đầu",
+      "191920002": "Thông tin nâng cao",
+      "191920003": "Cập nhật định kỳ"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_doituongcapnhat",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "MultiSelectPicklistType",
+    "RelatedColumnInvariantName": "crdfd_doituongcapnhat",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Giải pháp (Suppliers)",
+    "Name": "crdfd_supplier_crdfd_giaiphap",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Rất tốt",
+      "191920001": "Tốt",
+      "191920002": "Trung bình",
+      "191920003": "Chữa cháy",
+      "191920004": "Không xác định"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_giaiphap",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_giaiphap",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Khả năng giãn nợ (Suppliers)",
+    "Name": "crdfd_supplier_crdfd_khananggianno",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Khó",
+      "191920001": "Trung bình",
+      "191920002": "Dễ"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_khananggianno",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_khananggianno",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Mô hình hoạt động (Suppliers)",
+    "Name": "crdfd_supplier_crdfd_loai",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Thương mại",
+      "191920001": "Sản xuất"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_loai",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_loai",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "NCC giải đơn gấp (Suppliers)",
+    "Name": "crdfd_supplier_crdfd_nccgiaiongap",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_nccgiaiongap",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "crdfd_nccgiaiongap",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Có bán cho công ty (Suppliers)",
+    "Name": "crdfd_supplier_crdfd_nhacungcap",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_nhacungcap",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "crdfd_nhacungcap",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Nhóm sản phẩm muilti (Suppliers)",
+    "Name": "crdfd_supplier_crdfd_nhomsanphammuilti",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Kim khí, phụ kiện",
+      "191920001": "Vật tư tiêu hao",
+      "191920002": "Hóa chất",
+      "191920003": "Bao bì",
+      "191920004": "Thiết bị nước",
+      "191920005": "Thiết bị điện"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_nhomsanphammuilti",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "MultiSelectPicklistType",
+    "RelatedColumnInvariantName": "crdfd_nhomsanphammuilti",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Trạng thái báo giá (Suppliers)",
+    "Name": "crdfd_supplier_crdfd_trangthaibaogia",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Chưa báo giá",
+      "191920001": "Đã báo giá"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_trangthaibaogia",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_trangthaibaogia",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Type (Suppliers)",
+    "Name": "crdfd_supplier_crdfd_type",
+    "OptionSetInfoNameMapping": {
+      "191920000": "WECARE",
+      "191920001": "WESHOP"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_type",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_type",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Suppliers)",
+    "Name": "crdfd_supplier_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Suppliers)",
+    "Name": "crdfd_supplier_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "suppliertype",
+    "Name": "crdfd_test",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Direct competitor",
+      "191920001": "Target supplier",
+      "191920002": "China supplier",
+      "191920003": "Online retailer",
+      "191920004": "BĐ Retailer",
+      "191920005": "SG Retailer"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_kieunhacungcap",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_kieunhacungcap",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Trạng thái NCC",
+    "Name": "crdfd_trangthaincc",
+    "OptionSetInfoNameMapping": {
+      "191920000": "Đã đặt hàng - pass",
+      "191920001": "Đã đặt hàng - fail",
+      "191920002": "Đã làm việc - chưa đặt hàng",
+      "191920003": "Chưa làm việc"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_trangthaincc",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_trangthaincc",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Trạng thái phân loại NCC",
+    "Name": "crdfd_trangthaiphanloaincc",
+    "OptionSetInfoNameMapping": {
+      "191920000": "STRATEGIC",
+      "191920001": "PREFERRED",
+      "191920002": "APPROVED",
+      "191920003": "CONDITIONAL",
+      "191920004": "REJECTED"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crdfd_trangthaiphanloaincc",
+        "OptionSetReferenceEntityName": "Suppliers"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crdfd_trangthaiphanloaincc",
+    "RelatedEntityName": "Suppliers",
+    "Type": "OptionSetInfo"
+  }
+]
