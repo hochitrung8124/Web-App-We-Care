@@ -297,9 +297,9 @@ function App() {
               <select
                 value={sourceFilter}
                 onChange={(e) => setSourceFilter(e.target.value)}
-                className="h-10 px-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent " 
-              
-              >
+                style={{ paddingRight: '30px' }}
+                className="h-10 px-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                >             
                 <option value="--Select--">Tất cả nguồn</option>
                 <option value="Facebook Ads">Facebook Ads</option>
                 <option value="TikTok Ads">TikTok Ads</option>
