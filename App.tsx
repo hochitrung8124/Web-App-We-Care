@@ -142,12 +142,8 @@ function App() {
     const pageLeads = filteredLeads.slice(startIndex, endIndex);
     setLeads(pageLeads);
     
-    // Auto-select first lead on page (always when changing page)
-    if (pageLeads.length > 0) {
-      setSelectedLead(pageLeads[0]);
-    } else {
-      setSelectedLead(null);
-    }
+    // Start with no lead selected
+    setSelectedLead(null);
   };
 
   const handleSelectLead = (lead: Lead) => {
