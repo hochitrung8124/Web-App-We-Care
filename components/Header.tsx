@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useAuth } from './AuthGuard';
 import { useDarkMode } from './DarkModeProvider';
+import { useNotifications } from './NotificationContext';
 import ConfirmModal from './ConfirmModal';
+import { createExcelTemplate } from '../services/ExcelImportService';
 
 interface HeaderProps {
   searchText: string;
@@ -11,8 +14,10 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ searchText, onSearchChange }) => {
   const { user, logout } = useAuth();
   const { theme, setTheme } = useDarkMode();
+  const { notifications, unreadCount, markAsRead, markAllAsRead, clearAll } = useNotifications();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showSettingsMenu, setShowSettingsMenu] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const handleLogout = () => {
@@ -22,6 +27,60 @@ const Header: React.FC<HeaderProps> = ({ searchText, onSearchChange }) => {
   const confirmLogout = () => {
     setShowLogoutConfirm(false);
     logout();
+  };
+
+  const handleDownloadTemplate = async () => {
+    try {
+      await createExcelTemplate();
+      setShowSettingsMenu(false);
+      toast.success('Tải xuống file mẫu thành công!', {
+        duration: 3000,
+        icon: '📄',
+      });
+    } catch (error) {
+      console.error('Error creating template:', error);
+      toast.error('Lỗi tạo file mẫu', {
+        duration: 3000,
+        icon: '❌',
+      });
+    }
+  };
+
+  const formatNotificationTime = (date: Date) => {
+    const now = new Date();
+    const diff = now.getTime() - date.getTime();
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(diff / 3600000);
+    const days = Math.floor(diff / 86400000);
+
+    if (minutes < 1) return 'Vừa xong';
+    if (minutes < 60) return `${minutes} phút trước`;
+    if (hours < 24) return `${hours} giờ trước`;
+    return `${days} ngày trước`;
+  };
+
+  const getNotificationIcon = (type: string) => {
+    switch (type) {
+      case 'add':
+        return 'person_add';
+      case 'update':
+        return 'edit';
+      case 'import':
+        return 'upload_file';
+      default:
+        return 'notifications';
+    }
+  };
+
+  const getNotificationColor = (department: string) => {
+    switch (department) {
+      case 'MARKETING':
+        return 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20';
+      case 'SALE':
+        return 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20';
+      default:
+        return 'text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/20';
+    }
   };
 
   return (
@@ -59,9 +118,120 @@ const Header: React.FC<HeaderProps> = ({ searchText, onSearchChange }) => {
           </a>
         </nav> */}
         <div className="flex gap-2">
-          <button className="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-            <span className="material-symbols-outlined">notifications</span>
-          </button>
+          {/* Notifications */}
+          <div className="relative">
+            <button 
+              onClick={() => setShowNotifications(!showNotifications)}
+              className="relative flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+            >
+              <span className="material-symbols-outlined">notifications</span>
+              {unreadCount > 0 && (
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                  {unreadCount > 9 ? '9+' : unreadCount}
+                </span>
+              )}
+            </button>
+
+            {/* Notifications Dropdown */}
+            {showNotifications && (
+              <>
+                <div 
+                  className="fixed inset-0 z-40" 
+                  onClick={() => setShowNotifications(false)}
+                ></div>
+                <div className="absolute right-0 mt-2 w-96 bg-white dark:bg-slate-900 rounded-lg shadow-xl border border-slate-200 dark:border-slate-800 z-50 max-h-[500px] flex flex-col">
+                  {/* Header */}
+                  <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-bold text-slate-900 dark:text-white">Thông báo</p>
+                      {unreadCount > 0 && (
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{unreadCount} chưa đọc</p>
+                      )}
+                    </div>
+                    {notifications.length > 0 && (
+                      <div className="flex gap-2">
+                        {unreadCount > 0 && (
+                          <button
+                            onClick={markAllAsRead}
+                            className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
+                          >
+                            Đánh dấu tất cả
+                          </button>
+                        )}
+                        <button
+                          onClick={clearAll}
+                          className="text-xs text-red-600 dark:text-red-400 hover:underline"
+                        >
+                          Xóa tất cả
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Notifications List */}
+                  <div className="overflow-y-auto flex-1">
+                    {notifications.length === 0 ? (
+                      <div className="flex flex-col items-center justify-center py-12 px-4">
+                        <span className="material-symbols-outlined text-slate-300 dark:text-slate-700 text-5xl mb-3">notifications_off</span>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">Chưa có thông báo</p>
+                      </div>
+                    ) : (
+                      <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                        {notifications.map((notification) => (
+                          <div
+                            key={notification.id}
+                            onClick={() => markAsRead(notification.id)}
+                            className={`px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer ${
+                              !notification.read ? 'bg-blue-50/30 dark:bg-blue-900/10' : ''
+                            }`}
+                          >
+                            <div className="flex items-start gap-3">
+                              <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                                getNotificationColor(notification.department)
+                              }`}>
+                                <span className="material-symbols-outlined text-lg">
+                                  {getNotificationIcon(notification.type)}
+                                </span>
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className={`text-sm ${
+                                  !notification.read 
+                                    ? 'font-bold text-slate-900 dark:text-white' 
+                                    : 'font-medium text-slate-700 dark:text-slate-300'
+                                }`}>
+                                  {notification.message}
+                                </p>
+                                {notification.customerName && (
+                                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                                    {notification.customerName}
+                                  </p>
+                                )}
+                                <div className="flex items-center gap-2 mt-1.5">
+                                  <span className={`text-xs px-2 py-0.5 rounded-full ${
+                                    notification.department === 'MARKETING' 
+                                      ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400'
+                                      : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+                                  }`}>
+                                    {notification.department}
+                                  </span>
+                                  <span className="text-xs text-slate-400 dark:text-slate-500">
+                                    {formatNotificationTime(notification.timestamp)}
+                                  </span>
+                                </div>
+                              </div>
+                              {!notification.read && (
+                                <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0 mt-2"></div>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
           
           {/* Settings Menu */}
           <div className="relative">
@@ -147,6 +317,30 @@ const Header: React.FC<HeaderProps> = ({ searchText, onSearchChange }) => {
                       {theme === 'auto' && (
                         <span className="material-symbols-outlined text-lg text-primary">check</span>
                       )}
+                    </button>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="border-t border-slate-200 dark:border-slate-800 my-2"></div>
+
+                  {/* Tools Section */}
+                  <div className="px-4 py-2">
+                    <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
+                      Công cụ
+                    </p>
+                  </div>
+                  <div className="py-1">
+                    <button
+                      onClick={handleDownloadTemplate}
+                      className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                    >
+                      <span className="material-symbols-outlined text-xl text-emerald-600 dark:text-emerald-400">
+                        download
+                      </span>
+                      <div className="flex-1">
+                        <span className="text-sm font-medium text-slate-900 dark:text-white">Tải mẫu Excel</span>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">Import khách hàng</p>
+                      </div>
                     </button>
                   </div>
                 </div>

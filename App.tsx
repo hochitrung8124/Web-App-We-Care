@@ -4,10 +4,15 @@ import Header from './components/Header';
 import LeadTable from './components/LeadTable';
 import CustomerSidebar from './components/CustomerSidebar';
 import AddLeadModal from './components/AddLeadModal';
+import ImportLeadsModal from './components/ImportLeadsModal';
+import { useNotifications } from './components/NotificationContext';
+import { useAuth } from './components/AuthGuard';
 import { getProspectiveCustomerService, roleService } from './services';
 import { Lead } from './types';
 
 function App() {
+  const { addNotification } = useNotifications();
+  const { user } = useAuth();
   const [allLeads, setAllLeads] = useState<Lead[]>([]); // All loaded leads
   const [leads, setLeads] = useState<Lead[]>([]); // Current page leads
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
@@ -21,6 +26,7 @@ function App() {
   const [searchText, setSearchText] = useState('');
   const [sourceFilter, setSourceFilter] = useState('--Select--');
   const [showAddLeadModal, setShowAddLeadModal] = useState(false);
+  const [showImportLeadsModal, setShowImportLeadsModal] = useState(false);
   const ITEMS_PER_PAGE = 5;
   const TOTAL_RECORDS_TO_LOAD = 50; // Load 50 records from Dataverse
 
@@ -223,6 +229,15 @@ function App() {
       // Reload leads to show new one
       await loadAllLeads();
       
+      // Add notification
+      addNotification({
+        type: 'add',
+        user: user?.name || user?.username || 'User',
+        department: department || 'MARKETING',
+        message: `Đã thêm khách hàng mới`,
+        customerName: newLeadData.name,
+      });
+      
       toast.success('Thêm khách hàng thành công!', {
         duration: 5000,
         icon: '✅',
@@ -235,6 +250,74 @@ function App() {
         icon: '❌',
       });
       throw err; // Re-throw to keep modal open
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleBulkImport = async (leads: Partial<Lead>[]) => {
+    try {
+      setSaving(true);
+      console.log(`📝 Importing ${leads.length} leads...`);
+
+      let successCount = 0;
+      let failedCount = 0;
+      const errors: string[] = [];
+
+      // Import từng lead
+      for (let i = 0; i < leads.length; i++) {
+        try {
+          await customerService.createProspectiveCustomer(leads[i]);
+          successCount++;
+          console.log(`✅ Lead ${i + 1}/${leads.length} imported`);
+        } catch (err) {
+          failedCount++;
+          const errorMsg = err instanceof Error ? err.message : 'Lỗi không xác định';
+          errors.push(`Dòng ${i + 1}: ${errorMsg}`);
+          console.error(`❌ Lead ${i + 1} failed:`, err);
+        }
+      }
+
+      // Close modal
+      setShowImportLeadsModal(false);
+      
+      // Reload leads
+      await loadAllLeads();
+      
+      // Add notification
+      if (successCount > 0) {
+        addNotification({
+          type: 'import',
+          user: user?.name || user?.username || 'User',
+          department: department || 'MARKETING',
+          message: `Đã import ${successCount} khách hàng từ Excel`,
+          count: successCount,
+        });
+      }
+      
+      // Show result
+      if (failedCount === 0) {
+        toast.success(`Import thành công ${successCount} khách hàng!`, {
+          duration: 5000,
+          icon: '✅',
+        });
+      } else {
+        toast.error(
+          `Thành công: ${successCount}, Thất bại: ${failedCount}\n${errors.slice(0, 3).join('\n')}${errors.length > 3 ? '\n...' : ''}`,
+          {
+            duration: 7000,
+            icon: '⚠️',
+          }
+        );
+      }
+    } catch (err) {
+      console.error('❌ Error during bulk import:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Lỗi import';
+      toast.error(`Lỗi: ${errorMessage}`, {
+        duration: 5000,
+        icon: '❌',
+      });
+      throw err;
     } finally {
       setSaving(false);
     }
@@ -336,6 +419,17 @@ function App() {
         );
 
         setSelectedLead(updatedLead);
+
+        // Add notification for Sale updates
+        if (department === 'SALE') {
+          addNotification({
+            type: 'update',
+            user: user?.name || user?.username || 'User',
+            department: 'SALE',
+            message: `Đã cập nhật thông tin khách hàng`,
+            customerName: updatedLead.name,
+          });
+        }
 
         // Show success toast
         toast.success('Đã lưu thông tin khách hàng thành công!', {
@@ -456,13 +550,22 @@ function App() {
                 <option value="Other">Other</option>
               </select>
               {department === 'MARKETING' && (
-                <button
-                  onClick={() => setShowAddLeadModal(true)}
-                  className="flex h-11 items-center justify-center gap-x-2 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 dark:from-emerald-500 dark:to-green-500 px-5 text-white text-sm font-bold shadow-lg shadow-emerald-500/30 dark:shadow-green-500/30 hover:shadow-xl hover:shadow-emerald-500/40 dark:hover:shadow-green-500/40 hover:scale-105 transition-all duration-300 border border-emerald-500/20"
-                >
-                  <span className="material-symbols-outlined text-[20px]">person_add</span>
-
-                </button>
+                <>
+                  <button
+                    onClick={() => setShowAddLeadModal(true)}
+                    className="flex h-11 items-center justify-center gap-x-2 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 dark:from-emerald-500 dark:to-green-500 px-5 text-white text-sm font-bold shadow-lg shadow-emerald-500/30 dark:shadow-green-500/30 hover:shadow-xl hover:shadow-emerald-500/40 dark:hover:shadow-green-500/40 hover:scale-105 transition-all duration-300 border border-emerald-500/20"
+                  >
+                    <span className="material-symbols-outlined text-[20px]">person_add</span>
+                    Thêm khách hàng
+                  </button>
+                  <button
+                    onClick={() => setShowImportLeadsModal(true)}
+                    className="flex h-11 items-center justify-center gap-x-2 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 dark:from-violet-500 dark:to-purple-500 px-5 text-white text-sm font-bold shadow-lg shadow-violet-500/30 dark:shadow-purple-500/30 hover:shadow-xl hover:shadow-violet-500/40 dark:hover:shadow-purple-500/40 hover:scale-105 transition-all duration-300 border border-violet-500/20"
+                  >
+                    <span className="material-symbols-outlined text-[20px]">upload_file</span>
+                    Import Excel
+                  </button>
+                </>
               )}
               {/* Clear Filter Icon */}
               {sourceFilter !== '--Select--' && (
@@ -618,6 +721,15 @@ function App() {
             onClose={() => setShowAddLeadModal(false)}
             onSave={handleAddNewLead}
             saving={saving}
+          />
+        )}
+
+        {/* Import Leads Modal */}
+        {showImportLeadsModal && (
+          <ImportLeadsModal
+            onClose={() => setShowImportLeadsModal(false)}
+            onImport={handleBulkImport}
+            importing={saving}
           />
         )}
     </div>
