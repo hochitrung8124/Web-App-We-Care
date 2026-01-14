@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from './AuthGuard';
+import { useDarkMode } from './DarkModeProvider';
 
 interface HeaderProps {
   searchText: string;
@@ -8,7 +9,9 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ searchText, onSearchChange }) => {
   const { user, logout } = useAuth();
+  const { theme, setTheme } = useDarkMode();
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showSettingsMenu, setShowSettingsMenu] = useState(false);
 
   const handleLogout = () => {
     if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
@@ -54,9 +57,97 @@ const Header: React.FC<HeaderProps> = ({ searchText, onSearchChange }) => {
           <button className="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
             <span className="material-symbols-outlined">notifications</span>
           </button>
-          <button className="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-            <span className="material-symbols-outlined">settings</span>
-          </button>
+          
+          {/* Settings Menu */}
+          <div className="relative">
+            <button
+              onClick={() => setShowSettingsMenu(!showSettingsMenu)}
+              className="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+            >
+              <span className="material-symbols-outlined">settings</span>
+            </button>
+
+            {/* Settings Dropdown Menu */}
+            {showSettingsMenu && (
+              <>
+                <div 
+                  className="fixed inset-0 z-40" 
+                  onClick={() => setShowSettingsMenu(false)}
+                ></div>
+                <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-900 rounded-lg shadow-xl border border-slate-200 dark:border-slate-800 py-2 z-50">
+                  <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-800">
+                    <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                      Giao diện
+                    </p>
+                  </div>
+                  
+                  {/* Theme Options */}
+                  <div className="py-1">
+                    <button
+                      onClick={() => {
+                        setTheme('light');
+                        setShowSettingsMenu(false);
+                      }}
+                      className={`w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors ${
+                        theme === 'light' ? 'bg-slate-50 dark:bg-slate-800' : ''
+                      }`}
+                    >
+                      <span className="material-symbols-outlined text-xl text-slate-700 dark:text-slate-300">
+                        light_mode
+                      </span>
+                      <div className="flex-1">
+                        <span className="text-sm font-medium text-slate-900 dark:text-white">Sáng</span>
+                      </div>
+                      {theme === 'light' && (
+                        <span className="material-symbols-outlined text-lg text-primary">check</span>
+                      )}
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setTheme('dark');
+                        setShowSettingsMenu(false);
+                      }}
+                      className={`w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors ${
+                        theme === 'dark' ? 'bg-slate-50 dark:bg-slate-800' : ''
+                      }`}
+                    >
+                      <span className="material-symbols-outlined text-xl text-slate-700 dark:text-slate-300">
+                        dark_mode
+                      </span>
+                      <div className="flex-1">
+                        <span className="text-sm font-medium text-slate-900 dark:text-white">Tối</span>
+                      </div>
+                      {theme === 'dark' && (
+                        <span className="material-symbols-outlined text-lg text-primary">check</span>
+                      )}
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setTheme('auto');
+                        setShowSettingsMenu(false);
+                      }}
+                      className={`w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors ${
+                        theme === 'auto' ? 'bg-slate-50 dark:bg-slate-800' : ''
+                      }`}
+                    >
+                      <span className="material-symbols-outlined text-xl text-slate-700 dark:text-slate-300">
+                        brightness_auto
+                      </span>
+                      <div className="flex-1">
+                        <span className="text-sm font-medium text-slate-900 dark:text-white">Tự động</span>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">Theo trình duyệt</p>
+                      </div>
+                      {theme === 'auto' && (
+                        <span className="material-symbols-outlined text-lg text-primary">check</span>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
         </div>
         
         {/* User Menu */}
