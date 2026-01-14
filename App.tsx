@@ -437,22 +437,14 @@ function App() {
             </div>
             <div className="flex gap-3 items-center">
               {/* Add Lead Button - Only for Marketing */}
-              {department === 'MARKETING' && (
-                <button
-                  onClick={() => setShowAddLeadModal(true)}
-                  className="flex h-11 items-center justify-center gap-x-2 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 dark:from-emerald-500 dark:to-green-500 px-5 text-white text-sm font-bold shadow-lg shadow-emerald-500/30 dark:shadow-green-500/30 hover:shadow-xl hover:shadow-emerald-500/40 dark:hover:shadow-green-500/40 hover:scale-105 transition-all duration-300 border border-emerald-500/20"
-                >
-                  <span className="material-symbols-outlined text-[20px]">person_add</span>
-                  Thêm khách hàng
-                </button>
-              )}
+
               
               {/* Source Filter */}
               <select
                 value={sourceFilter}
                 onChange={(e) => setSourceFilter(e.target.value)}
                 style={{ paddingRight: '30px' }}
-                className="h-10 px-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                className="h-11 px-5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 >             
                 <option value="--Select--">Tất cả nguồn</option>
                 <option value="Facebook Ads">Facebook Ads</option>
@@ -463,12 +455,20 @@ function App() {
                 <option value="Website Form">Website Form</option>
                 <option value="Other">Other</option>
               </select>
+              {department === 'MARKETING' && (
+                <button
+                  onClick={() => setShowAddLeadModal(true)}
+                  className="flex h-11 items-center justify-center gap-x-2 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 dark:from-emerald-500 dark:to-green-500 px-5 text-white text-sm font-bold shadow-lg shadow-emerald-500/30 dark:shadow-green-500/30 hover:shadow-xl hover:shadow-emerald-500/40 dark:hover:shadow-green-500/40 hover:scale-105 transition-all duration-300 border border-emerald-500/20"
+                >
+                  <span className="material-symbols-outlined text-[20px]">person_add</span>
 
+                </button>
+              )}
               {/* Clear Filter Icon */}
               {sourceFilter !== '--Select--' && (
                 <button
                   onClick={() => setSourceFilter('--Select--')}
-                  className="h-10 w-10 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center justify-center"
+                  className="h-11 w-11 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center justify-center"
                   title="Xóa bộ lọc"
                 >
                   <span className="material-symbols-outlined text-[20px]">filter_alt_off</span>
@@ -478,7 +478,7 @@ function App() {
               <button 
                 onClick={handleRefresh}
                 disabled={loading}
-                className="flex h-10 items-center justify-center gap-x-2 rounded-lg bg-primary px-4 text-white text-sm font-bold shadow-lg shadow-primary/20 hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex h-11 items-center justify-center gap-x-2 rounded-xl bg-primary px-5 text-white text-sm font-bold shadow-lg shadow-primary/20 hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <span className="material-symbols-outlined text-[20px]">{loading ? 'sync' : 'refresh'}</span>
                 {loading ? 'Đang tải...' : 'Lấy Leads mới'}

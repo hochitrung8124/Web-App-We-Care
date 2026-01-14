@@ -91,33 +91,33 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-5 py-3 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-r from-blue-50 to-violet-50 dark:from-blue-900/20 dark:to-violet-900/20">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-violet-500 flex items-center justify-center">
-                <span className="material-symbols-outlined text-white text-lg">person_add</span>
+          <div className="flex items-center justify-between px-6 py-4 border-b-2 border-slate-200 dark:border-slate-800 bg-gradient-to-r from-blue-50 to-violet-50 dark:from-blue-900/20 dark:to-violet-900/20">
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-500 to-violet-500 flex items-center justify-center shadow-lg">
+                <span className="material-symbols-outlined text-white text-2xl">person_add</span>
               </div>
               <div>
-                <h2 className="text-lg font-bold text-slate-900 dark:text-white">Thêm Khách Hàng Mới</h2>
-                <p className="text-xs text-slate-600 dark:text-slate-400">Nhập thông tin khách hàng tiềm năng</p>
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">Thêm Khách Hàng Mới</h2>
+                <p className="text-sm text-slate-600 dark:text-slate-400 mt-0.5">Nhập thông tin khách hàng tiềm năng</p>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="w-9 h-9 rounded-xl flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
+              className="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-800 transition-all hover:scale-110"
               disabled={saving}
             >
-              <span className="material-symbols-outlined text-slate-600 dark:text-slate-400">close</span>
+              <span className="material-symbols-outlined text-slate-600 dark:text-slate-400 text-xl">close</span>
             </button>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="p-5 overflow-y-auto max-h-[calc(85vh-220px)]">
-            <div className="space-y-4">
+          <form onSubmit={handleSubmit} className="p-6 overflow-y-auto max-h-[calc(85vh-220px)]">
+            <div className="space-y-5">
               {/* Tên khách hàng */}
               <div>
-                <label className="block text-xs font-semibold text-slate-900 dark:text-white mb-1.5">
-                  <span className="flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-base">person</span>
+                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
+                  <span className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-lg">person</span>
                     Tên khách hàng <span className="text-red-500">*</span>
                   </span>
                 </label>
@@ -125,7 +125,7 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
                   type="text"
                   value={formData.name}
                   onChange={(e) => handleChange('name', e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
                   placeholder="Nhập tên khách hàng"
                   required
                   disabled={saving}
@@ -134,9 +134,9 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
 
               {/* Số điện thoại */}
               <div>
-                <label className="block text-xs font-semibold text-slate-900 dark:text-white mb-1.5">
-                  <span className="flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-base">call</span>
+                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
+                  <span className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-lg">call</span>
                     Số điện thoại <span className="text-red-500">*</span>
                   </span>
                 </label>
@@ -144,18 +144,18 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => handleChange('phone', e.target.value)}
-                  className={`w-full px-3 py-2 rounded-lg border-2 ${
+                  className={`w-full px-4 py-3 rounded-xl border-2 ${
                     validationErrors.phone 
-                      ? 'border-red-500 dark:border-red-500' 
+                      ? 'border-red-500 dark:border-red-500 bg-red-50/50 dark:bg-red-900/10' 
                       : 'border-slate-200 dark:border-slate-700'
-                  } bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`}
+                  } bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all`}
                   placeholder="0123456789"
                   required
                   disabled={saving}
                 />
                 {validationErrors.phone && (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center gap-1">
-                    <span className="material-symbols-outlined text-sm">error</span>
+                  <p className="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center gap-1.5 font-medium">
+                    <span className="material-symbols-outlined text-base">error</span>
                     {validationErrors.phone}
                   </p>
                 )}
@@ -163,27 +163,27 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
 
               {/* Địa chỉ */}
               <div>
-                <label className="block text-xs font-semibold text-slate-900 dark:text-white mb-1.5">
-                  <span className="flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-base">location_on</span>
+                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
+                  <span className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-lg">location_on</span>
                     Địa chỉ
                   </span>
                 </label>
                 <textarea
                   value={formData.address}
                   onChange={(e) => handleChange('address', e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
                   placeholder="Nhập địa chỉ khách hàng"
-                  rows={2}
+                  rows={3}
                   disabled={saving}
                 />
               </div>
 
               {/* Mã số thuế */}
               <div>
-                <label className="block text-xs font-semibold text-slate-900 dark:text-white mb-1.5">
-                  <span className="flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-base">badge</span>
+                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
+                  <span className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-lg">badge</span>
                     Mã số thuế
                   </span>
                 </label>
@@ -191,17 +191,17 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
                   type="text"
                   value={formData.taxCode}
                   onChange={(e) => handleChange('taxCode', e.target.value)}
-                  className={`w-full px-3 py-2 rounded-lg border-2 ${
+                  className={`w-full px-4 py-3 rounded-xl border-2 ${
                     validationErrors.taxCode 
-                      ? 'border-red-500 dark:border-red-500' 
+                      ? 'border-red-500 dark:border-red-500 bg-red-50/50 dark:bg-red-900/10' 
                       : 'border-slate-200 dark:border-slate-700'
-                  } bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all`}
+                  } bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all`}
                   placeholder="10 hoặc 13 chữ số"
                   disabled={saving}
                 />
                 {validationErrors.taxCode && (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center gap-1">
-                    <span className="material-symbols-outlined text-sm">error</span>
+                  <p className="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center gap-1.5 font-medium">
+                    <span className="material-symbols-outlined text-base">error</span>
                     {validationErrors.taxCode}
                   </p>
                 )}
@@ -209,16 +209,16 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
 
               {/* Nguồn */}
               <div>
-                <label className="block text-xs font-semibold text-slate-900 dark:text-white mb-1.5">
-                  <span className="flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-base">campaign</span>
+                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
+                  <span className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-lg">campaign</span>
                     Nguồn <span className="text-red-500">*</span>
                   </span>
                 </label>
                 <select
                   value={formData.source}
                   onChange={(e) => handleChange('source', e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer"
                   required
                   disabled={saving}
                 >
@@ -233,21 +233,21 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
               </div>
 
               {/* Status info */}
-              <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                <p className="text-xs text-blue-900 dark:text-blue-300 flex items-center gap-1.5">
-                  <span className="material-symbols-outlined text-base">info</span>
-                  <span>Trạng thái sẽ tự động được đặt là: <strong>"Marketing đã xác nhận"</strong></span>
+              <div className="p-4 bg-gradient-to-r from-blue-50 to-violet-50 dark:from-blue-900/20 dark:to-violet-900/20 rounded-xl border-2 border-blue-200/60 dark:border-blue-800/60">
+                <p className="text-sm text-blue-900 dark:text-blue-300 flex items-center gap-2 font-medium">
+                  <span className="material-symbols-outlined text-lg">info</span>
+                  <span>Trạng thái sẽ tự động được đặt là: <strong className="font-bold">"Marketing đã xác nhận"</strong></span>
                 </p>
               </div>
             </div>
           </form>
 
           {/* Footer */}
-          <div className="flex items-center justify-end gap-3 px-5 py-5 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
+          <div className="flex items-center justify-end gap-3 px-6 py-5 border-t-2 border-slate-200 dark:border-slate-800 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-800/80">
             <button
               type="button"
               onClick={onClose}
-              className="px-5 py-2.5 rounded-lg border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+              className="px-6 py-3 rounded-xl border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-100 dark:hover:bg-slate-700 hover:scale-105 transition-all duration-200"
               disabled={saving}
             >
               Hủy
@@ -256,17 +256,17 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
               type="submit"
               onClick={handleSubmit}
               disabled={saving || !formData.name || !formData.phone}
-              className="px-5 py-2.5 rounded-lg bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-600 dark:to-violet-600 text-white text-sm font-semibold shadow-lg shadow-blue-500/30 hover:shadow-xl hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-1.5"
+              className="px-8 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-600 dark:to-violet-600 text-white font-bold shadow-xl shadow-blue-500/40 hover:shadow-2xl hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2"
             >
               {saving ? (
                 <>
-                  <span className="material-symbols-outlined text-base animate-spin">sync</span>
-                  Đang lưu...
+                  <span className="material-symbols-outlined text-lg animate-spin">sync</span>
+                  <span>Đang lưu...</span>
                 </>
               ) : (
                 <>
-                  <span className="material-symbols-outlined text-base">check</span>
-                  Thêm khách hàng
+                  <span className="material-symbols-outlined text-lg">check_circle</span>
+                  <span>Thêm khách hàng</span>
                 </>
               )}
             </button>
