@@ -273,24 +273,6 @@ function App() {
               <h1 className="text-slate-900 dark:text-white text-2xl font-bold leading-tight tracking-tight">
                 Xác nhận thông tin khách hàng {department ? `(${department === 'SALE' ? 'Sale' : department === 'MARKETING' ? 'Marketing' : 'Tất Cả'})` : ''}
               </h1>
-              <p className="text-slate-500 text-sm mt-1">
-                {loading ? 'Đang tải dữ liệu...' : `Hiển thị ${leads.length} / ${
-                  department 
-                    ? allLeads.filter(l => 
-                        department === 'MARKETING' 
-                          ? l.status === 'Đợi xác nhận' || l.status === 'Chờ xác nhận' 
-                          : l.status === 'Marketing đã xác nhận'
-                      ).length 
-                    : allLeads.length
-                } khách hàng (Trang ${currentPage}/${Math.ceil(
-                  (department 
-                    ? allLeads.filter(l => 
-                        department === 'MARKETING' 
-                          ? l.status === 'Đợi xác nhận' || l.status === 'Chờ xác nhận' 
-                          : l.status === 'Marketing đã xác nhận'
-                      ).length 
-                    : allLeads.length) / ITEMS_PER_PAGE) || 1})`}
-              </p>
             </div>
             <div className="flex gap-3 items-center">
               {/* Source Filter */}
