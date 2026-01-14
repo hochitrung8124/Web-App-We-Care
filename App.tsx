@@ -398,22 +398,7 @@ function App() {
               <h1 className="text-slate-900 dark:text-white text-2xl font-bold leading-tight tracking-tight">
                 Xác nhận thông tin khách hàng {department ? `(${department === 'SALE' ? 'Sale' : department === 'MARKETING' ? 'Marketing' : 'Tất Cả'})` : ''}
               </h1>
-              <p className="text-slate-500 text-sm mt-1">
-                {loading ? 'Đang tải dữ liệu...' : `Hiển thị ${leads.length} / ${department
-                  ? allLeads.filter(l =>
-                    department === 'MARKETING'
-                      ? l.status === 'Đợi xác nhận' || l.status === 'Chờ xác nhận'
-                      : l.status === 'Marketing đã xác nhận'
-                  ).length
-                  : allLeads.length} khách hàng (Trang ${currentPage}/${Math.ceil(
-                    (department
-                      ? allLeads.filter(l =>
-                        department === 'MARKETING'
-                          ? l.status === 'Đợi xác nhận' || l.status === 'Chờ xác nhận'
-                          : l.status === 'Marketing đã xác nhận'
-                      ).length
-                      : allLeads.length) / ITEMS_PER_PAGE) || 1})`}
-              </p>
+              
             </div>
             <div className="flex gap-3 items-center">
               {/* Source Filter */}
@@ -494,17 +479,17 @@ function App() {
               {/* Pagination Controls - Below table, right aligned */}
               {leads.length > 0 && (
                 <div className="flex justify-end mt-4">
-                  <div className="flex items-center gap-2">
+                  <div className="inline-flex items-center gap-2 bg-white dark:bg-slate-800 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
                     <button
                       onClick={handlePrevPage}
                       disabled={currentPage === 1 || loading}
-                      className="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-9 h-9 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-slate-100 dark:disabled:hover:bg-slate-700"
                       title="Trang trước"
                     >
-                      <span className="material-symbols-outlined text-[20px]">chevron_left</span>
+                      <span className="material-symbols-outlined text-[18px]">chevron_left</span>
                     </button>
                     
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-2">
                       {(() => {
                         const totalPages = Math.ceil(filteredLeadsCount / ITEMS_PER_PAGE) || 1;
                         const pages = [];
@@ -528,15 +513,15 @@ function App() {
                             <button 
                               key={idx}
                               onClick={() => setCurrentPage(p)}
-                              className={`min-w-8 h-8 flex items-center justify-center rounded-lg text-sm font-medium transition-colors
+                              className={`w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium transition-colors
                                 ${p === currentPage 
-                                  ? 'bg-primary text-white font-bold' 
-                                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-500'}`}
+                                  ? 'bg-blue-500 text-white' 
+                                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700'}`}
                             >
                               {p}
                             </button>
                           ) : (
-                            <span key={idx} className="px-2 text-slate-400">...</span>
+                            <span key={idx} className="px-2 text-slate-400 text-sm">...</span>
                           )
                         ));
                       })()}
@@ -545,10 +530,10 @@ function App() {
                     <button
                       onClick={handleNextPage}
                       disabled={currentPage >= Math.ceil(filteredLeadsCount / ITEMS_PER_PAGE) || loading}
-                      className="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-9 h-9 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-slate-100 dark:disabled:hover:bg-slate-700"
                       title="Trang sau"
                     >
-                      <span className="material-symbols-outlined text-[20px]">chevron_right</span>
+                      <span className="material-symbols-outlined text-[18px]">chevron_right</span>
                     </button>
                   </div>
                 </div>
@@ -580,71 +565,6 @@ function App() {
           />
         )}
       </div>
-
-      {/* Pagination Controls - Fixed at bottom */}
-      {!loading && !error && leads.length > 0 && (
-        <div className="fixed bottom-4 left-0 right-0 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 shadow-lg z-50 mx-4 rounded-lg">
-          <div className="max-w-full mx-auto px-4 md:px-10 py-3">
-            <div className="flex items-center justify-between">
-              <button
-                onClick={handlePrevPage}
-                disabled={currentPage === 1 || loading}
-                className="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang trước"
-              >
-                <span className="material-symbols-outlined text-[24px]">chevron_left</span>
-              </button>
-
-              <div className="flex items-center gap-1">
-                {(() => {
-                  const totalPages = Math.ceil(filteredLeadsCount / ITEMS_PER_PAGE) || 1;
-                  const pages = [];
-
-                  if (totalPages <= 7) {
-                    for (let i = 1; i <= totalPages; i++) pages.push(i);
-                  } else {
-                    pages.push(1);
-                    if (currentPage > 3) pages.push('...');
-
-                    const start = Math.max(2, currentPage - 1);
-                    const end = Math.min(totalPages - 1, currentPage + 1);
-                    for (let i = start; i <= end; i++) pages.push(i);
-
-                    if (currentPage < totalPages - 2) pages.push('...');
-                    pages.push(totalPages);
-                  }
-
-                  return pages.map((p, idx) => (
-                    typeof p === 'number' ? (
-                      <button
-                        key={idx}
-                        onClick={() => setCurrentPage(p)}
-                        className={`min-w-8 h-8 flex items-center justify-center rounded-lg text-sm font-medium transition-colors
-                            ${p === currentPage
-                            ? 'bg-primary text-white font-bold'
-                            : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-500'}`}
-                      >
-                        {p}
-                      </button>
-                    ) : (
-                      <span key={idx} className="px-2 text-slate-400">...</span>
-                    )
-                  ));
-                })()}
-              </div>
-
-              <button
-                onClick={handleNextPage}
-                disabled={currentPage >= Math.ceil(filteredLeadsCount / ITEMS_PER_PAGE) || loading}
-                className="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang sau"
-              >
-                <span className="material-symbols-outlined text-[24px]">chevron_right</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
 
   );
