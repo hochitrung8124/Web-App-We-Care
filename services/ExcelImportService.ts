@@ -7,6 +7,8 @@ export interface ExcelRow {
   'Địa chỉ': string;
   'Mã số thuế': string;
   'Nguồn': string;
+  'Quận/Huyện': string;
+  'Tỉnh/Thành': string;
 }
 
 export interface ImportResult {
@@ -94,12 +96,14 @@ export const parseExcelFile = (file: File): Promise<ImportResult> => {
           if (rowNumber === 1) return; // Skip header
 
           try {
-            // Lấy giá trị từ các cột
+            // Lấy giá trị từ các cột - người dùng NHẬP TAY
             const name = row.getCell(1).value?.toString().trim() || '';
             const phone = row.getCell(2).value?.toString().trim() || '';
             const address = row.getCell(3).value?.toString().trim() || '';
             const taxCode = row.getCell(4).value?.toString().trim() || '';
             const source = row.getCell(5).value?.toString().trim() || 'Other';
+            const district = row.getCell(6).value?.toString().trim() || '';
+            const city = row.getCell(7).value?.toString().trim() || '';
 
             // Validation
             if (!name) {
@@ -133,6 +137,8 @@ export const parseExcelFile = (file: File): Promise<ImportResult> => {
               address,
               taxCode,
               source: mappedSource,
+              district,
+              city,
               status: 'Marketing đã xác nhận', // Default status
             };
 
@@ -149,6 +155,8 @@ export const parseExcelFile = (file: File): Promise<ImportResult> => {
                 address: row.getCell(3).value,
                 taxCode: row.getCell(4).value,
                 source: row.getCell(5).value,
+                district: row.getCell(6).value,
+                city: row.getCell(7).value,
               },
             });
           }
@@ -181,7 +189,9 @@ export const createExcelTemplate = async (): Promise<void> => {
     'Số điện thoại',
     'Địa chỉ',
     'Mã số thuế',
-    'Nguồn'
+    'Nguồn',
+    'Quận/Huyện',
+    'Tỉnh/Thành'
   ]);
 
   // Style cho header
@@ -197,24 +207,30 @@ export const createExcelTemplate = async (): Promise<void> => {
   worksheet.addRow([
     'Công ty ABC',
     '0123456789',
-    '123 Đường ABC, Quận 1, TP.HCM',
+    '123 Đường ABC',
     '0123456789',
-    'Facebook Ads'
+    'Facebook Ads',
+    'Quận 1',
+    'Hồ Chí Minh'
   ]);
   worksheet.addRow([
     'Công ty XYZ',
     '0987654321',
-    '456 Đường XYZ, Quận 2, TP.HCM',
+    '456 Đường XYZ',
     '9876543210',
-    'Google Ads'
+    'Google Ads',
+    'Quận 2',
+    'Hồ Chí Minh'
   ]);
 
   // Set column widths
   worksheet.getColumn(1).width = 30; // Tên khách hàng
   worksheet.getColumn(2).width = 18; // Số điện thoại
-  worksheet.getColumn(3).width = 40; // Địa chỉ
+  worksheet.getColumn(3).width = 35; // Địa chỉ
   worksheet.getColumn(4).width = 18; // Mã số thuế
   worksheet.getColumn(5).width = 22; // Nguồn
+  worksheet.getColumn(6).width = 20; // Quận/Huyện
+  worksheet.getColumn(7).width = 20; // Tỉnh/Thành
 
   // Thiết lập dropdown validation cho cột "Nguồn" (cột E) từ dòng 2 đến 1000
   for (let i = 2; i <= 1000; i++) {

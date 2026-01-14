@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 export interface Notification {
   id: string;
-  type: 'add' | 'update' | 'import';
+  type: 'add' | 'update' | 'import' | 'error';
   user: string; // User who performed action
   department: 'MARKETING' | 'SALE' | 'ALL';
   message: string;
@@ -10,6 +10,7 @@ export interface Notification {
   read: boolean;
   customerName?: string;
   count?: number; // For bulk imports
+  errorDetails?: string; // For error notifications
 }
 
 interface NotificationContextType {

@@ -67,6 +67,8 @@ const Header: React.FC<HeaderProps> = ({ searchText, onSearchChange }) => {
         return 'edit';
       case 'import':
         return 'upload_file';
+      case 'error':
+        return 'error';
       default:
         return 'notifications';
     }
@@ -187,7 +189,9 @@ const Header: React.FC<HeaderProps> = ({ searchText, onSearchChange }) => {
                           >
                             <div className="flex items-start gap-3">
                               <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                                getNotificationColor(notification.department)
+                                notification.type === 'error'
+                                  ? 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20'
+                                  : getNotificationColor(notification.department)
                               }`}>
                                 <span className="material-symbols-outlined text-lg">
                                   {getNotificationIcon(notification.type)}
@@ -204,6 +208,11 @@ const Header: React.FC<HeaderProps> = ({ searchText, onSearchChange }) => {
                                 {notification.customerName && (
                                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                                     {notification.customerName}
+                                  </p>
+                                )}
+                                {notification.errorDetails && (
+                                  <p className="text-xs text-red-600 dark:text-red-400 mt-1 font-medium">
+                                    {notification.errorDetails}
                                   </p>
                                 )}
                                 <div className="flex items-center gap-2 mt-1.5">
