@@ -9,6 +9,7 @@ import { IDataverseProspectiveCustomer } from '../interfaces/IDataverseEntities'
 import { Lead } from '../types';
 import { getInitials, getColorFromString } from '../utils/stringUtils';
 import { mapDataverseStatus, mapLeadStatus } from '../utils/statusMapper';
+import { mapSourceToDataverse } from '../utils/sourceMapper';
 import { AppConfig } from '../config/app.config';
 
 export class ProspectiveCustomerMapper 
@@ -62,6 +63,7 @@ export class ProspectiveCustomerMapper
       crdfd_phonenumber: lead.phone !== 'N/A' ? lead.phone : undefined,
       crdfd_email: lead.email !== 'N/A' ? lead.email : undefined,
       crdfd_address: lead.address !== 'N/A' ? lead.address : undefined,
+      crdfd_leadsource: mapSourceToDataverse(lead.source),
       crdfd_campaign: lead.campaign !== 'N/A' ? lead.campaign : undefined,
       crdfd_verify: mapLeadStatus(lead.status),
       crdfd_taxcode: lead.taxCode !== 'N/A' ? lead.taxCode : undefined,

@@ -5,7 +5,7 @@
 
 import { Lead } from '../types';
 
-export type DataverseStatus = 0 | 1 | 2;
+export type DataverseStatus = 191920000 | 191920001 | 191920002;
 export type LeadStatus = Lead['status'];
 
 /**
@@ -14,13 +14,14 @@ export type LeadStatus = Lead['status'];
  */
 export const mapDataverseStatus = (status?: number): string => {
   switch (status) {
-    case 1:
+    case 191920000:
       return 'Đợi xác nhận';
-    case 2:
+    case 191920001:
       return 'Marketing đã xác nhận';
-    case 0:
-    default:
+    case 191920002:
       return 'Sale đã liên hệ';
+    default:
+      return 'Unknown';
   }
 };
 
@@ -30,14 +31,14 @@ export const mapDataverseStatus = (status?: number): string => {
 export const mapLeadStatus = (status: string): DataverseStatus => {
   switch (status) {
     case 'Đợi xác nhận':
-      return 1;
+    case 'Chờ xác nhận':
+      return 191920000;
     case 'Marketing đã xác nhận':
-      return 2;
+      return 191920001;
     case 'Sale đã liên hệ':
-      return 0;
+      return 191920002;
     default:
-      // Fallback for unknown status - maybe log a warning?
-      // Assuming 0 is a safe default or we need to handle this.
-      return 0;
+      // Default to waiting status
+      return 191920000;
   }
 };

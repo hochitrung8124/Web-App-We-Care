@@ -3,6 +3,7 @@ import { Toaster, toast } from 'react-hot-toast';
 import Header from './components/Header';
 import LeadTable from './components/LeadTable';
 import CustomerSidebar from './components/CustomerSidebar';
+import AddLeadModal from './components/AddLeadModal';
 import { getProspectiveCustomerService, roleService } from './services';
 import { Lead } from './types';
 
@@ -19,6 +20,7 @@ function App() {
   const [filteredLeadsCount, setFilteredLeadsCount] = useState(0); // Track filtered leads count
   const [searchText, setSearchText] = useState('');
   const [sourceFilter, setSourceFilter] = useState('--Select--');
+  const [showAddLeadModal, setShowAddLeadModal] = useState(false);
   const ITEMS_PER_PAGE = 5;
   const TOTAL_RECORDS_TO_LOAD = 50; // Load 50 records from Dataverse
 
@@ -202,6 +204,39 @@ function App() {
   const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(prev => prev - 1);
+    }
+  };
+
+  const handleAddNewLead = async (newLeadData: Partial<Lead>) => {
+    try {
+      setSaving(true);
+      console.log('📝 Creating new lead:', newLeadData);
+
+      // Create lead in Dataverse
+      const newLeadId = await customerService.createProspectiveCustomer(newLeadData);
+      
+      console.log('✅ Lead created with ID:', newLeadId);
+      
+      // Close modal
+      setShowAddLeadModal(false);
+      
+      // Reload leads to show new one
+      await loadAllLeads();
+      
+      toast.success('Thêm khách hàng thành công!', {
+        duration: 5000,
+        icon: '✅',
+      });
+    } catch (err) {
+      console.error('❌ Error creating lead:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Không thể tạo khách hàng';
+      toast.error(`Lỗi: ${errorMessage}`, {
+        duration: 5000,
+        icon: '❌',
+      });
+      throw err; // Re-throw to keep modal open
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -401,6 +436,17 @@ function App() {
               
             </div>
             <div className="flex gap-3 items-center">
+              {/* Add Lead Button - Only for Marketing */}
+              {department === 'MARKETING' && (
+                <button
+                  onClick={() => setShowAddLeadModal(true)}
+                  className="flex h-11 items-center justify-center gap-x-2 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 dark:from-emerald-500 dark:to-green-500 px-5 text-white text-sm font-bold shadow-lg shadow-emerald-500/30 dark:shadow-green-500/30 hover:shadow-xl hover:shadow-emerald-500/40 dark:hover:shadow-green-500/40 hover:scale-105 transition-all duration-300 border border-emerald-500/20"
+                >
+                  <span className="material-symbols-outlined text-[20px]">person_add</span>
+                  Thêm khách hàng
+                </button>
+              )}
+              
               {/* Source Filter */}
               <select
                 value={sourceFilter}
@@ -565,8 +611,16 @@ function App() {
           />
         )}
       </div>
+        
+        {/* Add Lead Modal */}
+        {showAddLeadModal && (
+          <AddLeadModal
+            onClose={() => setShowAddLeadModal(false)}
+            onSave={handleAddNewLead}
+            saving={saving}
+          />
+        )}
     </div>
-
   );
 }
 
