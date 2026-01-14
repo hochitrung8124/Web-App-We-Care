@@ -13,7 +13,8 @@ const LeadTable: React.FC<LeadTableProps> = ({ leads, selectedLeadId, onSelectLe
 
   return (
     <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
-      <table className="w-full text-left border-collapse table-fixed">
+      <div className="overflow-x-auto">
+        <table className="w-full text-left border-collapse table-fixed min-h-[440px]">
         <thead>
           <tr className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
             <th className="px-4 py-4 text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-wider w-[35%]">
@@ -109,6 +110,7 @@ const LeadTable: React.FC<LeadTableProps> = ({ leads, selectedLeadId, onSelectLe
       </table>
       {/* Pagination Footer */}
     
+    </div>
     </div>
   );
 };
