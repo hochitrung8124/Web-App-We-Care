@@ -18,12 +18,22 @@ interface CustomerSidebarProps {
   onSave: (updatedLead: Lead) => void;
   saving?: boolean;
   isAdmin?: boolean;
+  department?: 'SALE' | 'MARKETING' | null; // Marketing chỉ edit Tên, SĐT, Địa chỉ, MST
 }
 
 // Default value - không cho chỉnh sửa
-const DEFAULT_TEN_THUONG_MAI = 'WeShop';
+const DEFAULT_TEN_THUONG_MAI = 'WeCare';
 
-const CustomerSidebar: React.FC<CustomerSidebarProps> = ({ lead, onClose, onSave, saving = false, isAdmin = false }) => {
+const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
+  lead,
+  onClose,
+  onSave,
+  saving = false,
+  isAdmin = false,
+  department = null
+}) => {
+  // Marketing role chỉ được edit một số trường cơ bản
+  const isMarketing = department === 'MARKETING';
   const [formData, setFormData] = useState<Lead | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -288,14 +298,17 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({ lead, onClose, onSave
             </h4>
           </div>
 
+          {/* Marketing chỉ được edit: Tên, SĐT, MST, Địa chỉ */}
           {renderInput('Tên khách hàng', 'name', 'text', true)}
           {renderInput('Điện thoại', 'phone', 'tel', true)}
           {renderInput('Mã số thuế (MST)', 'taxCode', 'text')}
           {renderTextarea('Địa chỉ', 'address', true, 2)}
-          {renderInput('Ngày sinh', 'birthDate', 'date')}
 
-          {/* Loại cửa hàng - từ API */}
-          {renderSelect(
+          {/* Các trường sau chỉ hiển thị cho Sale, ẩn với Marketing */}
+          {!isMarketing && renderInput('Ngày sinh', 'birthDate', 'date')}
+
+          {/* Loại cửa hàng - chỉ hiển thị cho Sale */}
+          {!isMarketing && renderSelect(
             'Loại cửa hàng',
             formData.loaiCuaHang || '',
             loaiCuaHangOptions.map(o => ({ value: o.label, label: o.label })),
@@ -303,165 +316,170 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({ lead, onClose, onSave
           )}
         </section>
 
-        {/* Section 2: Vị trí */}
-        <section className="space-y-4">
-          <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
-            <span className="material-symbols-outlined text-primary text-[18px]">location_on</span>
-            <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
-              Vị trí
-            </h4>
-          </div>
+        {/* Các section sau chỉ hiển thị cho Sale, ẩn hoàn toàn với Marketing */}
+        {!isMarketing && (
+          <>
+            {/* Section 2: Vị trí */}
+            <section className="space-y-4">
+              <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
+                <span className="material-symbols-outlined text-primary text-[18px]">location_on</span>
+                <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
+                  Vị trí
+                </h4>
+              </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            {/* Quận huyện - từ API */}
-            {renderSelect(
-              'Quận huyện',
-              formData.district || '',
-              quanHuyenList.map(qh => ({ value: qh.tenQuanHuyen, label: qh.tenQuanHuyen })),
-              handleQuanHuyenChange,
-              true,
-              false,
-              '-- Chọn quận/huyện --'
-            )}
+              <div className="grid grid-cols-2 gap-3">
+                {/* Quận huyện - từ API */}
+                {renderSelect(
+                  'Quận huyện',
+                  formData.district || '',
+                  quanHuyenList.map(qh => ({ value: qh.tenQuanHuyen, label: qh.tenQuanHuyen })),
+                  handleQuanHuyenChange,
+                  true,
+                  false,
+                  '-- Chọn quận/huyện --'
+                )}
 
-            {/* Tỉnh thành - từ API, auto-fill */}
-            {renderSelect(
-              'Tỉnh thành',
-              formData.city || '',
-              tinhThanhList.map(tt => ({ value: tt.tenTinhThanh, label: tt.tenTinhThanh })),
-              (val) => {
-                handleInputChange('city', val);
-                handleInputChange('supervisor', getSupervisorByCity(val));
-              },
-              true,
-              !isAdmin,
-              '-- Tự động --'
-            )}
-          </div>
-        </section>
+                {/* Tỉnh thành - Luôn readonly, auto-fill theo Quận/Huyện */}
+                {renderSelect(
+                  'Tỉnh thành',
+                  formData.city || '',
+                  tinhThanhList.map(tt => ({ value: tt.tenTinhThanh, label: tt.tenTinhThanh })),
+                  (val) => {
+                    handleInputChange('city', val);
+                    handleInputChange('supervisor', getSupervisorByCity(val));
+                  },
+                  true,
+                  true, // Luôn readonly - tự động điền từ Quận/Huyện
+                  '-- Tự động --'
+                )}
+              </div>
+            </section>
 
-        {/* Section 3: Ngành nghề & Thương mại */}
-        <section className="space-y-4">
-          <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
-            <span className="material-symbols-outlined text-primary text-[18px]">business</span>
-            <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
-              Ngành nghề & Thương mại
-            </h4>
-          </div>
+            {/* Section 3: Ngành nghề & Thương mại */}
+            <section className="space-y-4">
+              <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
+                <span className="material-symbols-outlined text-primary text-[18px]">business</span>
+                <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
+                  Ngành nghề & Thương mại
+                </h4>
+              </div>
 
-          {/* Ngành nghề chi tiết - từ API */}
-          {renderSelect(
-            'Ngành nghề chi tiết',
-            formData.detailedIndustry || '',
-            nganhNgheOptions.map(o => ({ value: o.label, label: o.label })),
-            (val) => handleInputChange('detailedIndustry', val),
-            true,
-            !isAdmin
-          )}
+              {/* Ngành nghề chi tiết - Sale được chỉnh */}
+              {renderSelect(
+                'Ngành nghề chi tiết',
+                formData.detailedIndustry || '',
+                nganhNgheOptions.map(o => ({ value: o.label, label: o.label })),
+                (val) => handleInputChange('detailedIndustry', val),
+                true,
+                false // Sale được chỉnh
+              )}
 
-          {/* Tên thương mại - Default WeShop, KHÔNG cho sửa */}
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-1">
-              Tên thương mại
-              <span className="text-red-500">*</span>
-              <span className="text-[10px] text-emerald-500 ml-1">(Mặc định)</span>
-            </label>
-            <div className="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800">
-              <span className="material-symbols-outlined text-[18px] text-emerald-600">store</span>
-              <span className="text-sm text-emerald-700 dark:text-emerald-300 font-bold">
-                {DEFAULT_TEN_THUONG_MAI}
-              </span>
-            </div>
-          </div>
+              {/* Tên thương mại - Default WeShop, KHÔNG cho sửa */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-1">
+                  Tên thương mại
+                  <span className="text-red-500">*</span>
+                  <span className="text-[10px] text-emerald-500 ml-1">(Mặc định)</span>
+                </label>
+                <div className="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800">
+                  <span className="material-symbols-outlined text-[18px] text-emerald-600">store</span>
+                  <span className="text-sm text-emerald-700 dark:text-emerald-300 font-bold">
+                    {DEFAULT_TEN_THUONG_MAI}
+                  </span>
+                </div>
+              </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            {/* Ngành chủ lực - từ API */}
-            {renderSelect(
-              'Ngành chủ lực',
-              formData.keyIndustry || '',
-              nganhHangOptions.map(o => ({ value: o.label, label: o.label })),
-              (val) => handleInputChange('keyIndustry', val),
-              true
-            )}
+              <div className="grid grid-cols-2 gap-3">
+                {/* Ngành chủ lực - từ API - OptionSet yêu cầu số */}
+                {renderSelect(
+                  'Ngành chủ lực',
+                  formData.keyIndustry || '',
+                  nganhHangOptions.map(o => ({ value: String(o.value), label: o.label })),
+                  (val) => handleInputChange('keyIndustry', val),
+                  true
+                )}
 
-            {/* Ngành phụ - từ API */}
-            {renderSelect(
-              'Ngành phụ',
-              formData.subIndustry || '',
-              nganhHangOptions.map(o => ({ value: o.label, label: o.label })),
-              (val) => handleInputChange('subIndustry', val)
-            )}
-          </div>
+                {/* Ngành phụ - từ API - Text field yêu cầu label (text) */}
+                {renderSelect(
+                  'Ngành phụ',
+                  formData.subIndustry || '',
+                  nganhHangOptions.map(o => ({ value: o.label, label: o.label })),
+                  (val) => handleInputChange('subIndustry', val)
+                )}
+              </div>
 
-          {/* Điều khoản thanh toán - từ API */}
-          {renderSelect(
-            'Điều khoản thanh toán',
-            formData.paymentTerms || '',
-            dieuKhoanThanhToanOptions.map(o => ({ value: o.label, label: o.label })),
-            (val) => handleInputChange('paymentTerms', val),
-            true
-          )}
-        </section>
+              {/* Điều khoản thanh toán - từ API - Text field yêu cầu label (text) */}
+              {renderSelect(
+                'Điều khoản thanh toán',
+                formData.paymentTerms || '',
+                dieuKhoanThanhToanOptions.map(o => ({ value: o.label, label: o.label })),
+                (val) => handleInputChange('paymentTerms', val),
+                true
+              )}
+            </section>
 
-        {/* Section 4: Nhân sự phụ trách */}
-        <section className="space-y-4">
-          <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
-            <span className="material-symbols-outlined text-primary text-[18px]">groups</span>
-            <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
-              Nhân sự phụ trách
-            </h4>
-          </div>
+            {/* Section 4: Nhân sự phụ trách */}
+            <section className="space-y-4">
+              <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
+                <span className="material-symbols-outlined text-primary text-[18px]">groups</span>
+                <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
+                  Nhân sự phụ trách
+                </h4>
+              </div>
 
-          {/* Supervisor - Auto-fill theo Tỉnh/Thành */}
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-1">
-              Supervisor
-              <span className="text-[10px] text-emerald-500 ml-1">(Tự động theo Tỉnh/Thành)</span>
-            </label>
-            <div className="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-gradient-to-r from-slate-100 to-slate-50 dark:from-slate-800/60 dark:to-slate-800/40 border border-slate-200 dark:border-slate-700">
-              <span className="material-symbols-outlined text-[18px] text-primary">supervisor_account</span>
-              <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">
-                {formData.supervisor || '(Chọn Quận/Huyện để tự động điền)'}
-              </span>
-            </div>
-          </div>
+              {/* Supervisor - Auto-fill theo Tỉnh/Thành */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-1">
+                  Supervisor
+                  <span className="text-[10px] text-emerald-500 ml-1">(Tự động theo Tỉnh/Thành)</span>
+                </label>
+                <div className="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-gradient-to-r from-slate-100 to-slate-50 dark:from-slate-800/60 dark:to-slate-800/40 border border-slate-200 dark:border-slate-700">
+                  <span className="material-symbols-outlined text-[18px] text-primary">supervisor_account</span>
+                  <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">
+                    {formData.supervisor || '(Chọn Quận/Huyện để tự động điền)'}
+                  </span>
+                </div>
+              </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            {/* Nhân viên Sale - Text input cho phép tự nhập */}
-            {renderInput('Nhân viên Sale', 'salesStaff', 'text', false, !isAdmin, 'Nhập tên NV sale...')}
+              <div className="grid grid-cols-2 gap-3">
+                {/* Nhân viên Sale - Sale được chỉnh */}
+                {renderInput('Nhân viên Sale', 'salesStaff', 'text', true, false, 'Nhập tên NV sale...')}
 
-            {/* Nhân viên Công nợ - từ API */}
-            {renderSelect(
-              'Nhân viên Công nợ',
-              formData.debtStaff || '',
-              nhanVienCongNoList.map(e => ({ value: e.name, label: e.name })),
-              (val) => handleInputChange('debtStaff', val),
-              true
-            )}
-          </div>
-        </section>
+                {/* Nhân viên Công nợ - từ API */}
+                {renderSelect(
+                  'Nhân viên Công nợ',
+                  formData.debtStaff || '',
+                  nhanVienCongNoList.map(e => ({ value: e.name, label: e.name })),
+                  (val) => handleInputChange('debtStaff', val),
+                  true
+                )}
+              </div>
+            </section>
 
-        {/* Section 5: Đánh giá ban đầu */}
-        <section className="space-y-4">
-          <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
-            <span className="material-symbols-outlined text-primary text-[18px]">analytics</span>
-            <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
-              Đánh giá ban đầu
-            </h4>
-          </div>
+            {/* Section 5: Đánh giá ban đầu */}
+            <section className="space-y-4">
+              <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
+                <span className="material-symbols-outlined text-primary text-[18px]">analytics</span>
+                <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
+                  Đánh giá ban đầu
+                </h4>
+              </div>
 
-          {/* Tiềm năng ban đầu - từ API */}
-          {renderSelect(
-            'Tiềm năng ban đầu',
-            formData.initialPotential || '',
-            tiemNangOptions.map(o => ({ value: o.label, label: o.label })),
-            (val) => handleInputChange('initialPotential', val),
-            true
-          )}
+              {/* Tiềm năng ban đầu - từ API */}
+              {renderSelect(
+                'Tiềm năng ban đầu',
+                formData.initialPotential || '',
+                tiemNangOptions.map(o => ({ value: String(o.value), label: o.label })),
+                (val) => handleInputChange('initialPotential', val),
+                true
+              )}
 
-          {renderTextarea('Thông tin chung ban đầu', 'initialGeneralInfo', false, 3)}
-          {renderTextarea('Mô tả người đại diện', 'repDescription', true, 3)}
-        </section>
+              {renderTextarea('Thông tin chung ban đầu', 'initialGeneralInfo', false, 3)}
+              {renderTextarea('Mô tả người đại diện', 'repDescription', true, 3)}
+            </section>
+          </>
+        )}
 
       </div>
 

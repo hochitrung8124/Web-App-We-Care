@@ -170,20 +170,56 @@ function App() {
   const handleSaveLead = async (updatedLead: Lead) => {
     try {
       setSaving(true);
-      console.log('💾 Saving lead to Customers table:', updatedLead.name);
 
-      // Import CustomerService dynamically to save to Customers table
-      const { saveCustomer } = await import('./services/CustomerService');
+      // Kiểm tra MST trùng lặp trước khi lưu
+      if (updatedLead.taxCode && updatedLead.taxCode.trim() !== '') {
+        const { checkMSTExists } = await import('./services/MSTValidationService');
+        const mstCheck = await checkMSTExists(updatedLead.taxCode);
 
-      // Save to Customers table in Dataverse
-      const customerId = await saveCustomer(updatedLead);
-      console.log('✅ Saved to Customers with ID:', customerId);
+        if (mstCheck.exists) {
+          // MST đã tồn tại, thông báo cho người dùng
+          const confirmContinue = window.confirm(
+            `⚠️ MST "${updatedLead.taxCode}" đã tồn tại trong hệ thống!\n\n` +
+            `Khách hàng: ${mstCheck.customerName}\n\n` +
+            `Bạn có muốn tiếp tục lưu không?`
+          );
 
-      // Also try to update in ProspectiveCustomer table
-      try {
-        await customerService.updateProspectiveCustomer(updatedLead.id, updatedLead);
-      } catch (e) {
-        console.log('⚠️ ProspectiveCustomer update skipped');
+          if (!confirmContinue) {
+            setSaving(false);
+            return; // Dừng lại, không lưu
+          }
+        }
+      }
+
+      // Phân biệt logic lưu theo department
+      if (department === 'MARKETING') {
+        // Marketing: Lưu vào bảng ProspectiveCustomer (crdfd_prospectivecustomer)
+        // Chỉ lưu 4 trường: name, phone, taxCode, address
+        console.log('💾 [Marketing] Saving to ProspectiveCustomer:', updatedLead.name);
+
+        const { updateProspectiveCustomerMarketing } = await import('./services/ProspectiveCustomerMarketingService');
+        await updateProspectiveCustomerMarketing(updatedLead.id, {
+          name: updatedLead.name,
+          phone: updatedLead.phone,
+          taxCode: updatedLead.taxCode,
+          address: updatedLead.address
+        });
+
+        console.log('✅ [Marketing] ProspectiveCustomer updated');
+      } else {
+        // Sale: Lưu vào bảng Customers (crdfd_customers) - full data
+        console.log('💾 [Sale] Saving to Customers table:', updatedLead.name);
+
+        const { saveCustomer } = await import('./services/CustomerService');
+        const customerId = await saveCustomer(updatedLead);
+        console.log('✅ [Sale] Saved to Customers with ID:', customerId);
+
+        // Also update in ProspectiveCustomer table
+        try {
+          await customerService.updateProspectiveCustomer(updatedLead.id, updatedLead);
+        } catch (e) {
+          console.log('⚠️ ProspectiveCustomer update skipped');
+        }
       }
 
       // Update in allLeads
@@ -263,12 +299,12 @@ function App() {
               </h1>
               <p className="text-slate-500 text-sm mt-1">
                 {loading ? 'Đang tải dữ liệu...' : `Hiển thị ${leads.length} / ${department
-                    ? allLeads.filter(l =>
-                      department === 'MARKETING'
-                        ? l.status === 'Đợi xác nhận' || l.status === 'Chờ xác nhận'
-                        : l.status === 'Marketing đã xác nhận'
-                    ).length
-                    : allLeads.length
+                  ? allLeads.filter(l =>
+                    department === 'MARKETING'
+                      ? l.status === 'Đợi xác nhận' || l.status === 'Chờ xác nhận'
+                      : l.status === 'Marketing đã xác nhận'
+                  ).length
+                  : allLeads.length
                   } khách hàng (Trang ${currentPage}/${Math.ceil(
                     (department
                       ? allLeads.filter(l =>
@@ -348,6 +384,8 @@ function App() {
             onClose={handleCloseSidebar}
             onSave={handleSaveLead}
             saving={saving}
+            isAdmin={isAdmin}
+            department={department}
           />
         )}
       </div>
