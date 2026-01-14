@@ -12,15 +12,15 @@ import { mapDataverseStatus, mapLeadStatus } from '../utils/statusMapper';
 import { mapSourceToDataverse } from '../utils/sourceMapper';
 import { AppConfig } from '../config/app.config';
 
-export class ProspectiveCustomerMapper 
+export class ProspectiveCustomerMapper
   implements IMapper<IDataverseProspectiveCustomer, Lead> {
-  
+
   /**
    * Map Dataverse entity to Lead model
    */
   map(entity: IDataverseProspectiveCustomer): Lead {
     const name = entity.crdfd_name || 'Unknown';
-    
+
     return {
       id: entity.crdfd_prospectivecustomerid,
       name: name,
@@ -35,7 +35,7 @@ export class ProspectiveCustomerMapper
       statusCode: entity.crdfd_verify,
       taxCode: entity.crdfd_taxcode || 'N/A',
       avatarColorClass: getColorFromString(name, AppConfig.ui.avatarColors),
-      
+
       // Optional fields
       birthDate: entity.crdfd_birthdate,
       detailedIndustry: entity.crdfd_detailedindustry,
@@ -56,9 +56,12 @@ export class ProspectiveCustomerMapper
 
   /**
    * Map Lead model back to Dataverse entity (for create/update)
+   * NOTE: ProspectiveCustomer table has LIMITED fields compared to Customers table
+   * Only map fields that actually exist in crdfd_prospectivecustomer schema
    */
   mapReverse(lead: Lead): Partial<IDataverseProspectiveCustomer> {
     return {
+      // Basic fields that exist in ProspectiveCustomer
       crdfd_name: lead.name,
       crdfd_phonenumber: lead.phone !== 'N/A' ? lead.phone : undefined,
       crdfd_email: lead.email !== 'N/A' ? lead.email : undefined,
@@ -67,21 +70,17 @@ export class ProspectiveCustomerMapper
       crdfd_campaign: lead.campaign !== 'N/A' ? lead.campaign : undefined,
       crdfd_verify: mapLeadStatus(lead.status),
       crdfd_taxcode: lead.taxCode !== 'N/A' ? lead.taxCode : undefined,
-      crdfd_city: lead.city !== 'N/A' ? lead.city : undefined,
-      crdfd_district: lead.district !== 'N/A' ? lead.district : undefined,
-      crdfd_tradename: lead.tradeName,
-      crdfd_supervisor: lead.supervisor !== 'N/A' ? lead.supervisor : undefined,
-      crdfd_salesstaff: lead.salesStaff,
-      crdfd_debtstaff: lead.debtStaff,
-      crdfd_birthdate: lead.birthDate,
-      crdfd_detailedindustry: lead.detailedIndustry,
-      crdfd_paymentterms: lead.paymentTerms,
-      crdfd_initialpotential: lead.initialPotential,
-      crdfd_initialgeneralinfo: lead.initialGeneralInfo,
-      crdfd_repdescription: lead.repDescription,
-      crdfd_keyindustry: lead.keyIndustry,
-      crdfd_subindustry: lead.subIndustry,
-      crdfd_subinfo: lead.subInfo !== 'N/A' ? lead.subInfo : undefined,
+      // NOTE: crdfd_verify is NOT included here because:
+      // - ProspectiveCustomer uses different status values (191920000-191920004)
+      // - Status updates should be handled separately by Marketing service
+
+      // NOTE: The following fields do NOT exist in crdfd_prospectivecustomer:
+      // - crdfd_city, crdfd_district (use lookup fields instead)
+      // - crdfd_tradename, crdfd_supervisor, crdfd_salesstaff, crdfd_debtstaff
+      // - crdfd_birthdate, crdfd_paymentterms
+      // - crdfd_keyindustry, crdfd_subindustry
+      // - crdfd_initialpotential, crdfd_initialgeneralinfo, crdfd_repdescription
+      // These fields are only available in crdfd_customers table
     };
   }
 }

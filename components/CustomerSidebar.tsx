@@ -50,7 +50,7 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
   const [dieuKhoanThanhToanOptions, setDieuKhoanThanhToanOptions] = useState<ChoiceOption[]>([]);
   const [tiemNangOptions, setTiemNangOptions] = useState<ChoiceOption[]>([]);
   const [nganhHangOptions, setNganhHangOptions] = useState<ChoiceOption[]>([]);
-  
+
   // Validation errors
   const [validationErrors, setValidationErrors] = useState<{
     phone?: string;
@@ -120,7 +120,7 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
         tradeName: DEFAULT_TEN_THUONG_MAI, // Always WeShop
         supervisor: supervisor
       });
-      
+
       // Reset validation errors when form data changes
       setValidationErrors({});
     }
@@ -200,20 +200,20 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
     if (!phone || phone.trim() === '') {
       return undefined; // Empty is OK (will be handled by required validation)
     }
-    
+
     // Remove spaces
     const cleaned = phone.replace(/\s/g, '');
-    
+
     // Check if starts with 0 followed by 9 digits
     if (/^0\d{9}$/.test(cleaned)) {
       return undefined; // Valid: 0 + 9 digits = 10 total
     }
-    
+
     // Check if starts with +84 followed by 9 digits
     if (/^\+84\d{9}$/.test(cleaned)) {
       return undefined; // Valid: +84 + 9 digits = 12 total
     }
-    
+
     return 'Số điện thoại phải có 10 số (0 + 9 số) hoặc 12 số (+84 + 9 số)';
   };
 
@@ -221,21 +221,21 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
     if (!taxCode || taxCode.trim() === '' || taxCode === 'N/A') {
       return undefined; // Empty or N/A is OK
     }
-    
+
     // Remove spaces and dashes
     const cleaned = taxCode.replace(/[\s-]/g, '');
-    
+
     // Check if it's exactly 10, 12, or 13 digits
     if (/^\d{10}$/.test(cleaned) || /^\d{12}$/.test(cleaned) || /^\d{13}$/.test(cleaned)) {
       return undefined; // Valid
     }
-    
+
     return 'Mã số thuế phải có 10, 12 hoặc 13 số';
   };
 
   const handleInputChange = (field: keyof Lead, value: any) => {
     setFormData(prev => prev ? { ...prev, [field]: value } : null);
-    
+
     // Validate on change
     if (field === 'phone') {
       const error = validatePhone(value);
@@ -261,11 +261,11 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
 
   const handleSave = () => {
     if (!formData) return;
-    
+
     // Validate before saving
     const phoneError = validatePhone(formData.phone || '');
     const taxCodeError = validateTaxCode(formData.taxCode || '');
-    
+
     // Check required fields
     if (!formData.phone || formData.phone.trim() === '') {
       toast.error('Vui lòng nhập số điện thoại', {
@@ -274,14 +274,14 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
       });
       return;
     }
-    
+
     // Set validation errors
     const errors: { phone?: string; taxCode?: string } = {};
     if (phoneError) errors.phone = phoneError;
     if (taxCodeError) errors.taxCode = taxCodeError;
-    
+
     setValidationErrors(errors);
-    
+
     // If there are validation errors, show toast and don't save
     if (phoneError || taxCodeError) {
       toast.error('Vui lòng kiểm tra lại thông tin đã nhập', {
@@ -290,7 +290,7 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
       });
       return;
     }
-    
+
     // All validations passed, proceed with save
     onSave(formData);
   };
@@ -299,7 +299,7 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
   const renderSelect = (
     label: string,
     value: string,
-    options: { value: string | number, label: string }[],
+    options: { value: string | number, label: string, key?: string }[],
     onChange: (val: string) => void,
     required: boolean = false,
     disabled: boolean = false,
@@ -321,8 +321,8 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
         disabled={disabled}
       >
         <option value="">{placeholder}</option>
-        {options.map(opt => (
-          <option key={opt.value} value={opt.value}>{opt.label}</option>
+        {options.map((opt, idx) => (
+          <option key={opt.key || `${opt.value}-${idx}`} value={opt.value}>{opt.label}</option>
         ))}
       </select>
     </div>
@@ -339,7 +339,7 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
   ) => {
     const error = validationErrors[field as 'phone' | 'taxCode'];
     const hasError = !!error;
-    
+
     return (
       <div className="flex flex-col gap-1.5">
         <label className="text-xs font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-1">
@@ -390,6 +390,66 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
       />
     </div>
   );
+
+  // Render multiple choice (checkbox list)
+  const renderMultipleChoice = (
+    label: string,
+    field: keyof Lead,
+    options: { value: number | string; label: string }[],
+    required: boolean = false,
+    useLabels: boolean = true // Nếu true, lưu labels; nếu false, lưu values
+  ) => {
+    // Parse current value (comma-separated string) to array
+    const currentValue = (formData[field] as string) || '';
+    const selectedValues: string[] = currentValue
+      ? currentValue.split(',').map(v => v.trim()).filter(v => v)
+      : [];
+
+    const handleToggle = (value: number | string, label: string) => {
+      // Nếu useLabels = true, lưu label; nếu false, lưu value
+      const valueToStore = useLabels ? label : String(value);
+      const newSelected = selectedValues.includes(valueToStore)
+        ? selectedValues.filter((v: string) => v !== valueToStore)
+        : [...selectedValues, valueToStore];
+
+      // Join array back to comma-separated string
+      handleInputChange(field, newSelected.join(', '));
+    };
+
+    return (
+      <div className="flex flex-col gap-1.5">
+        <label className="text-xs font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-1">
+          {label}
+          {required && <span className="text-red-500">*</span>}
+        </label>
+        <div className="border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 p-3 max-h-48 overflow-y-auto custom-scrollbar">
+          <div className="flex flex-col gap-2">
+            {options.map((option) => {
+              // Nếu useLabels = true, so sánh với label; nếu false, so sánh với value
+              const valueToCompare = useLabels ? option.label : String(option.value);
+              const isSelected = selectedValues.includes(valueToCompare);
+              return (
+                <label
+                  key={option.value}
+                  className="flex items-center gap-2 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 rounded-lg p-2 transition-colors"
+                >
+                  <input
+                    type="checkbox"
+                    checked={isSelected}
+                    onChange={() => handleToggle(option.value, option.label)}
+                    className="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-2 focus:ring-primary/20 cursor-pointer"
+                  />
+                  <span className="text-sm text-slate-700 dark:text-slate-300">
+                    {option.label}
+                  </span>
+                </label>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   // Show loading state
   if (loading) {
@@ -464,11 +524,11 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
           {/* Các trường sau chỉ hiển thị cho Sale, ẩn với Marketing */}
           {!isMarketing && renderInput('Ngày sinh', 'birthDate', 'date')}
 
-          {/* Loại cửa hàng - chỉ hiển thị cho Sale */}
+          {/* Loại cửa hàng - chỉ hiển thị cho Sale - sử dụng choice value (số) */}
           {!isMarketing && renderSelect(
             'Loại cửa hàng',
             formData.loaiCuaHang || '',
-            loaiCuaHangOptions.map(o => ({ value: o.label, label: o.label })),
+            loaiCuaHangOptions.map(o => ({ value: String(o.value), label: o.label })),
             (val) => handleInputChange('loaiCuaHang', val)
           )}
         </section>
@@ -490,7 +550,7 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
                 {renderSelect(
                   'Quận huyện',
                   formData.district || '',
-                  quanHuyenList.map(qh => ({ value: qh.tenQuanHuyen, label: qh.tenQuanHuyen })),
+                  quanHuyenList.map(qh => ({ value: qh.tenQuanHuyen, label: qh.tenQuanHuyen, key: qh.id })),
                   handleQuanHuyenChange,
                   true,
                   false,
@@ -522,12 +582,17 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
                 </h4>
               </div>
 
-              {/* Ngành nghề chi tiết - Sale được chỉnh */}
+              {/* Ngành nghề chi tiết - Sale được chỉnh - lưu cả value (số) và label (text) */}
               {renderSelect(
                 'Ngành nghề chi tiết',
                 formData.detailedIndustry || '',
-                nganhNgheOptions.map(o => ({ value: o.label, label: o.label })),
-                (val) => handleInputChange('detailedIndustry', val),
+                nganhNgheOptions.map(o => ({ value: String(o.value), label: o.label })),
+                (val) => {
+                  handleInputChange('detailedIndustry', val);
+                  // Lưu thêm label để hiển thị và mapping
+                  const selectedOption = nganhNgheOptions.find(o => String(o.value) === val);
+                  handleInputChange('detailedIndustryText', selectedOption?.label || '');
+                },
                 true,
                 false // Sale được chỉnh
               )}
@@ -557,12 +622,13 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
                   true
                 )}
 
-                {/* Ngành phụ - từ API - Text field yêu cầu label (text) */}
-                {renderSelect(
+                {/* Ngành phụ - Multiple choice (OptionSet - integer values) */}
+                {renderMultipleChoice(
                   'Ngành phụ',
-                  formData.subIndustry || '',
-                  nganhHangOptions.map(o => ({ value: o.label, label: o.label })),
-                  (val) => handleInputChange('subIndustry', val)
+                  'subIndustry',
+                  nganhHangOptions.map(o => ({ value: o.value, label: o.label })),
+                  false,
+                  false // useLabels = false để lưu integer values (OptionSet)
                 )}
               </div>
 
@@ -609,23 +675,23 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
                     const listToUse = (formData.city && nhanVienSaleFiltered && nhanVienSaleFiltered.length > 0)
                       ? nhanVienSaleFiltered
                       : (nhanVienSaleList && nhanVienSaleList.length > 0 ? nhanVienSaleList : []);
-                    
+
                     console.log('📋 Rendering nhân viên sale:', {
                       city: formData.city,
                       filteredCount: nhanVienSaleFiltered?.length || 0,
                       totalCount: nhanVienSaleList?.length || 0,
                       usingList: listToUse.length
                     });
-                    
+
                     return listToUse.map(e => ({ value: e.name, label: e.name }));
                   })(),
                   (val) => handleInputChange('salesStaff', val),
                   true,
                   false,
-                  formData.city 
-                    ? (nhanVienSaleFiltered && nhanVienSaleFiltered.length > 0 
-                        ? '-- Chọn nhân viên sale --' 
-                        : '-- Không có nhân viên sale --')
+                  formData.city
+                    ? (nhanVienSaleFiltered && nhanVienSaleFiltered.length > 0
+                      ? '-- Chọn nhân viên sale --'
+                      : '-- Không có nhân viên sale --')
                     : '-- Chọn Tỉnh/Thành trước --'
                 )}
 

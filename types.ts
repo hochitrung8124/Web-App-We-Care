@@ -15,7 +15,8 @@ export interface Lead {
 
   // New fields
   birthDate?: string;
-  detailedIndustry?: string;
+  detailedIndustry?: string; // OptionSet value (số)
+  detailedIndustryText?: string; // Label text cho display và logic mapping
   district: string;
   city: string;
   paymentTerms?: string;
