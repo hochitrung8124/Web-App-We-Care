@@ -534,21 +534,22 @@ function App() {
 
               
               {/* Source Filter */}
-              <select
-                value={sourceFilter}
-                onChange={(e) => setSourceFilter(e.target.value)}
-                style={{ paddingRight: '30px' }}
-                className="h-11 px-5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                >             
-                <option value="--Select--">Tất cả nguồn</option>
-                <option value="Facebook Ads">Facebook Ads</option>
-                <option value="TikTok Ads">TikTok Ads</option>
-                <option value="Google Ads">Google Ads</option>
-                <option value="Facebook Messenger Organic">FB Messenger</option>
-                <option value="Zalo">Zalo</option>
-                <option value="Website Form">Website Form</option>
-                <option value="Other">Other</option>
-              </select>
+              <div className="relative">
+                <select
+                  value={sourceFilter}
+                  onChange={(e) => setSourceFilter(e.target.value)}
+                  className="h-11 pl-4 pr-8 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-bold focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 dark:focus:border-blue-500 transition-all appearance-none cursor-pointer hover:border-slate-300 dark:hover:border-slate-600"
+                  >             
+                  <option value="--Select--">Tất cả nguồn</option>
+                  <option value="Facebook Ads">📘 Facebook Ads</option>
+                  <option value="TikTok Ads">🎵 TikTok Ads</option>
+                  <option value="Google Ads">🔍 Google Ads</option>
+                  <option value="Facebook Messenger Organic">💬 FB Messenger</option>
+                  <option value="Zalo">💙 Zalo</option>
+                  <option value="Website Form">🌐 Website Form</option>
+                  <option value="Other">📋 Other</option>
+                </select>
+              </div>
               {department === 'MARKETING' && (
                 <>
                   <button
