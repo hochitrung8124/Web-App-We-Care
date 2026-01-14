@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Toaster, toast } from 'react-hot-toast';
 import Header from './components/Header';
 import LeadTable from './components/LeadTable';
 import CustomerSidebar from './components/CustomerSidebar';
@@ -68,9 +69,15 @@ function App() {
       setAllLeads(data);
 
       console.log('✅ Loaded', data.length, 'leads total');
+      // Không hiển thị toast khi tải thành công
     } catch (err) {
       console.error('❌ Error loading leads:', err);
-      setError(err instanceof Error ? err.message : 'Không thể tải dữ liệu');
+      const errorMsg = err instanceof Error ? err.message : 'Không thể tải dữ liệu';
+      toast.error(`Lỗi tải dữ liệu: ${errorMsg}`, {
+        duration: 5000,
+        icon: '❌',
+      });
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }
@@ -208,17 +215,15 @@ function App() {
         const mstCheck = await checkMSTExists(updatedLead.taxCode);
 
         if (mstCheck.exists) {
-          // MST đã tồn tại, thông báo cho người dùng
-          const confirmContinue = window.confirm(
-            `⚠️ MST "${updatedLead.taxCode}" đã tồn tại trong hệ thống!\n\n` +
-            `Khách hàng: ${mstCheck.customerName}\n\n` +
-            `Bạn có muốn tiếp tục lưu không?`
+          // MST đã tồn tại, thông báo cho người dùng bằng toast
+          toast.error(
+            `MST "${updatedLead.taxCode}" đã tồn tại!\nKhách hàng: ${mstCheck.customerName}`,
+            {
+              duration: 5000,
+              icon: '⚠️',
+            }
           );
-
-          if (!confirmContinue) {
-            setSaving(false);
-            return; // Dừng lại, không lưu
-          }
+          // Vẫn cho phép tiếp tục lưu (không block)
         }
       }
 
@@ -237,6 +242,33 @@ function App() {
         });
 
         console.log('✅ [Marketing] ProspectiveCustomer updated');
+        
+        // Cập nhật status thành "Marketing đã xác nhận" trong state
+        const updatedLeadWithStatus = {
+          ...updatedLead,
+          status: 'Marketing đã xác nhận'
+        };
+        
+        // Update in allLeads với status mới
+        setAllLeads(prevLeads =>
+          prevLeads.map(lead => lead.id === updatedLead.id ? updatedLeadWithStatus : lead)
+        );
+
+        // Update current page leads với status mới
+        setLeads(prevLeads =>
+          prevLeads.map(lead => lead.id === updatedLead.id ? updatedLeadWithStatus : lead)
+        );
+
+        // Đóng sidebar để lead biến mất khỏi danh sách Marketing
+        setSelectedLead(null);
+        
+        // Reload lại danh sách để đảm bảo đồng bộ
+        await loadAllLeads();
+        
+        toast.success('Đã cập nhật thông tin khách hàng (Marketing)', {
+          duration: 5000,
+          icon: '✅',
+        });
       } else {
         // Sale: Lưu vào bảng Customers (crdfd_customers) - full data
         console.log('💾 [Sale] Saving to Customers table:', updatedLead.name);
@@ -250,28 +282,41 @@ function App() {
           await customerService.updateProspectiveCustomer(updatedLead.id, updatedLead);
         } catch (e) {
           console.log('⚠️ ProspectiveCustomer update skipped');
+          toast('Cập nhật ProspectiveCustomer bị bỏ qua', {
+            duration: 5000,
+            icon: '⚠️',
+          });
         }
       }
 
-      // Update in allLeads
-      setAllLeads(prevLeads =>
-        prevLeads.map(lead => lead.id === updatedLead.id ? updatedLead : lead)
-      );
+      // Update in allLeads (chỉ cho Sale, Marketing đã xử lý ở trên)
+      if (department !== 'MARKETING') {
+        setAllLeads(prevLeads =>
+          prevLeads.map(lead => lead.id === updatedLead.id ? updatedLead : lead)
+        );
 
-      // Update current page leads
-      setLeads(prevLeads =>
-        prevLeads.map(lead => lead.id === updatedLead.id ? updatedLead : lead)
-      );
+        // Update current page leads
+        setLeads(prevLeads =>
+          prevLeads.map(lead => lead.id === updatedLead.id ? updatedLead : lead)
+        );
 
-      setSelectedLead(updatedLead);
+        setSelectedLead(updatedLead);
 
-      // Show success
-      alert('✅ Đã lưu thông tin khách hàng thành công!');
+        // Show success toast
+        toast.success('Đã lưu thông tin khách hàng thành công!', {
+          duration: 5000,
+          icon: '✅',
+        });
+      }
       console.log('✅ Lead saved successfully');
     } catch (err) {
       console.error('❌ Error saving lead:', err);
-      alert('❌ Lỗi: ' + (err instanceof Error ? err.message : 'Không thể lưu dữ liệu'));
-      setError(err instanceof Error ? err.message : 'Không thể lưu dữ liệu');
+      const errorMessage = err instanceof Error ? err.message : 'Không thể lưu dữ liệu';
+      toast.error(`Lỗi: ${errorMessage}`, {
+        duration: 5000,
+        icon: '❌',
+      });
+      setError(errorMessage);
     } finally {
       setSaving(false);
     }
@@ -312,6 +357,31 @@ function App() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
+      <Toaster 
+        position="top-right"
+        toastOptions={{
+          duration: 5000, // 5 giây
+          style: {
+            background: '#fff',
+            color: '#1e293b',
+            borderRadius: '12px',
+            padding: '16px',
+            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+          },
+          success: {
+            iconTheme: {
+              primary: '#10b981',
+              secondary: '#fff',
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: '#ef4444',
+              secondary: '#fff',
+            },
+          },
+        }}
+      />
       <Header searchText={searchText} onSearchChange={setSearchText} />
       
       {/* Main Container */}
@@ -328,9 +398,14 @@ function App() {
               <h1 className="text-slate-900 dark:text-white text-2xl font-bold leading-tight tracking-tight">
                 Xác nhận thông tin khách hàng {department ? `(${department === 'SALE' ? 'Sale' : department === 'MARKETING' ? 'Marketing' : 'Tất Cả'})` : ''}
               </h1>
+              <p className="text-slate-500 text-sm mt-1">
+                {loading ? 'Đang tải dữ liệu...' : `Hiển thị ${leads.length} / ${department
+                  ? allLeads.filter(l =>
+                    department === 'MARKETING'
+                      ? l.status === 'Đợi xác nhận' || l.status === 'Chờ xác nhận'
+                      : l.status === 'Marketing đã xác nhận'
                   ).length
-                  : allLeads.length
-                  } khách hàng (Trang ${currentPage}/${Math.ceil(
+                  : allLeads.length} khách hàng (Trang ${currentPage}/${Math.ceil(
                     (department
                       ? allLeads.filter(l =>
                         department === 'MARKETING'
@@ -339,15 +414,6 @@ function App() {
                       ).length
                       : allLeads.length) / ITEMS_PER_PAGE) || 1})`}
               </p>
-            </div>
-            <div className="flex gap-3">
-              <button
-              <p className="text-slate-500 text-sm mt-1">
-                {loading ? 'Đang tải dữ liệu...' : `Hiển thị ${leads.length} / ${department
-                  ? allLeads.filter(l =>
-                    department === 'MARKETING'
-                      : l.status === 'Marketing đã xác nhận'
-                      ? l.status === 'Đợi xác nhận' || l.status === 'Chờ xác nhận'
             </div>
             <div className="flex gap-3 items-center">
               {/* Source Filter */}

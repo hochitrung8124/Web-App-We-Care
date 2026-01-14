@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from './AuthGuard';
 import { useDarkMode } from './DarkModeProvider';
+import ConfirmModal from './ConfirmModal';
 
 interface HeaderProps {
   searchText: string;
@@ -12,11 +13,15 @@ const Header: React.FC<HeaderProps> = ({ searchText, onSearchChange }) => {
   const { theme, setTheme } = useDarkMode();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showSettingsMenu, setShowSettingsMenu] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const handleLogout = () => {
-    if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
-      logout();
-    }
+    setShowLogoutConfirm(true);
+  };
+
+  const confirmLogout = () => {
+    setShowLogoutConfirm(false);
+    logout();
   };
 
   return (
@@ -201,6 +206,18 @@ const Header: React.FC<HeaderProps> = ({ searchText, onSearchChange }) => {
           )}
         </div>
       </div>
+
+      {/* Logout Confirm Modal */}
+      <ConfirmModal
+        isOpen={showLogoutConfirm}
+        title="Xác nhận đăng xuất"
+        message="Bạn có chắc chắn muốn đăng xuất?"
+        confirmText="Đăng xuất"
+        cancelText="Hủy"
+        type="danger"
+        onConfirm={confirmLogout}
+        onCancel={() => setShowLogoutConfirm(false)}
+      />
     </header>
   );
 };

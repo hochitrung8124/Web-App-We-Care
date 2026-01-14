@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import { Lead } from '../types';
 import {
   fetchQuanHuyen,
   fetchTinhThanh,
   fetchNhanVienCongNo,
   fetchNhanVienSale,
+  fetchNhanVienSaleByTinhThanh,
   fetchChoices,
   QuanHuyen,
   TinhThanh,
@@ -42,11 +44,18 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
   const [tinhThanhList, setTinhThanhList] = useState<TinhThanh[]>([]);
   const [nhanVienCongNoList, setNhanVienCongNoList] = useState<Employee[]>([]);
   const [nhanVienSaleList, setNhanVienSaleList] = useState<Employee[]>([]);
+  const [nhanVienSaleFiltered, setNhanVienSaleFiltered] = useState<Employee[]>([]);
   const [loaiCuaHangOptions, setLoaiCuaHangOptions] = useState<ChoiceOption[]>([]);
   const [nganhNgheOptions, setNganhNgheOptions] = useState<ChoiceOption[]>([]);
   const [dieuKhoanThanhToanOptions, setDieuKhoanThanhToanOptions] = useState<ChoiceOption[]>([]);
   const [tiemNangOptions, setTiemNangOptions] = useState<ChoiceOption[]>([]);
   const [nganhHangOptions, setNganhHangOptions] = useState<ChoiceOption[]>([]);
+  
+  // Validation errors
+  const [validationErrors, setValidationErrors] = useState<{
+    phone?: string;
+    taxCode?: string;
+  }>({});
 
   // Load reference data
   useEffect(() => {
@@ -84,6 +93,8 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
       setTinhThanhList(tinhThanh);
       setNhanVienCongNoList(nvCongNo);
       setNhanVienSaleList(nvSale);
+      // Khởi tạo filtered list với tất cả nhân viên sale
+      setNhanVienSaleFiltered(nvSale);
       setLoaiCuaHangOptions(loaiCuaHang);
       setNganhNgheOptions(nganhNghe);
       setDieuKhoanThanhToanOptions(dieuKhoan);
@@ -109,6 +120,9 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
         tradeName: DEFAULT_TEN_THUONG_MAI, // Always WeShop
         supervisor: supervisor
       });
+      
+      // Reset validation errors when form data changes
+      setValidationErrors({});
     }
   }, [lead, tinhThanhList]);
 
@@ -126,10 +140,110 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
     return qh?.tinhThanhName || '';
   };
 
+  // Load nhân viên sale filter theo tỉnh thành khi tỉnh thành thay đổi
+  // PHẢI đặt TRƯỚC return null để tuân thủ Rules of Hooks
+  useEffect(() => {
+    // Chỉ chạy khi formData đã sẵn sàng
+    if (!formData) {
+      return;
+    }
+
+    // Nếu chưa có danh sách nhân viên sale, set empty array
+    if (!nhanVienSaleList || nhanVienSaleList.length === 0) {
+      console.log('⚠️ Chưa có danh sách nhân viên sale, đang load lại...');
+      setNhanVienSaleFiltered([]);
+      // Nếu có tỉnh thành nhưng chưa có danh sách, thử load lại
+      if (formData.city) {
+        fetchNhanVienSaleByTinhThanh(formData.city)
+          .then(nvSale => {
+            console.log('✅ Loaded', nvSale.length, 'nhân viên sale cho', formData.city);
+            setNhanVienSaleFiltered(nvSale);
+          })
+          .catch(error => {
+            console.error('❌ Error loading nhân viên sale by tỉnh thành:', error);
+            setNhanVienSaleFiltered([]);
+          });
+      }
+      return;
+    }
+
+    // Nếu có tỉnh thành, load filter; nếu không, dùng tất cả
+    if (formData.city) {
+      console.log('🔍 Filtering nhân viên sale theo tỉnh thành:', formData.city);
+      fetchNhanVienSaleByTinhThanh(formData.city)
+        .then(nvSale => {
+          console.log('✅ Found', nvSale.length, 'nhân viên sale cho', formData.city);
+          // Nếu không có nhân viên nào match, vẫn hiển thị tất cả để user có thể chọn
+          if (nvSale.length > 0) {
+            setNhanVienSaleFiltered(nvSale);
+          } else {
+            console.warn('⚠️ Không có nhân viên sale nào cho tỉnh thành này, hiển thị tất cả');
+            setNhanVienSaleFiltered(nhanVienSaleList);
+          }
+        })
+        .catch(error => {
+          console.error('❌ Error loading nhân viên sale by tỉnh thành:', error);
+          // Fallback về danh sách đầy đủ nếu có lỗi
+          setNhanVienSaleFiltered(nhanVienSaleList);
+        });
+    } else {
+      console.log('📋 Chưa có tỉnh thành, hiển thị tất cả nhân viên sale:', nhanVienSaleList.length);
+      setNhanVienSaleFiltered(nhanVienSaleList);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formData?.city]);
+
   if (!lead || !formData) return null;
+
+  // Validation functions
+  const validatePhone = (phone: string): string | undefined => {
+    if (!phone || phone.trim() === '') {
+      return undefined; // Empty is OK (will be handled by required validation)
+    }
+    
+    // Remove spaces
+    const cleaned = phone.replace(/\s/g, '');
+    
+    // Check if starts with 0 followed by 9 digits
+    if (/^0\d{9}$/.test(cleaned)) {
+      return undefined; // Valid: 0 + 9 digits = 10 total
+    }
+    
+    // Check if starts with +84 followed by 9 digits
+    if (/^\+84\d{9}$/.test(cleaned)) {
+      return undefined; // Valid: +84 + 9 digits = 12 total
+    }
+    
+    return 'Số điện thoại phải có 10 số (0 + 9 số) hoặc 12 số (+84 + 9 số)';
+  };
+
+  const validateTaxCode = (taxCode: string): string | undefined => {
+    if (!taxCode || taxCode.trim() === '' || taxCode === 'N/A') {
+      return undefined; // Empty or N/A is OK
+    }
+    
+    // Remove spaces and dashes
+    const cleaned = taxCode.replace(/[\s-]/g, '');
+    
+    // Check if it's exactly 10, 12, or 13 digits
+    if (/^\d{10}$/.test(cleaned) || /^\d{12}$/.test(cleaned) || /^\d{13}$/.test(cleaned)) {
+      return undefined; // Valid
+    }
+    
+    return 'Mã số thuế phải có 10, 12 hoặc 13 số';
+  };
 
   const handleInputChange = (field: keyof Lead, value: any) => {
     setFormData(prev => prev ? { ...prev, [field]: value } : null);
+    
+    // Validate on change
+    if (field === 'phone') {
+      const error = validatePhone(value);
+      setValidationErrors(prev => ({ ...prev, phone: error }));
+    } else if (field === 'taxCode') {
+      const error = validateTaxCode(value);
+      setValidationErrors(prev => ({ ...prev, taxCode: error }));
+    }
   };
 
   // Handle Quận/Huyện change - auto-fill Tỉnh/Thành and Supervisor
@@ -146,9 +260,39 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
   };
 
   const handleSave = () => {
-    if (formData) {
-      onSave(formData);
+    if (!formData) return;
+    
+    // Validate before saving
+    const phoneError = validatePhone(formData.phone || '');
+    const taxCodeError = validateTaxCode(formData.taxCode || '');
+    
+    // Check required fields
+    if (!formData.phone || formData.phone.trim() === '') {
+      toast.error('Vui lòng nhập số điện thoại', {
+        duration: 5000,
+        icon: '⚠️',
+      });
+      return;
     }
+    
+    // Set validation errors
+    const errors: { phone?: string; taxCode?: string } = {};
+    if (phoneError) errors.phone = phoneError;
+    if (taxCodeError) errors.taxCode = taxCodeError;
+    
+    setValidationErrors(errors);
+    
+    // If there are validation errors, show toast and don't save
+    if (phoneError || taxCodeError) {
+      toast.error('Vui lòng kiểm tra lại thông tin đã nhập', {
+        duration: 5000,
+        icon: '❌',
+      });
+      return;
+    }
+    
+    // All validations passed, proceed with save
+    onSave(formData);
   };
 
   // Render select with dynamic options
@@ -192,26 +336,39 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
     required: boolean = false,
     readOnly: boolean = false,
     placeholder: string = ''
-  ) => (
-    <div className="flex flex-col gap-1.5">
-      <label className="text-xs font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-1">
-        {label}
-        {required && <span className="text-red-500">*</span>}
-      </label>
-      <input
-        className={`form-input w-full rounded-lg text-sm py-2.5 px-3 outline-none border transition-all
-          ${readOnly
-            ? 'border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/60 text-slate-500 cursor-not-allowed'
-            : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-primary/20 focus:border-primary'
-          }`}
-        type={type}
-        value={(formData[field] as string) || ''}
-        onChange={(e) => handleInputChange(field, e.target.value)}
-        readOnly={readOnly}
-        placeholder={placeholder}
-      />
-    </div>
-  );
+  ) => {
+    const error = validationErrors[field as 'phone' | 'taxCode'];
+    const hasError = !!error;
+    
+    return (
+      <div className="flex flex-col gap-1.5">
+        <label className="text-xs font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-1">
+          {label}
+          {required && <span className="text-red-500">*</span>}
+        </label>
+        <input
+          className={`form-input w-full rounded-lg text-sm py-2.5 px-3 outline-none border transition-all
+            ${readOnly
+              ? 'border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/60 text-slate-500 cursor-not-allowed'
+              : hasError
+                ? 'border-red-500 dark:border-red-500 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-red-500/20 focus:border-red-500'
+                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-primary/20 focus:border-primary'
+            }`}
+          type={type}
+          value={(formData[field] as string) || ''}
+          onChange={(e) => handleInputChange(field, e.target.value)}
+          readOnly={readOnly}
+          placeholder={placeholder}
+        />
+        {hasError && (
+          <p className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1">
+            <span className="material-symbols-outlined text-[14px]">error</span>
+            {error}
+          </p>
+        )}
+      </div>
+    );
+  };
 
   // Render textarea
   const renderTextarea = (
@@ -443,8 +600,34 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
               </div>
 
               <div className="grid grid-cols-2 gap-3">
-                {/* Nhân viên Sale - Sale được chỉnh */}
-                {renderInput('Nhân viên Sale', 'salesStaff', 'text', true, false, 'Nhập tên NV sale...')}
+                {/* Nhân viên Sale - Filter theo Tỉnh/Thành */}
+                {renderSelect(
+                  'Nhân viên Sale',
+                  formData.salesStaff || '',
+                  (() => {
+                    // Ưu tiên filtered list nếu có và có tỉnh thành
+                    const listToUse = (formData.city && nhanVienSaleFiltered && nhanVienSaleFiltered.length > 0)
+                      ? nhanVienSaleFiltered
+                      : (nhanVienSaleList && nhanVienSaleList.length > 0 ? nhanVienSaleList : []);
+                    
+                    console.log('📋 Rendering nhân viên sale:', {
+                      city: formData.city,
+                      filteredCount: nhanVienSaleFiltered?.length || 0,
+                      totalCount: nhanVienSaleList?.length || 0,
+                      usingList: listToUse.length
+                    });
+                    
+                    return listToUse.map(e => ({ value: e.name, label: e.name }));
+                  })(),
+                  (val) => handleInputChange('salesStaff', val),
+                  true,
+                  false,
+                  formData.city 
+                    ? (nhanVienSaleFiltered && nhanVienSaleFiltered.length > 0 
+                        ? '-- Chọn nhân viên sale --' 
+                        : '-- Không có nhân viên sale --')
+                    : '-- Chọn Tỉnh/Thành trước --'
+                )}
 
                 {/* Nhân viên Công nợ - từ API */}
                 {renderSelect(

@@ -176,10 +176,61 @@ export async function fetchNhanVienCongNo(): Promise<Employee[]> {
 }
 
 /**
- * Fetch Nhân viên Sale (Phòng kinh doanh)
+ * Fetch Nhân viên Sale (Phòng Phát triển Kinh doanh)
+ * Theo Power Apps: crdfd_phongbantext = "Phòng Phát triển Kinh doanh"
  */
 export async function fetchNhanVienSale(): Promise<Employee[]> {
-    return fetchEmployees('Phòng kinh doanh');
+    return fetchEmployees('Phòng Phát triển Kinh doanh');
+}
+
+/**
+ * Fetch Nhân viên Sale filter theo Tỉnh/Thành
+ */
+export async function fetchNhanVienSaleByTinhThanh(tinhThanhName: string): Promise<Employee[]> {
+    try {
+        // Base filter: Active state, Phòng Phát triển Kinh doanh, không phải "Đã nghỉ"
+        // Theo Power Apps: crdfd_phongbantext = "Phòng Phát triển Kinh doanh"
+        let filter = "statecode eq 0 and crdfd_phongbantext eq 'Phòng Phát triển Kinh doanh' and cr1bb_trangthaitext ne 'Đã nghỉ'";
+
+        // Filter theo Tỉnh/Thành CAL - escape single quotes trong tên tỉnh thành
+        if (tinhThanhName) {
+            // Escape single quotes trong tên tỉnh thành để tránh lỗi OData
+            const escapedTinhThanh = tinhThanhName.replace(/'/g, "''");
+            filter += ` and crdfd_tinhthanhcal eq '${escapedTinhThanh}'`;
+        }
+
+        const url = `${BASE_URL}/crdfd_employees?$select=crdfd_employeeid,crdfd_name,crdfd_mail,crdfd_phongbantext,cr1bb_trangthaitext,crdfd_tinhthanhcal&$filter=${encodeURIComponent(filter)}&$orderby=crdfd_name asc&$top=100`;
+
+        console.log('🔍 Fetching nhân viên sale by tỉnh thành:', tinhThanhName);
+        console.log('🔍 Filter:', filter);
+
+        const response = await fetch(url, { headers: await getHeaders() });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('❌ API Error:', response.status, errorText);
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        const employees: Employee[] = data.value.map((item: any) => ({
+            id: item.crdfd_employeeid,
+            name: item.crdfd_name,
+            email: item.crdfd_mail || '',
+            department: item.crdfd_phongbantext || '',
+            position: item.cr1bb_trangthaitext || ''
+        }));
+
+        console.log('✅ Loaded', employees.length, 'Nhân viên Sale', tinhThanhName ? `(${tinhThanhName})` : '');
+        if (employees.length === 0 && tinhThanhName) {
+            console.warn('⚠️ Không tìm thấy nhân viên sale nào cho tỉnh thành:', tinhThanhName);
+        }
+        return employees;
+    } catch (error) {
+        console.error('❌ Error fetching Nhân viên Sale by Tỉnh/Thành:', error);
+        return [];
+    }
 }
 
 /**
