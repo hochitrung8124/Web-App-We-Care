@@ -243,6 +243,7 @@ function App() {
             message: `Lỗi thêm khách hàng: SĐT trùng`,
             customerName: newLeadData.name,
             errorDetails: `SĐT "${newLeadData.phone}" đã tồn tại: ${phoneCheck.customerName}`,
+            customerData: newLeadData,
           });
           
           toast.error(
@@ -268,6 +269,7 @@ function App() {
               message: `Lỗi thêm khách hàng: MST trùng`,
               customerName: newLeadData.name,
               errorDetails: `MST "${newLeadData.taxCode}" đã tồn tại: ${taxCodeCheck.customerName}`,
+              customerData: newLeadData,
             });
             
             toast.error(
@@ -300,6 +302,7 @@ function App() {
         department: department || 'MARKETING',
         message: `Đã thêm khách hàng mới`,
         customerName: newLeadData.name,
+        customerData: newLeadData,
       });
 
       toast.success('Thêm khách hàng thành công!', {
@@ -480,6 +483,16 @@ function App() {
         // Reload lại danh sách để đảm bảo đồng bộ
         await loadAllLeads();
 
+        // Add notification for Marketing update
+        addNotification({
+          type: 'update',
+          user: user?.name || user?.username || 'User',
+          department: 'MARKETING',
+          message: `Đã cập nhật thông tin khách hàng`,
+          customerName: updatedLead.name,
+          customerData: updatedLeadWithStatus,
+        });
+
         toast.success('Đã cập nhật thông tin khách hàng (Marketing)', {
           duration: 5000,
           icon: '✅',
@@ -525,6 +538,7 @@ function App() {
             department: 'SALE',
             message: `Đã cập nhật thông tin khách hàng`,
             customerName: updatedLead.name,
+            customerData: updatedLead,
           });
         }
 

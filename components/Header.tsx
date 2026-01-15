@@ -3,6 +3,7 @@ import { toast } from 'react-hot-toast';
 import { useAuth } from './AuthGuard';
 import { useDarkMode } from './DarkModeProvider';
 import { useNotifications } from './NotificationContext';
+import { NotificationDetailModal } from './NotificationDetailModal';
 import ConfirmModal from './ConfirmModal';
 import { createExcelTemplate } from '../services/ExcelImportService';
 
@@ -14,11 +15,17 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ searchText, onSearchChange }) => {
   const { user, logout } = useAuth();
   const { theme, setTheme } = useDarkMode();
-  const { notifications, unreadCount, markAsRead, markAllAsRead, clearAll } = useNotifications();
+  const { notifications, unreadCount, markAsRead, markAllAsRead, clearAll, selectedNotification, setSelectedNotification } = useNotifications();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showSettingsMenu, setShowSettingsMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+
+  const handleNotificationClick = (notification: any) => {
+    markAsRead(notification.id);
+    setSelectedNotification(notification);
+    setShowNotifications(false);
+  };
 
   const handleLogout = () => {
     setShowLogoutConfirm(true);
@@ -182,7 +189,7 @@ const Header: React.FC<HeaderProps> = ({ searchText, onSearchChange }) => {
                         {notifications.map((notification) => (
                           <div
                             key={notification.id}
-                            onClick={() => markAsRead(notification.id)}
+                            onClick={() => handleNotificationClick(notification)}
                             className={`px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer ${
                               !notification.read ? 'bg-blue-50/30 dark:bg-blue-900/10' : ''
                             }`}
@@ -421,6 +428,14 @@ const Header: React.FC<HeaderProps> = ({ searchText, onSearchChange }) => {
         onConfirm={confirmLogout}
         onCancel={() => setShowLogoutConfirm(false)}
       />
+
+      {/* Notification Detail Modal */}
+      {selectedNotification && (
+        <NotificationDetailModal
+          notification={selectedNotification}
+          onClose={() => setSelectedNotification(null)}
+        />
+      )}
     </header>
   );
 };

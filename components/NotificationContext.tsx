@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { Lead } from '../types';
 
 export interface Notification {
   id: string;
@@ -11,6 +12,7 @@ export interface Notification {
   customerName?: string;
   count?: number; // For bulk imports
   errorDetails?: string; // For error notifications
+  customerData?: Partial<Lead>; // Full customer details for viewing
 }
 
 interface NotificationContextType {
@@ -20,12 +22,15 @@ interface NotificationContextType {
   markAllAsRead: () => void;
   clearAll: () => void;
   unreadCount: number;
+  selectedNotification: Notification | null;
+  setSelectedNotification: (notification: Notification | null) => void;
 }
 
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
 
 export const NotificationProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [selectedNotification, setSelectedNotification] = useState<Notification | null>(null);
 
   const addNotification = (notification: Omit<Notification, 'id' | 'timestamp' | 'read'>) => {
     const newNotification: Notification = {
@@ -62,6 +67,8 @@ export const NotificationProvider: React.FC<{ children: ReactNode }> = ({ childr
         markAllAsRead,
         clearAll,
         unreadCount,
+        selectedNotification,
+        setSelectedNotification,
       }}
     >
       {children}
