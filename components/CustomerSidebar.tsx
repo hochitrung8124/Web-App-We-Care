@@ -58,6 +58,7 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
   const [validationErrors, setValidationErrors] = useState<{
     phone?: string;
     taxCode?: string;
+    district?: string;
   }>({});
 
   // Reject confirmation modal state
@@ -281,6 +282,18 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
       return;
     }
 
+    // Check district required
+    if (!formData.district || formData.district.trim() === '' || formData.district === 'N/A') {
+      setValidationErrors(prev => ({ ...prev, district: 'Vui lòng chọn quận/huyện' }));
+      toast.error('Vui lòng chọn Quận/Huyện', {
+        duration: 5000,
+        icon: '⚠️',
+      });
+      return;
+    } else {
+      setValidationErrors(prev => ({ ...prev, district: undefined }));
+    }
+
     // Set validation errors
     const errors: { phone?: string; taxCode?: string } = {};
     if (phoneError) errors.phone = phoneError;
@@ -309,30 +322,44 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
     onChange: (val: string) => void,
     required: boolean = false,
     disabled: boolean = false,
-    placeholder: string = '-- Chọn --'
-  ) => (
-    <div className="flex flex-col gap-1.5">
-      <label className="text-xs font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-1">
-        {label}
-        {required && <span className="text-red-500">*</span>}
-      </label>
-      <select
-        className={`form-select w-full rounded-lg text-sm py-2.5 px-3 outline-none border transition-all
-          ${disabled
-            ? 'border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/60 text-slate-500 cursor-not-allowed'
-            : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-primary/20 focus:border-primary'
-          }`}
-        value={value || ''}
-        onChange={(e) => onChange(e.target.value)}
-        disabled={disabled}
-      >
-        <option value="">{placeholder}</option>
-        {options.map((opt, idx) => (
-          <option key={opt.key || `${opt.value}-${idx}`} value={opt.value}>{opt.label}</option>
-        ))}
-      </select>
-    </div>
-  );
+    placeholder: string = '-- Chọn --',
+    fieldName?: 'phone' | 'taxCode' | 'district'  // Optional field for validation
+  ) => {
+    const error = fieldName ? validationErrors[fieldName] : undefined;
+    const hasError = !!error;
+
+    return (
+      <div className="flex flex-col gap-1.5">
+        <label className="text-xs font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-1">
+          {label}
+          {required && <span className="text-red-500">*</span>}
+        </label>
+        <select
+          className={`form-select w-full rounded-lg text-sm py-2.5 px-3 outline-none border transition-all
+            ${disabled
+              ? 'border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/60 text-slate-500 cursor-not-allowed'
+              : hasError
+                ? 'border-red-500 dark:border-red-500 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-red-500/20 focus:border-red-500'
+                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-primary/20 focus:border-primary'
+            }`}
+          value={value || ''}
+          onChange={(e) => onChange(e.target.value)}
+          disabled={disabled}
+        >
+          <option value="">{placeholder}</option>
+          {options.map((opt, idx) => (
+            <option key={opt.key || `${opt.value}-${idx}`} value={opt.value}>{opt.label}</option>
+          ))}
+        </select>
+        {hasError && (
+          <p className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1">
+            <span className="material-symbols-outlined text-[14px]">error</span>
+            {error}
+          </p>
+        )}
+      </div>
+    );
+  };
 
   // Render text input
   const renderInput = (
@@ -343,7 +370,7 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
     readOnly: boolean = false,
     placeholder: string = ''
   ) => {
-    const error = validationErrors[field as 'phone' | 'taxCode'];
+    const error = validationErrors[field as 'phone' | 'taxCode' | 'district'];
     const hasError = !!error;
 
     return (
@@ -560,6 +587,8 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
                 quanHuyenList.map(qh => ({ value: qh.tenQuanHuyen, label: qh.tenQuanHuyen })),
                 (val) => {
                   handleInputChange('district', val);
+                  // Clear validation error when user selects
+                  setValidationErrors(prev => ({ ...prev, district: undefined }));
                   // Auto-fill Tỉnh thành từ Quận huyện
                   const selectedQH = quanHuyenList.find(qh => qh.tenQuanHuyen === val);
                   if (selectedQH) {
@@ -572,7 +601,8 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
                 },
                 true,
                 false,
-                '-- Chọn quận/huyện --'
+                '-- Chọn quận/huyện --',
+                'district'  // fieldName for validation
               )
             ) : (
               renderInput('Quận huyện', 'district', 'text', true, false, 'Nhập quận/huyện')
