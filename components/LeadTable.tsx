@@ -5,9 +5,10 @@ interface LeadTableProps {
   leads: Lead[];
   selectedLeadId: string | null;
   onSelectLead: (lead: Lead) => void;
+  department?: 'SALE' | 'MARKETING' | 'ALL' | null;
 }
 
-const LeadTable: React.FC<LeadTableProps> = ({ leads, selectedLeadId, onSelectLead }) => {
+const LeadTable: React.FC<LeadTableProps> = ({ leads, selectedLeadId, onSelectLead, department }) => {
   const ROWS_PER_PAGE = 5;
   const emptyRowsCount = Math.max(0, ROWS_PER_PAGE - leads.length);
 
@@ -58,7 +59,7 @@ const LeadTable: React.FC<LeadTableProps> = ({ leads, selectedLeadId, onSelectLe
                     key={lead.id}
                     onClick={() => onSelectLead(lead)}
                     className={`
-                  transition-all duration-300 cursor-pointer group relative
+                  transition-all duration-300 group relative cursor-pointer
                   ${isSelected
                         ? 'bg-gradient-to-r from-blue-50 via-violet-50/50 to-blue-50 dark:from-blue-900/20 dark:via-violet-900/20 dark:to-blue-900/20 border-l-4 border-l-blue-500 dark:border-l-violet-500 shadow-lg'
                         : 'hover:bg-gradient-to-r hover:from-slate-50 hover:via-blue-50/30 hover:to-slate-50 dark:hover:from-slate-800/40 dark:hover:via-blue-900/10 dark:hover:to-slate-800/40 border-l-4 border-l-transparent hover:border-l-blue-300 dark:hover:border-l-violet-400 hover:shadow-md'}

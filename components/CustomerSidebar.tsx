@@ -39,6 +39,10 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
 }) => {
   // Marketing role chỉ được edit một số trường cơ bản
   const isMarketing = department === 'MARKETING';
+  
+  // Check if lead is editable (only "Chờ xác nhận" status for Marketing)
+  const isEditable = !isMarketing || (lead?.status === 'Chờ xác nhận' || lead?.status === 'Đợi xác nhận');
+  
   const [formData, setFormData] = useState<Lead | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -372,6 +376,7 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
   ) => {
     const error = validationErrors[field as 'phone' | 'taxCode' | 'district'];
     const hasError = !!error;
+    const isFieldDisabled = readOnly || !isEditable;
 
     return (
       <div className="flex flex-col gap-1.5">
@@ -381,7 +386,7 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
         </label>
         <input
           className={`form-input w-full rounded-lg text-sm py-2.5 px-3 outline-none border transition-all
-            ${readOnly
+            ${isFieldDisabled
               ? 'border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/60 text-slate-500 cursor-not-allowed'
               : hasError
                 ? 'border-red-500 dark:border-red-500 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-red-500/20 focus:border-red-500'
@@ -390,7 +395,8 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
           type={type}
           value={(formData[field] as string) || ''}
           onChange={(e) => handleInputChange(field, e.target.value)}
-          readOnly={readOnly}
+          readOnly={isFieldDisabled}
+          disabled={isFieldDisabled}
           placeholder={placeholder}
         />
         {hasError && (
@@ -416,9 +422,14 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
         {required && <span className="text-red-500">*</span>}
       </label>
       <textarea
-        className="form-textarea w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm py-2.5 px-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none border resize-none transition-all"
+        className={`form-textarea w-full rounded-lg text-sm py-2.5 px-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none border resize-none transition-all ${
+          !isEditable 
+            ? 'border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/60 text-slate-500 cursor-not-allowed'
+            : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800'
+        }`}
         value={(formData[field] as string) || ''}
         onChange={(e) => handleInputChange(field, e.target.value)}
+        disabled={!isEditable}
         rows={rows}
       />
     </div>
@@ -812,9 +823,18 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
 
       {/* Sidebar Footer */}
       <div className="p-5 border-t border-slate-200 dark:border-slate-800 bg-gradient-to-r from-slate-50 to-white dark:from-slate-800/50 dark:to-slate-900 flex flex-col gap-3">
+        {!isEditable && isMarketing && (
+          <div className="mb-2 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+            <p className="text-sm text-amber-800 dark:text-amber-300 flex items-center gap-2">
+              <span className="material-symbols-outlined text-lg">lock</span>
+              Chỉ có thể chỉnh sửa khách hàng ở trạng thái "Chờ xác nhận"
+            </p>
+          </div>
+        )}
+        
         <button
           onClick={handleSave}
-          disabled={saving}
+          disabled={saving || !isEditable}
           className="w-full h-12 rounded-xl bg-gradient-to-r from-primary to-primary/90 text-white font-bold shadow-lg shadow-primary/30 hover:shadow-primary/40 hover:from-primary/90 hover:to-primary/80 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {saving ? (
@@ -834,7 +854,7 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
         {onReject && (
           <button
             onClick={() => setShowRejectModal(true)}
-            disabled={saving}
+            disabled={saving || !isEditable}
             className="w-full h-10 rounded-xl bg-gradient-to-r from-red-500 to-red-600 text-white font-bold shadow-lg shadow-red-500/20 hover:shadow-red-500/30 hover:from-red-600 hover:to-red-700 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span className="material-symbols-outlined text-[18px]">person_off</span>
