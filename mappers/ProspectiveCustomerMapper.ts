@@ -39,8 +39,10 @@ export class ProspectiveCustomerMapper
       // Optional fields
       birthDate: entity.crdfd_birthdate,
       detailedIndustry: entity.crdfd_detailedindustry,
-      district: entity.crdfd_district || 'N/A',
-      city: entity.crdfd_city || 'N/A',
+      district: entity['_crdfd_quanhuyen_value@OData.Community.Display.V1.FormattedValue'] || entity.crdfd_district || 'N/A',
+      districtId: entity._crdfd_quanhuyen_value,
+      city: entity['_crdfd_tinhthanh_value@OData.Community.Display.V1.FormattedValue'] || entity.crdfd_city || 'N/A',
+      cityId: entity._crdfd_tinhthanh_value,
       paymentTerms: entity.crdfd_paymentterms,
       tradeName: entity.crdfd_tradename || name,
       supervisor: entity.crdfd_supervisor || 'N/A',
@@ -70,6 +72,11 @@ export class ProspectiveCustomerMapper
       crdfd_campaign: lead.campaign !== 'N/A' ? lead.campaign : undefined,
       crdfd_verify: mapLeadStatus(lead.status),
       crdfd_taxcode: lead.taxCode !== 'N/A' ? lead.taxCode : undefined,
+      
+      // Lookup fields - bind using GUID
+      'crdfd_Quanhuyen@odata.bind': lead.districtId ? `/crdfd_quanhuyens(${lead.districtId})` : undefined,
+      'crdfd_Tinhthanh@odata.bind': lead.cityId ? `/crdfd_tinhthanhs(${lead.cityId})` : undefined,
+      
       // NOTE: crdfd_verify is NOT included here because:
       // - ProspectiveCustomer uses different status values (191920000-191920004)
       // - Status updates should be handled separately by Marketing service

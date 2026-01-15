@@ -17,8 +17,12 @@ export interface IDataverseProspectiveCustomer {
   crdfd_taxcode?: string;
   crdfd_birthdate?: string;
   crdfd_detailedindustry?: string;
-  crdfd_district?: string;
-  crdfd_city?: string;
+  crdfd_district?: string; // Text field (legacy)
+  crdfd_city?: string; // Text field (legacy)
+  _crdfd_quanhuyen_value?: string; // Lookup to crdfd_quanhuyen (GUID)
+  '_crdfd_quanhuyen_value@OData.Community.Display.V1.FormattedValue'?: string; // Tên quận/huyện
+  _crdfd_tinhthanh_value?: string; // Lookup to crdfd_tinhthanh (GUID)
+  '_crdfd_tinhthanh_value@OData.Community.Display.V1.FormattedValue'?: string; // Tên tỉnh/thành
   crdfd_paymentterms?: string;
   crdfd_tradename?: string;
   crdfd_supervisor?: string;

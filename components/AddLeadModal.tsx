@@ -19,7 +19,9 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
     taxCode: '',
     source: 'Facebook Ads',
     district: '',
-    city: ''
+    districtId: '',
+    city: '',
+    cityId: ''
   });
 
   const [quanHuyenList, setQuanHuyenList] = useState<QuanHuyen[]>([]);
@@ -28,6 +30,7 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
   const [validationErrors, setValidationErrors] = useState<{
     phone?: string;
     taxCode?: string;
+    district?: string;
   }>({});
 
   // Load Quận/Huyện lookup
@@ -49,16 +52,19 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
   };
 
   // Auto-fill Tỉnh/Thành when Quận/Huyện is selected
-  const handleDistrictChange = (districtName: string) => {
-    handleChange('district', districtName);
+  const handleDistrictChange = (districtId: string) => {
+    // Find the selected district
+    const selectedDistrict = quanHuyenList.find(q => q.id === districtId);
     
-    // Auto-fill city from lookup
-    if (districtName && quanHuyenList.length > 0) {
-      const qh = quanHuyenList.find(q => q.tenQuanHuyen === districtName);
-      if (qh) {
-        handleChange('city', qh.tinhThanhName);
-      }
+    if (selectedDistrict) {
+      handleChange('districtId', districtId);
+      handleChange('district', selectedDistrict.tenQuanHuyen);
+      handleChange('cityId', selectedDistrict.tinhThanhId);
+      handleChange('city', selectedDistrict.tinhThanhName);
     } else {
+      handleChange('districtId', '');
+      handleChange('district', '');
+      handleChange('cityId', '');
       handleChange('city', '');
     }
   };
@@ -81,12 +87,17 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
     return undefined;
   };
 
+  const validateDistrict = (districtId: string): string | undefined => {
+    if (!districtId) return 'Quận/Huyện là bắt buộc';
+    return undefined;
+  };
+
   const handleChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     
     // Clear validation error when user types
-    if (field === 'phone' || field === 'taxCode') {
-      setValidationErrors(prev => ({ ...prev, [field]: undefined }));
+    if (field === 'phone' || field === 'taxCode' || field === 'districtId') {
+      setValidationErrors(prev => ({ ...prev, [field === 'districtId' ? 'district' : field]: undefined }));
     }
   };
 
@@ -96,11 +107,13 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
     // Validate
     const phoneError = validatePhone(formData.phone);
     const taxCodeError = validateTaxCode(formData.taxCode);
+    const districtError = validateDistrict(formData.districtId);
 
-    if (phoneError || taxCodeError) {
+    if (phoneError || taxCodeError || districtError) {
       setValidationErrors({
         phone: phoneError,
-        taxCode: taxCodeError
+        taxCode: taxCodeError,
+        district: districtError
       });
       return;
     }
@@ -113,7 +126,9 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
       taxCode: formData.taxCode.trim(),
       source: formData.source,
       district: formData.district,
+      districtId: formData.districtId || undefined, // GUID for lookup
       city: formData.city,
+      cityId: formData.cityId || undefined, // GUID for lookup
       status: 'Marketing đã xác nhận', // Auto set status
     };
 
@@ -210,7 +225,7 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
                 <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
                   <span className="flex items-center gap-2">
                     <span className="material-symbols-outlined text-lg">location_on</span>
-                    Địa chỉ
+                    Địa chỉ<span className="text-red-500">*</span>
                   </span>
                 </label>
                 <textarea
@@ -230,24 +245,34 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
                   <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
                     <span className="flex items-center gap-2">
                       <span className="material-symbols-outlined text-lg">map</span>
-                      Quận/Huyện
+                      Quận/Huyện<span className="text-red-500">*</span>
                     </span>
                   </label>
                   <select
-                    value={formData.district}
+                    value={formData.districtId}
                     onChange={(e) => handleDistrictChange(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer"
+                    className={`w-full px-4 py-3 rounded-xl border-2 ${
+                      validationErrors.district
+                        ? 'border-red-500 dark:border-red-500 bg-red-50/50 dark:bg-red-900/10'
+                        : 'border-slate-200 dark:border-slate-700'
+                    } bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer`}
                     disabled={saving || loadingLookup}
                   >
                     <option value="">
                       {loadingLookup ? '⏳ Đang tải...' : quanHuyenList.length === 0 ? '❌ Không có dữ liệu' : '-- Chọn quận/huyện --'}
                     </option>
                     {quanHuyenList.map(qh => (
-                      <option key={qh.id} value={qh.tenQuanHuyen}>
+                      <option key={qh.id} value={qh.id}>
                         {qh.tenQuanHuyen}
                       </option>
                     ))}
                   </select>
+                  {validationErrors.district && (
+                    <p className="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center gap-1.5 font-medium">
+                      <span className="material-symbols-outlined text-base">error</span>
+                      {validationErrors.district}
+                    </p>
+                  )}
                 </div>
 
                 {/* Tỉnh/Thành */}
@@ -274,7 +299,7 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
                 <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
                   <span className="flex items-center gap-2">
                     <span className="material-symbols-outlined text-lg">badge</span>
-                    Mã số thuế
+                    Mã số thuế<span className="text-red-500">*</span>
                   </span>
                 </label>
                 <input

@@ -1,5 +1,6 @@
 import ExcelJS from 'exceljs';
 import { Lead } from '../types';
+import { fetchQuanHuyen, QuanHuyen } from './ReferenceDataService';
 
 export interface ExcelRow {
   'Tên khách hàng': string;
@@ -70,8 +71,18 @@ const validateTaxCode = (taxCode: string): boolean => {
 
 /**
  * Đọc file Excel và convert sang array of leads
+ * Tự động map Quận/Huyện text sang GUID lookup
  */
-export const parseExcelFile = (file: File): Promise<ImportResult> => {
+export const parseExcelFile = async (file: File): Promise<ImportResult> => {
+  // Load danh sách Quận/Huyện để mapping
+  let quanHuyenList: QuanHuyen[] = [];
+  try {
+    quanHuyenList = await fetchQuanHuyen();
+    console.log('📍 Loaded', quanHuyenList.length, 'Quận/Huyện for Excel import mapping');
+  } catch (error) {
+    console.warn('⚠️ Could not load Quận/Huyện list. District/City mapping will be skipped.');
+  }
+
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -102,8 +113,8 @@ export const parseExcelFile = (file: File): Promise<ImportResult> => {
             const address = row.getCell(3).value?.toString().trim() || '';
             const taxCode = row.getCell(4).value?.toString().trim() || '';
             const source = row.getCell(5).value?.toString().trim() || 'Other';
-            const district = row.getCell(6).value?.toString().trim() || '';
-            const city = row.getCell(7).value?.toString().trim() || '';
+            const districtText = row.getCell(6).value?.toString().trim() || '';
+            const cityText = row.getCell(7).value?.toString().trim() || '';
 
             // Validation
             if (!name) {
@@ -130,6 +141,29 @@ export const parseExcelFile = (file: File): Promise<ImportResult> => {
             // Map source
             const mappedSource = mapExcelSourceToDataverse(source);
 
+            // Map Quận/Huyện text sang GUID
+            let districtId: string | undefined;
+            let cityId: string | undefined;
+            let district = districtText;
+            let city = cityText;
+
+            if (districtText && quanHuyenList.length > 0) {
+              // Tìm Quận/Huyện khớp tên (case-insensitive, normalize spaces)
+              const normalizedInput = districtText.toLowerCase().replace(/\s+/g, ' ');
+              const matchedDistrict = quanHuyenList.find(qh => 
+                qh.tenQuanHuyen.toLowerCase().replace(/\s+/g, ' ') === normalizedInput
+              );
+
+              if (matchedDistrict) {
+                districtId = matchedDistrict.id;
+                district = matchedDistrict.tenQuanHuyen; // Use normalized name
+                cityId = matchedDistrict.tinhThanhId;
+                city = matchedDistrict.tinhThanhName; // Auto-fill city from lookup
+              } else {
+                console.warn(`⚠️ Row ${rowNumber}: Không tìm thấy Quận/Huyện "${districtText}" trong database`);
+              }
+            }
+
             // Create lead object
             const lead: Partial<Lead> = {
               name,
@@ -138,7 +172,9 @@ export const parseExcelFile = (file: File): Promise<ImportResult> => {
               taxCode,
               source: mappedSource,
               district,
+              districtId, // GUID for lookup
               city,
+              cityId, // GUID for lookup
               status: 'Marketing đã xác nhận', // Default status
             };
 
