@@ -245,7 +245,7 @@ function App() {
             errorDetails: `SĐT "${newLeadData.phone}" đã tồn tại: ${phoneCheck.customerName}`,
             customerData: newLeadData,
           });
-          
+
           toast.error(
             `SĐT "${newLeadData.phone}" đã tồn tại!\nKhách hàng: ${phoneCheck.customerName}\nID: ${phoneCheck.customerId}`,
             {
@@ -271,7 +271,7 @@ function App() {
               errorDetails: `MST "${newLeadData.taxCode}" đã tồn tại: ${taxCodeCheck.customerName}`,
               customerData: newLeadData,
             });
-            
+
             toast.error(
               `MST "${newLeadData.taxCode}" đã tồn tại!\nKhách hàng: ${taxCodeCheck.customerName}\nID: ${taxCodeCheck.customerId}`,
               {
@@ -380,7 +380,7 @@ function App() {
           count: successCount,
         });
       }
-      
+
       // Add error notification if there are failures
       if (failedCount > 0) {
         addNotification({
@@ -392,7 +392,7 @@ function App() {
           errorDetails: errors.slice(0, 3).join('; '),
         });
       }
-      
+
       // Show result
       if (failedCount === 0) {
         toast.success(`Import thành công ${successCount} khách hàng!`, {
@@ -867,7 +867,7 @@ function App() {
             lead={selectedLead}
             onClose={handleCloseSidebar}
             onSave={handleSaveLead}
-            onReject={handleRejectLead}
+            onReject={department !== 'MARKETING' ? handleRejectLead : undefined}
             saving={saving}
             isAdmin={isAdmin}
             department={department === 'ALL' ? 'MARKETING' : department}
