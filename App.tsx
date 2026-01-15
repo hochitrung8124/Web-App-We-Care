@@ -25,6 +25,7 @@ function App() {
   const [filteredLeadsCount, setFilteredLeadsCount] = useState(0); // Track filtered leads count
   const [searchText, setSearchText] = useState('');
   const [sourceFilter, setSourceFilter] = useState('--Select--');
+  const [statusFilter, setStatusFilter] = useState('--All--'); // Filter for Marketing status
   const [showAddLeadModal, setShowAddLeadModal] = useState(false);
   const [showImportLeadsModal, setShowImportLeadsModal] = useState(false);
   const ITEMS_PER_PAGE = 5;
@@ -76,7 +77,7 @@ function App() {
   // Update displayed leads when page changes
   useEffect(() => {
     updateDisplayedLeads();
-  }, [currentPage, allLeads, department, searchText, sourceFilter]);
+  }, [currentPage, allLeads, department, searchText, sourceFilter, statusFilter]);
 
   const loadAllLeads = async () => {
     try {
@@ -107,12 +108,24 @@ function App() {
 
     // Filter by department if selected
     if (department === 'MARKETING') {
-      // "Chờ xác nhận" -> usually status code 1 or text "Đợi xác nhận"
-      // Using statusCode for reliability if available, otherwise text
-      filteredLeads = allLeads.filter(lead =>
-        // lead.statusCode === 1 || lead.status === 'Đợi xác nhận' || lead.status === 'Chờ xác nhận'
-        lead.status === 'Đợi xác nhận' || lead.status === 'Chờ xác nhận' // Adjusted to user prompt's "Chờ xác nhận"
-      );
+      // Filter by status
+      if (statusFilter === '--All--') {
+        // Show all statuses for Marketing
+        filteredLeads = allLeads;
+      } else if (statusFilter === 'Chờ xác nhận') {
+        filteredLeads = allLeads.filter(lead =>
+          lead.status === 'Đợi xác nhận' || lead.status === 'Chờ xác nhận'
+        );
+      } else if (statusFilter === 'Marketing đã xác nhận') {
+        filteredLeads = allLeads.filter(lead =>
+          lead.status === 'Marketing đã xác nhận'
+        );
+      } else {
+        // Other specific status
+        filteredLeads = allLeads.filter(lead =>
+          lead.status === statusFilter
+        );
+      }
     } else if (department === 'SALE') {
       // "Marketing đã xác nhận" -> usually status code 2
       filteredLeads = allLeads.filter(lead =>
@@ -680,23 +693,33 @@ function App() {
 
 
           {/* Title and Top Actions */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-4">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-4 gap-3">
             <div>
               <h1 className="text-slate-900 dark:text-white text-2xl font-bold leading-tight tracking-tight">
                 Xác nhận thông tin khách hàng {department ? `(${department === 'SALE' ? 'Sale' : department === 'MARKETING' ? 'Marketing' : 'Tất Cả'})` : ''}
               </h1>
-
             </div>
-            <div className="flex gap-3 items-center">
-              {/* Add Lead Button - Only for Marketing */}
+            <div className="flex flex-wrap gap-2.5 items-center">
+              {/* Filters Group */}
+              <div className="flex gap-2.5 items-center">
+                {/* Status Filter - Only for Marketing */}
+                {department === 'MARKETING' && (
+                  <select
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                    className="h-11 pl-3.5 pr-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 dark:focus:border-blue-500 transition-all appearance-none cursor-pointer hover:border-slate-300 dark:hover:border-slate-600 shadow-sm"
+                  >
+                    <option value="--All--">Tất cả trạng thái</option>
+                    <option value="Chờ xác nhận">⏳ Chờ xác nhận</option>
+                    <option value="Marketing đã xác nhận">✅ Marketing đã xác nhận</option>
+                  </select>
+                )}
 
-
-              {/* Source Filter */}
-              <div className="relative">
+                {/* Source Filter */}
                 <select
                   value={sourceFilter}
                   onChange={(e) => setSourceFilter(e.target.value)}
-                  className="h-11 pl-4 pr-8 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-bold focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 dark:focus:border-blue-500 transition-all appearance-none cursor-pointer hover:border-slate-300 dark:hover:border-slate-600"
+                  className="h-11 pl-3.5 pr-9 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 dark:focus:border-blue-500 transition-all appearance-none cursor-pointer hover:border-slate-300 dark:hover:border-slate-600 shadow-sm"
                 >
                   <option value="--Select--">Tất cả nguồn</option>
                   <option value="Facebook Ads">📘 Facebook Ads</option>
@@ -708,43 +731,40 @@ function App() {
                   <option value="Other">📋 Other</option>
                 </select>
               </div>
-              {department === 'MARKETING' && (
-                <>
-                  <button
-                    onClick={() => setShowAddLeadModal(true)}
-                    className="flex h-11 items-center justify-center gap-x-2 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 dark:from-emerald-500 dark:to-green-500 px-5 text-white text-sm font-bold shadow-lg shadow-emerald-500/30 dark:shadow-green-500/30 hover:shadow-xl hover:shadow-emerald-500/40 dark:hover:shadow-green-500/40 hover:scale-105 transition-all duration-300 border border-emerald-500/20"
-                  >
-                    <span className="material-symbols-outlined text-[20px]">person_add</span>
-                    Thêm khách hàng
-                  </button>
-                  <button
-                    onClick={() => setShowImportLeadsModal(true)}
-                    className="flex h-11 items-center justify-center gap-x-2 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 dark:from-violet-500 dark:to-purple-500 px-5 text-white text-sm font-bold shadow-lg shadow-violet-500/30 dark:shadow-purple-500/30 hover:shadow-xl hover:shadow-violet-500/40 dark:hover:shadow-purple-500/40 hover:scale-105 transition-all duration-300 border border-violet-500/20"
-                  >
-                    <span className="material-symbols-outlined text-[20px]">upload_file</span>
-                    Import Excel
-                  </button>
-                </>
-              )}
-              {/* Clear Filter Icon */}
-              {sourceFilter !== '--Select--' && (
-                <button
-                  onClick={() => setSourceFilter('--Select--')}
-                  className="h-11 w-11 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center justify-center"
-                  title="Xóa bộ lọc"
-                >
-                  <span className="material-symbols-outlined text-[20px]">filter_alt_off</span>
-                </button>
-              )}
 
-              <button
-                onClick={handleRefresh}
-                disabled={loading}
-                className="flex h-11 items-center justify-center gap-x-2 rounded-xl bg-primary px-5 text-white text-sm font-bold shadow-lg shadow-primary/20 hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <span className="material-symbols-outlined text-[20px]">{loading ? 'sync' : 'refresh'}</span>
-                {loading ? 'Đang tải...' : 'Lấy Leads mới'}
-              </button>
+              {/* Actions Group */}
+              <div className="flex gap-2.5 items-center">
+                {department === 'MARKETING' && (
+                  <>
+                    <button
+                      onClick={() => setShowAddLeadModal(true)}
+                      className="flex h-11 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-500 to-green-500 dark:from-emerald-600 dark:to-green-600 px-4 text-white text-sm font-bold shadow-lg shadow-emerald-500/25 hover:shadow-xl hover:shadow-emerald-500/35 hover:scale-[1.02] active:scale-95 transition-all duration-200"
+                    >
+                      <span className="material-symbols-outlined text-[19px]">person_add</span>
+                      <span>Thêm khách hàng</span>
+                    </button>
+                    <button
+                      onClick={() => setShowImportLeadsModal(true)}
+                      className="flex h-11 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-purple-500 dark:from-violet-600 dark:to-purple-600 px-4 text-white text-sm font-bold shadow-lg shadow-violet-500/25 hover:shadow-xl hover:shadow-violet-500/35 hover:scale-[1.02] active:scale-95 transition-all duration-200"
+                    >
+                      <span className="material-symbols-outlined text-[19px]">upload_file</span>
+                      <span>Import Excel</span>
+                    </button>
+                  </>
+                )}
+                
+                {/* Refresh Button */}
+                <button
+                  onClick={handleRefresh}
+                  disabled={loading}
+                  className="h-11 w-11 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-all hover:scale-105 active:scale-95 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                  title={loading ? 'Đang tải...' : 'Tải lại dữ liệu'}
+                >
+                  <span className={`material-symbols-outlined text-[19px] ${loading ? 'animate-spin' : ''}`}>
+                    {loading ? 'sync' : 'refresh'}
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -782,6 +802,7 @@ function App() {
                 leads={leads}
                 selectedLeadId={selectedLead?.id || null}
                 onSelectLead={handleSelectLead}
+                department={department}
               />
 
               {/* Pagination Controls - Below table, right aligned */}

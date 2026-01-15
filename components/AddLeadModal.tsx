@@ -146,7 +146,7 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
       {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
         <div 
-          className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-lg max-h-[85vh] overflow-hidden pointer-events-auto animate-slide-up"
+          className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-hidden pointer-events-auto animate-slide-up"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
@@ -172,60 +172,63 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
           {/* Form */}
           <form onSubmit={handleSubmit} className="p-6 overflow-y-auto max-h-[calc(85vh-220px)]">
             <div className="space-y-5">
-              {/* Tên khách hàng */}
-              <div>
-                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
-                  <span className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-lg">person</span>
-                    Tên khách hàng <span className="text-red-500">*</span>
-                  </span>
-                </label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => handleChange('name', e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
-                  placeholder="Nhập tên khách hàng"
-                  required
-                  disabled={saving}
-                />
+              {/* Row 1: Tên khách hàng + Số điện thoại */}
+              <div className="grid grid-cols-2 gap-4">
+                {/* Tên khách hàng */}
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
+                    <span className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-lg">person</span>
+                      Tên khách hàng <span className="text-red-500">*</span>
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => handleChange('name', e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                    placeholder="Nhập tên khách hàng"
+                    required
+                    disabled={saving}
+                  />
+                </div>
+
+                {/* Số điện thoại */}
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
+                    <span className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-lg">call</span>
+                      Số điện thoại <span className="text-red-500">*</span>
+                    </span>
+                  </label>
+                  <input
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => handleChange('phone', e.target.value)}
+                    className={`w-full px-4 py-3 rounded-xl border-2 ${
+                      validationErrors.phone 
+                        ? 'border-red-500 dark:border-red-500 bg-red-50/50 dark:bg-red-900/10' 
+                        : 'border-slate-200 dark:border-slate-700'
+                    } bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all`}
+                    placeholder="0123456789"
+                    required
+                    disabled={saving}
+                  />
+                  {validationErrors.phone && (
+                    <p className="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center gap-1.5 font-medium">
+                      <span className="material-symbols-outlined text-base">error</span>
+                      {validationErrors.phone}
+                    </p>
+                  )}
+                </div>
               </div>
 
-              {/* Số điện thoại */}
-              <div>
-                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
-                  <span className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-lg">call</span>
-                    Số điện thoại <span className="text-red-500">*</span>
-                  </span>
-                </label>
-                <input
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => handleChange('phone', e.target.value)}
-                  className={`w-full px-4 py-3 rounded-xl border-2 ${
-                    validationErrors.phone 
-                      ? 'border-red-500 dark:border-red-500 bg-red-50/50 dark:bg-red-900/10' 
-                      : 'border-slate-200 dark:border-slate-700'
-                  } bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all`}
-                  placeholder="0123456789"
-                  required
-                  disabled={saving}
-                />
-                {validationErrors.phone && (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center gap-1.5 font-medium">
-                    <span className="material-symbols-outlined text-base">error</span>
-                    {validationErrors.phone}
-                  </p>
-                )}
-              </div>
-
-              {/* Địa chỉ */}
+              {/* Địa chỉ - Full width */}
               <div>
                 <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
                   <span className="flex items-center gap-2">
                     <span className="material-symbols-outlined text-lg">location_on</span>
-                    Địa chỉ<span className="text-red-500">*</span>
+                    Địa chỉ <span className="text-red-500">*</span>
                   </span>
                 </label>
                 <textarea
@@ -294,57 +297,60 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
                 </div>
               </div>
 
-              {/* Mã số thuế */}
-              <div>
-                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
-                  <span className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-lg">badge</span>
-                    Mã số thuế<span className="text-red-500">*</span>
-                  </span>
-                </label>
-                <input
-                  type="text"
-                  value={formData.taxCode}
-                  onChange={(e) => handleChange('taxCode', e.target.value)}
-                  className={`w-full px-4 py-3 rounded-xl border-2 ${
-                    validationErrors.taxCode 
-                      ? 'border-red-500 dark:border-red-500 bg-red-50/50 dark:bg-red-900/10' 
-                      : 'border-slate-200 dark:border-slate-700'
-                  } bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all`}
-                  placeholder="10 hoặc 13 chữ số"
-                  disabled={saving}
-                />
-                {validationErrors.taxCode && (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center gap-1.5 font-medium">
-                    <span className="material-symbols-outlined text-base">error</span>
-                    {validationErrors.taxCode}
-                  </p>
-                )}
-              </div>
+              {/* Row 3: Mã số thuế + Nguồn */}
+              <div className="grid grid-cols-2 gap-4">
+                {/* Mã số thuế */}
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
+                    <span className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-lg">badge</span>
+                      Mã số thuế <span className="text-red-500">*</span>
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.taxCode}
+                    onChange={(e) => handleChange('taxCode', e.target.value)}
+                    className={`w-full px-4 py-3 rounded-xl border-2 ${
+                      validationErrors.taxCode 
+                        ? 'border-red-500 dark:border-red-500 bg-red-50/50 dark:bg-red-900/10' 
+                        : 'border-slate-200 dark:border-slate-700'
+                    } bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all`}
+                    placeholder="10 hoặc 13 chữ số"
+                    disabled={saving}
+                  />
+                  {validationErrors.taxCode && (
+                    <p className="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center gap-1.5 font-medium">
+                      <span className="material-symbols-outlined text-base">error</span>
+                      {validationErrors.taxCode}
+                    </p>
+                  )}
+                </div>
 
-              {/* Nguồn */}
-              <div>
-                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
-                  <span className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-lg">campaign</span>
-                    Nguồn <span className="text-red-500">*</span>
-                  </span>
-                </label>
-                <select
-                  value={formData.source}
-                  onChange={(e) => handleChange('source', e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer"
-                  required
-                  disabled={saving}
-                >
-                  <option value="Facebook Ads">Facebook Ads</option>
-                  <option value="TikTok Ads">TikTok Ads</option>
-                  <option value="Google Ads">Google Ads</option>
-                  <option value="Facebook Messenger Organic">FB Messenger</option>
-                  <option value="Zalo">Zalo</option>
-                  <option value="Website Form">Website Form</option>
-                  <option value="Other">Other</option>
-                </select>
+                {/* Nguồn */}
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
+                    <span className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-lg">campaign</span>
+                      Nguồn <span className="text-red-500">*</span>
+                    </span>
+                  </label>
+                  <select
+                    value={formData.source}
+                    onChange={(e) => handleChange('source', e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer"
+                    required
+                    disabled={saving}
+                  >
+                    <option value="Facebook Ads">Facebook Ads</option>
+                    <option value="TikTok Ads">TikTok Ads</option>
+                    <option value="Google Ads">Google Ads</option>
+                    <option value="Facebook Messenger Organic">FB Messenger</option>
+                    <option value="Zalo">Zalo</option>
+                    <option value="Website Form">Website Form</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
               </div>
 
               {/* Status info */}
