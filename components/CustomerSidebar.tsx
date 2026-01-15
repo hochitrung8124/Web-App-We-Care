@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import ConfirmModal from './ConfirmModal';
 import { Lead } from '../types';
 import {
   fetchQuanHuyen,
@@ -18,6 +19,7 @@ interface CustomerSidebarProps {
   lead: Lead | null;
   onClose: () => void;
   onSave: (updatedLead: Lead) => void;
+  onReject?: (leadId: string) => void; // Callback for "Khách hàng không hợp tác"
   saving?: boolean;
   isAdmin?: boolean;
   department?: 'SALE' | 'MARKETING' | null; // Marketing chỉ edit Tên, SĐT, Địa chỉ, MST
@@ -30,6 +32,7 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
   lead,
   onClose,
   onSave,
+  onReject,
   saving = false,
   isAdmin = false,
   department = null
@@ -56,6 +59,9 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
     phone?: string;
     taxCode?: string;
   }>({});
+
+  // Reject confirmation modal state
+  const [showRejectModal, setShowRejectModal] = useState(false);
 
   // Load reference data
   useEffect(() => {
@@ -454,7 +460,7 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
   // Show loading state
   if (loading) {
     return (
-      <aside className="w-full md:w-[480px] bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 flex flex-col h-full shadow-2xl z-40 absolute right-0 top-0 bottom-0 md:relative items-center justify-center">
+      <aside className="w-full md:w-[420px] flex-shrink-0 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 flex flex-col h-full shadow-2xl z-40 absolute right-0 top-0 bottom-0 md:relative items-center justify-center">
         <div className="text-center">
           <div className="inline-block w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin mb-3"></div>
           <p className="text-sm text-slate-500">Đang tải dữ liệu...</p>
@@ -464,7 +470,7 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
   }
 
   return (
-    <aside className="w-full md:w-[480px] bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 flex flex-col h-full shadow-2xl z-40 absolute right-0 top-0 bottom-0 md:relative">
+    <aside className="w-full md:w-[420px] flex-shrink-0 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 flex flex-col h-full shadow-2xl z-40 absolute right-0 top-0 bottom-0 md:relative">
       {/* Sidebar Header */}
       <div className="p-5 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-r from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20">
         <div className="flex items-center justify-between mb-3">
@@ -533,46 +539,88 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
           )}
         </section>
 
-        {/* Các section sau chỉ hiển thị cho Sale, ẩn hoàn toàn với Marketing */}
-        {!isMarketing && (
-          <>
-            {/* Section 2: Vị trí */}
-            <section className="space-y-4">
-              <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
-                <span className="material-symbols-outlined text-primary text-[18px]">location_on</span>
-                <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
-                  Vị trí
-                </h4>
-              </div>
+        {/* Section 2: Vị trí - Hiển thị cho cả Marketing và Sale */}
+        <section className="space-y-4">
+          <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
+            <span className="material-symbols-outlined text-primary text-[18px]">location_on</span>
+            <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
+              Vị trí
+            </h4>
+            {quanHuyenList.length === 0 && (
+              <span className="text-[10px] text-amber-500 ml-auto">(Nhập thủ công)</span>
+            )}
+          </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                {/* Quận huyện - từ API */}
-                {renderSelect(
-                  'Quận huyện',
-                  formData.district || '',
-                  quanHuyenList.map(qh => ({ value: qh.tenQuanHuyen, label: qh.tenQuanHuyen, key: qh.id })),
-                  handleQuanHuyenChange,
-                  true,
-                  false,
-                  '-- Chọn quận/huyện --'
-                )}
+          <div className="grid grid-cols-2 gap-3">
+            {/* Quận huyện - dropdown if list available, otherwise text input */}
+            {quanHuyenList.length > 0 ? (
+              renderSelect(
+                'Quận huyện',
+                formData.district || '',
+                quanHuyenList.map(qh => ({ value: qh.tenQuanHuyen, label: qh.tenQuanHuyen })),
+                (val) => {
+                  handleInputChange('district', val);
+                  // Auto-fill Tỉnh thành từ Quận huyện
+                  const selectedQH = quanHuyenList.find(qh => qh.tenQuanHuyen === val);
+                  if (selectedQH) {
+                    handleInputChange('city', selectedQH.tinhThanhName);
+                    // Auto-fill Supervisor từ Tỉnh thành
+                    if (!isMarketing) {
+                      handleInputChange('supervisor', getSupervisorByCity(selectedQH.tinhThanhName));
+                    }
+                  }
+                },
+                true,
+                false,
+                '-- Chọn quận/huyện --'
+              )
+            ) : (
+              renderInput('Quận huyện', 'district', 'text', true, false, 'Nhập quận/huyện')
+            )}
 
-                {/* Tỉnh thành - Luôn readonly, auto-fill theo Quận/Huyện */}
-                {renderSelect(
+            {/* Tỉnh thành - Dropdown if list available; editable if quanHuyenList empty */}
+            {quanHuyenList.length > 0 ? (
+              renderSelect(
+                'Tỉnh thành',
+                formData.city || '',
+                tinhThanhList.map(tt => ({ value: tt.tenTinhThanh, label: tt.tenTinhThanh })),
+                (val) => {
+                  handleInputChange('city', val);
+                  if (!isMarketing) {
+                    handleInputChange('supervisor', getSupervisorByCity(val));
+                  }
+                },
+                true,
+                true, // Readonly - tự động điền từ Quận/Huyện
+                '-- Tự động --'
+              )
+            ) : (
+              // When Quận/Huyện API fails, allow selecting Tỉnh/Thành from dropdown
+              tinhThanhList.length > 0 ? (
+                renderSelect(
                   'Tỉnh thành',
                   formData.city || '',
                   tinhThanhList.map(tt => ({ value: tt.tenTinhThanh, label: tt.tenTinhThanh })),
                   (val) => {
                     handleInputChange('city', val);
-                    handleInputChange('supervisor', getSupervisorByCity(val));
+                    if (!isMarketing) {
+                      handleInputChange('supervisor', getSupervisorByCity(val));
+                    }
                   },
                   true,
-                  true, // Luôn readonly - tự động điền từ Quận/Huyện
-                  '-- Tự động --'
-                )}
-              </div>
-            </section>
+                  false, // Editable when in fallback mode
+                  '-- Chọn tỉnh thành --'
+                )
+              ) : (
+                renderInput('Tỉnh thành', 'city', 'text', true, false, 'Nhập tỉnh/thành')
+              )
+            )}
+          </div>
+        </section>
 
+        {/* Các section sau chỉ hiển thị cho Sale, ẩn hoàn toàn với Marketing */}
+        {!isMarketing && (
+          <>
             {/* Section 3: Ngành nghề & Thương mại */}
             <section className="space-y-4">
               <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
@@ -751,13 +799,43 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
             </>
           )}
         </button>
+
+        {/* Reject button - Mark as "Khách hàng không hợp tác" */}
+        {onReject && (
+          <button
+            onClick={() => setShowRejectModal(true)}
+            disabled={saving}
+            className="w-full h-10 rounded-xl bg-gradient-to-r from-red-500 to-red-600 text-white font-bold shadow-lg shadow-red-500/20 hover:shadow-red-500/30 hover:from-red-600 hover:to-red-700 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span className="material-symbols-outlined text-[18px]">person_off</span>
+            Khách hàng không hợp tác
+          </button>
+        )}
+
         <button
           onClick={onClose}
           className="w-full py-2.5 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 text-sm font-medium transition-colors hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
         >
-          Hủy
+          Đóng
         </button>
       </div>
+
+      {/* Reject Confirmation Modal */}
+      <ConfirmModal
+        isOpen={showRejectModal}
+        title="Xác nhận hủy khách hàng"
+        message={`Bạn có chắc chắn muốn đánh dấu khách hàng "${lead?.name || ''}" là "Khách hàng không hợp tác"? Hành động này sẽ cập nhật trạng thái trong hệ thống.`}
+        confirmText="Xác nhận hủy"
+        cancelText="Quay lại"
+        type="danger"
+        onConfirm={() => {
+          if (lead && onReject) {
+            onReject(lead.id);
+            setShowRejectModal(false);
+          }
+        }}
+        onCancel={() => setShowRejectModal(false)}
+      />
     </aside>
   );
 };

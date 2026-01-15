@@ -67,19 +67,30 @@ export async function fetchQuanHuyen(): Promise<QuanHuyen[]> {
     if (quanHuyenCache) return quanHuyenCache;
 
     try {
-        const url = `${BASE_URL}/crdfd_quanhuyens?$select=crdfd_quanhuyenid,crdfd_name&$expand=crdfd_Tinhthanh($select=crdfd_tinhthanhid,crdfd_name)&$filter=statecode eq 0&$orderby=crdfd_name asc`;
+        // Use lookup value and formatted value instead of $expand to avoid navigation property naming issues
+        const url = `${BASE_URL}/crdfd_quanhuyens?$select=crdfd_quanhuyenid,crdfd_name,_crdfd_tinhthanh_value&$filter=statecode eq 0&$orderby=crdfd_name asc`;
 
+        console.log('🔍 Fetching Quận/Huyện from:', url);
         const response = await fetch(url, { headers: await getHeaders() });
 
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        if (!response.ok) {
+            console.error('❌ API Error for Quận/Huyện:', response.status, response.statusText);
+            // If 403, try alternative approach - build from TinhThanh if available
+            if (response.status === 403) {
+                console.warn('⚠️ 403 Forbidden on crdfd_quanhuyens - This is a permissions issue. Please check Dataverse security roles.');
+                // Return empty array and let component handle it
+                return [];
+            }
+            throw new Error(`HTTP ${response.status}`);
+        }
 
         const data = await response.json();
 
         quanHuyenCache = data.value.map((item: any) => ({
             id: item.crdfd_quanhuyenid,
             tenQuanHuyen: item.crdfd_name,
-            tinhThanhId: item.crdfd_Tinhthanh?.crdfd_tinhthanhid || '',
-            tinhThanhName: item.crdfd_Tinhthanh?.crdfd_name || ''
+            tinhThanhId: item._crdfd_tinhthanh_value || '',
+            tinhThanhName: item['_crdfd_tinhthanh_value@OData.Community.Display.V1.FormattedValue'] || ''
         }));
 
         console.log('✅ Loaded', quanHuyenCache.length, 'Quận/Huyện');
@@ -97,7 +108,8 @@ export async function fetchTinhThanh(): Promise<TinhThanh[]> {
     if (tinhThanhCache) return tinhThanhCache;
 
     try {
-        const url = `${BASE_URL}/crdfd_tinhthanhs?$select=crdfd_tinhthanhid,crdfd_name&$expand=cr1bb_Supervisor($select=crdfd_employeeid,crdfd_name)&$filter=statecode eq 0&$orderby=crdfd_name asc`;
+        // Use lookup value and formatted value instead of $expand
+        const url = `${BASE_URL}/crdfd_tinhthanhs?$select=crdfd_tinhthanhid,crdfd_name,_cr1bb_supervisor_value&$filter=statecode eq 0&$orderby=crdfd_name asc`;
 
         const response = await fetch(url, { headers: await getHeaders() });
 
@@ -108,8 +120,8 @@ export async function fetchTinhThanh(): Promise<TinhThanh[]> {
         tinhThanhCache = data.value.map((item: any) => ({
             id: item.crdfd_tinhthanhid,
             tenTinhThanh: item.crdfd_name,
-            supervisorId: item.cr1bb_Supervisor?.crdfd_employeeid || '',
-            supervisorName: item.cr1bb_Supervisor?.crdfd_name || ''
+            supervisorId: item._cr1bb_supervisor_value || '',
+            supervisorName: item['_cr1bb_supervisor_value@OData.Community.Display.V1.FormattedValue'] || ''
         }));
 
         console.log('✅ Loaded', tinhThanhCache.length, 'Tỉnh/Thành');

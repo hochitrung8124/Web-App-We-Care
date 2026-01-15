@@ -42,23 +42,34 @@ function App() {
   const checkUserRoles = async () => {
     try {
       const userRoleInfo = await roleService.checkUserRoles();
+      console.log('👤 Role info:', userRoleInfo);
 
       if (userRoleInfo.isSale) {
         // Auto-login to Sale department
+        console.log('💼 Auto-login to SALE');
         setIsAdmin(false);
         setDepartment('SALE');
       } else if (userRoleInfo.isMarketing) {
         // Auto-login to Marketing department
+        console.log('📢 Auto-login to MARKETING');
         setIsAdmin(false);
         setDepartment('MARKETING');
+      } else if (userRoleInfo.isAdmin) {
+        // Admin - show department selection
+        console.log('👑 Admin - show role selection');
+        setIsAdmin(true);
       } else {
-        // Admin or default user - show department selection
-        setIsAdmin(userRoleInfo.isAdmin || true);
+        // No specific role detected - Default to Marketing
+        console.log('ℹ️ No specific role - Default to MARKETING');
+        setIsAdmin(false);
+        setDepartment('MARKETING');
       }
     } catch (error) {
       console.error('❌ Error checking user roles:', error);
-      // On error, default to allowing department selection
-      setIsAdmin(true);
+      // On error, default to Marketing department
+      console.log('⚠️ Error - Default to MARKETING');
+      setIsAdmin(false);
+      setDepartment('MARKETING');
     }
   };
 
@@ -116,7 +127,7 @@ function App() {
     // Filter by search text (name or phone)
     if (searchText.trim()) {
       const search = searchText.toLowerCase().trim();
-      filteredLeads = filteredLeads.filter(lead => 
+      filteredLeads = filteredLeads.filter(lead =>
         lead.name.toLowerCase().includes(search) ||
         lead.phone.toLowerCase().includes(search)
       );
@@ -124,7 +135,7 @@ function App() {
 
     // Filter by source
     if (sourceFilter && sourceFilter !== '--Select--') {
-      filteredLeads = filteredLeads.filter(lead => 
+      filteredLeads = filteredLeads.filter(lead =>
         lead.source === sourceFilter
       );
     }
@@ -144,7 +155,7 @@ function App() {
   const handleSelectLead = (lead: Lead) => {
     setSelectedLead(lead);
   };
- 
+
   const handleDepartmentSelect = (dept: 'SALE' | 'MARKETING' | 'ALL') => {
     setDepartment(dept);
     setCurrentPage(1); // Reset to first page
@@ -220,15 +231,15 @@ function App() {
 
       // Create lead in Dataverse
       const newLeadId = await customerService.createProspectiveCustomer(newLeadData);
-      
+
       console.log('✅ Lead created with ID:', newLeadId);
-      
+
       // Close modal
       setShowAddLeadModal(false);
-      
+
       // Reload leads to show new one
       await loadAllLeads();
-      
+
       // Add notification
       addNotification({
         type: 'add',
@@ -237,7 +248,7 @@ function App() {
         message: `Đã thêm khách hàng mới`,
         customerName: newLeadData.name,
       });
-      
+
       toast.success('Thêm khách hàng thành công!', {
         duration: 5000,
         icon: '✅',
@@ -280,10 +291,10 @@ function App() {
 
       // Close modal
       setShowImportLeadsModal(false);
-      
+
       // Reload leads
       await loadAllLeads();
-      
+
       // Add notification
       if (successCount > 0) {
         addNotification({
@@ -294,7 +305,7 @@ function App() {
           count: successCount,
         });
       }
-      
+
       // Show result
       if (failedCount === 0) {
         toast.success(`Import thành công ${successCount} khách hàng!`, {
@@ -356,17 +367,19 @@ function App() {
           name: updatedLead.name,
           phone: updatedLead.phone,
           taxCode: updatedLead.taxCode,
-          address: updatedLead.address
+          address: updatedLead.address,
+          district: updatedLead.district,
+          city: updatedLead.city
         });
 
         console.log('✅ [Marketing] ProspectiveCustomer updated');
-        
+
         // Cập nhật status thành "Marketing đã xác nhận" trong state
         const updatedLeadWithStatus = {
           ...updatedLead,
           status: 'Marketing đã xác nhận'
         };
-        
+
         // Update in allLeads với status mới
         setAllLeads(prevLeads =>
           prevLeads.map(lead => lead.id === updatedLead.id ? updatedLeadWithStatus : lead)
@@ -379,10 +392,10 @@ function App() {
 
         // Đóng sidebar để lead biến mất khỏi danh sách Marketing
         setSelectedLead(null);
-        
+
         // Reload lại danh sách để đảm bảo đồng bộ
         await loadAllLeads();
-        
+
         toast.success('Đã cập nhật thông tin khách hàng (Marketing)', {
           duration: 5000,
           icon: '✅',
@@ -451,6 +464,53 @@ function App() {
     }
   };
 
+  const handleRejectLead = async (leadId: string) => {
+    try {
+      setSaving(true);
+      console.log('🚫 [Marketing] Rejecting lead:', leadId);
+
+      const { rejectProspectiveCustomer } = await import('./services/ProspectiveCustomerMarketingService');
+      await rejectProspectiveCustomer(leadId);
+
+      // Update local state to remove from list
+      setAllLeads(prevLeads =>
+        prevLeads.map(lead =>
+          lead.id === leadId
+            ? { ...lead, status: 'Khách hàng không hợp tác' }
+            : lead
+        )
+      );
+
+      // Close sidebar
+      setSelectedLead(null);
+
+      // Reload to ensure sync
+      await loadAllLeads();
+
+      // Add notification
+      addNotification({
+        type: 'update',
+        user: user?.name || user?.username || 'User',
+        department: 'MARKETING',
+        message: `Đã đánh dấu khách hàng "Không hợp tác"`,
+      });
+
+      toast.success('Đã đánh dấu khách hàng "Không hợp tác"', {
+        duration: 5000,
+        icon: '🚫',
+      });
+    } catch (err) {
+      console.error('❌ Error rejecting lead:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Không thể cập nhật trạng thái';
+      toast.error(`Lỗi: ${errorMessage}`, {
+        duration: 5000,
+        icon: '❌',
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
   if (isAdmin && !department) {
     return (
       <div className="flex flex-col h-screen overflow-hidden bg-background-light dark:bg-background-dark items-center justify-center">
@@ -486,7 +546,7 @@ function App() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      <Toaster 
+      <Toaster
         position="top-right"
         toastOptions={{
           duration: 5000, // 5 giây
@@ -512,13 +572,13 @@ function App() {
         }}
       />
       <Header searchText={searchText} onSearchChange={setSearchText} />
-      
+
       {/* Main Container */}
       <div className="flex h-[calc(100vh-65px)] overflow-hidden relative">
 
         {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto px-4 md:px-10 py-4 custom-scrollbar bg-background-light dark:bg-background-dark" >
-        {/* Breadcrumbs */}
+        <main className="flex-1 min-w-0 overflow-y-auto px-4 md:px-10 py-4 custom-scrollbar bg-background-light dark:bg-background-dark" >
+          {/* Breadcrumbs */}
 
 
           {/* Title and Top Actions */}
@@ -527,19 +587,19 @@ function App() {
               <h1 className="text-slate-900 dark:text-white text-2xl font-bold leading-tight tracking-tight">
                 Xác nhận thông tin khách hàng {department ? `(${department === 'SALE' ? 'Sale' : department === 'MARKETING' ? 'Marketing' : 'Tất Cả'})` : ''}
               </h1>
-              
+
             </div>
             <div className="flex gap-3 items-center">
               {/* Add Lead Button - Only for Marketing */}
 
-              
+
               {/* Source Filter */}
               <div className="relative">
                 <select
                   value={sourceFilter}
                   onChange={(e) => setSourceFilter(e.target.value)}
                   className="h-11 pl-4 pr-8 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-bold focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 dark:focus:border-blue-500 transition-all appearance-none cursor-pointer hover:border-slate-300 dark:hover:border-slate-600"
-                  >             
+                >
                   <option value="--Select--">Tất cả nguồn</option>
                   <option value="Facebook Ads">📘 Facebook Ads</option>
                   <option value="TikTok Ads">🎵 TikTok Ads</option>
@@ -579,7 +639,7 @@ function App() {
                 </button>
               )}
 
-              <button 
+              <button
                 onClick={handleRefresh}
                 disabled={loading}
                 className="flex h-11 items-center justify-center gap-x-2 rounded-xl bg-primary px-5 text-white text-sm font-bold shadow-lg shadow-primary/20 hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
@@ -625,7 +685,7 @@ function App() {
                 selectedLeadId={selectedLead?.id || null}
                 onSelectLead={handleSelectLead}
               />
-              
+
               {/* Pagination Controls - Below table, right aligned */}
               {leads.length > 0 && (
                 <div className="flex justify-end mt-4">
@@ -638,34 +698,34 @@ function App() {
                     >
                       <span className="material-symbols-outlined text-[18px]">chevron_left</span>
                     </button>
-                    
+
                     <div className="flex items-center gap-2">
                       {(() => {
                         const totalPages = Math.ceil(filteredLeadsCount / ITEMS_PER_PAGE) || 1;
                         const pages = [];
-                        
+
                         if (totalPages <= 7) {
                           for (let i = 1; i <= totalPages; i++) pages.push(i);
                         } else {
                           pages.push(1);
                           if (currentPage > 3) pages.push('...');
-                          
+
                           const start = Math.max(2, currentPage - 1);
                           const end = Math.min(totalPages - 1, currentPage + 1);
                           for (let i = start; i <= end; i++) pages.push(i);
-                          
+
                           if (currentPage < totalPages - 2) pages.push('...');
                           pages.push(totalPages);
                         }
-                        
+
                         return pages.map((p, idx) => (
                           typeof p === 'number' ? (
-                            <button 
+                            <button
                               key={idx}
                               onClick={() => setCurrentPage(p)}
                               className={`w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium transition-colors
-                                ${p === currentPage 
-                                  ? 'bg-blue-500 text-white' 
+                                ${p === currentPage
+                                  ? 'bg-blue-500 text-white'
                                   : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700'}`}
                             >
                               {p}
@@ -676,7 +736,7 @@ function App() {
                         ));
                       })()}
                     </div>
-                    
+
                     <button
                       onClick={handleNextPage}
                       disabled={currentPage >= Math.ceil(filteredLeadsCount / ITEMS_PER_PAGE) || loading}
@@ -709,30 +769,31 @@ function App() {
             lead={selectedLead}
             onClose={handleCloseSidebar}
             onSave={handleSaveLead}
+            onReject={handleRejectLead}
             saving={saving}
             isAdmin={isAdmin}
-            department={department}
+            department={department === 'ALL' ? 'MARKETING' : department}
           />
         )}
       </div>
-        
-        {/* Add Lead Modal */}
-        {showAddLeadModal && (
-          <AddLeadModal
-            onClose={() => setShowAddLeadModal(false)}
-            onSave={handleAddNewLead}
-            saving={saving}
-          />
-        )}
 
-        {/* Import Leads Modal */}
-        {showImportLeadsModal && (
-          <ImportLeadsModal
-            onClose={() => setShowImportLeadsModal(false)}
-            onImport={handleBulkImport}
-            importing={saving}
-          />
-        )}
+      {/* Add Lead Modal */}
+      {showAddLeadModal && (
+        <AddLeadModal
+          onClose={() => setShowAddLeadModal(false)}
+          onSave={handleAddNewLead}
+          saving={saving}
+        />
+      )}
+
+      {/* Import Leads Modal */}
+      {showImportLeadsModal && (
+        <ImportLeadsModal
+          onClose={() => setShowImportLeadsModal(false)}
+          onImport={handleBulkImport}
+          importing={saving}
+        />
+      )}
     </div>
   );
 }

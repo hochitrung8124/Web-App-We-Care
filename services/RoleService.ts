@@ -38,41 +38,41 @@ export class RoleService {
   async checkUserRoles(): Promise<UserRoleInfo> {
     try {
       console.log('👤 Checking user roles...');
-      
+
       // 1. WhoAmI Request to get UserId
       const whoAmIUrl = `${AppConfig.dataverse.baseUrl}/WhoAmI`;
       const whoAmIData = await this.httpClient.get<WhoAmIResponse>(whoAmIUrl);
       const userId = whoAmIData.UserId;
-      
+
       console.log('🆔 User ID:', userId);
 
       // 2. Get User Roles
       const rolesUrl = `${AppConfig.dataverse.baseUrl}/systemusers(${userId})?$expand=systemuserroles_association($select=name,roleid)`;
-      
+
       try {
         const rolesData = await this.httpClient.get<SystemUserRolesResponse>(rolesUrl);
         console.log('👮 User Roles Data:', rolesData);
-        
+
         const userRoles = rolesData.systemuserroles_association || [];
         let foundAdmin = false;
         let foundSale = false;
         let foundMarketing = false;
-        
+
         userRoles.forEach((role: any) => {
           console.log(`Role: ${role.name}, ID: ${role.roleid}`);
-          
+
           // Check Admin by role ID
           if (AppConfig.roles.admins.includes(role.roleid)) {
             foundAdmin = true;
           }
-          
+
           // Check Sale by role ID or role name
           if (AppConfig.roles.sales.includes(role.roleid) || role.name === 'Sale_Permission') {
             foundSale = true;
           }
-          
+
           // Check Marketing by role ID
-          if (AppConfig.roles.marketing.includes(role.roleid)|| role.name === 'Sourcing_Permission') {
+          if (AppConfig.roles.marketing.includes(role.roleid) || role.name === 'Sourcing_Permission') {
             foundMarketing = true;
           }
         });
@@ -95,12 +95,12 @@ export class RoleService {
           roles: userRoles
         };
       } catch (roleError) {
-        // If user doesn't have permission to read systemusers, default to allowing selection
-        console.log('ℹ️ User roles not accessible. Allowing department selection.');
+        // If user doesn't have permission to read systemusers, default to Marketing
+        console.log('ℹ️ User roles not accessible. Defaulting to Marketing.');
         return {
-          isAdmin: true,
+          isAdmin: false,
           isSale: false,
-          isMarketing: false,
+          isMarketing: true, // Default to Marketing
           userId,
           roles: []
         };
