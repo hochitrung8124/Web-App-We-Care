@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Lead } from '../types';
+import {
+  fetchQuanHuyen,
+  QuanHuyen,
+} from '../services/ReferenceDataService';
 
 interface AddLeadModalProps {
   onClose: () => void;
@@ -13,13 +17,51 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
     phone: '',
     address: '',
     taxCode: '',
-    source: 'Facebook Ads'
+    source: 'Facebook Ads',
+    district: '',
+    city: ''
   });
+
+  const [quanHuyenList, setQuanHuyenList] = useState<QuanHuyen[]>([]);
+  const [loadingLookup, setLoadingLookup] = useState(true);
 
   const [validationErrors, setValidationErrors] = useState<{
     phone?: string;
     taxCode?: string;
   }>({});
+
+  // Load Quận/Huyện lookup
+  useEffect(() => {
+    loadQuanHuyenData();
+  }, []);
+
+  const loadQuanHuyenData = async () => {
+    try {
+      setLoadingLookup(true);
+      const quanHuyen = await fetchQuanHuyen();
+      setQuanHuyenList(quanHuyen);
+      console.log('✅ Loaded', quanHuyen.length, 'Quận/Huyện for AddLeadModal');
+    } catch (error) {
+      console.error('❌ Error loading Quận/Huyện:', error);
+    } finally {
+      setLoadingLookup(false);
+    }
+  };
+
+  // Auto-fill Tỉnh/Thành when Quận/Huyện is selected
+  const handleDistrictChange = (districtName: string) => {
+    handleChange('district', districtName);
+    
+    // Auto-fill city from lookup
+    if (districtName && quanHuyenList.length > 0) {
+      const qh = quanHuyenList.find(q => q.tenQuanHuyen === districtName);
+      if (qh) {
+        handleChange('city', qh.tinhThanhName);
+      }
+    } else {
+      handleChange('city', '');
+    }
+  };
 
   const validatePhone = (phone: string): string | undefined => {
     if (!phone) return 'Số điện thoại là bắt buộc';
@@ -70,6 +112,8 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
       address: formData.address.trim(),
       taxCode: formData.taxCode.trim(),
       source: formData.source,
+      district: formData.district,
+      city: formData.city,
       status: 'Marketing đã xác nhận', // Auto set status
     };
 
@@ -173,10 +217,56 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
                   value={formData.address}
                   onChange={(e) => handleChange('address', e.target.value)}
                   className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
-                  placeholder="Nhập địa chỉ khách hàng"
-                  rows={3}
+                  placeholder="Nhập địa chỉ chi tiết (số nhà, đường)"
+                  rows={2}
                   disabled={saving}
                 />
+              </div>
+
+              {/* Quận/Huyện và Tỉnh/Thành */}
+              <div className="grid grid-cols-2 gap-4">
+                {/* Quận/Huyện */}
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
+                    <span className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-lg">map</span>
+                      Quận/Huyện
+                    </span>
+                  </label>
+                  <select
+                    value={formData.district}
+                    onChange={(e) => handleDistrictChange(e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer"
+                    disabled={saving || loadingLookup}
+                  >
+                    <option value="">
+                      {loadingLookup ? '⏳ Đang tải...' : quanHuyenList.length === 0 ? '❌ Không có dữ liệu' : '-- Chọn quận/huyện --'}
+                    </option>
+                    {quanHuyenList.map(qh => (
+                      <option key={qh.id} value={qh.tenQuanHuyen}>
+                        {qh.tenQuanHuyen}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Tỉnh/Thành */}
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
+                    <span className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-lg">location_city</span>
+                      Tỉnh/Thành
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.city}
+                    className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 font-medium cursor-not-allowed"
+                    placeholder="Tự động điền"
+                    disabled
+                    readOnly
+                  />
+                </div>
               </div>
 
               {/* Mã số thuế */}

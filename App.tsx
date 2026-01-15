@@ -229,6 +229,59 @@ function App() {
       setSaving(true);
       console.log('📝 Creating new lead:', newLeadData);
 
+      // Kiểm tra số điện thoại trùng lặp
+      if (newLeadData.phone) {
+        const { checkPhoneExists, checkTaxCodeExists } = await import('./services/PhoneValidationService');
+        const phoneCheck = await checkPhoneExists(newLeadData.phone);
+
+        if (phoneCheck.exists) {
+          // Add error notification
+          addNotification({
+            type: 'error',
+            user: user?.name || user?.username || 'User',
+            department: department || 'MARKETING',
+            message: `Lỗi thêm khách hàng: SĐT trùng`,
+            customerName: newLeadData.name,
+            errorDetails: `SĐT "${newLeadData.phone}" đã tồn tại: ${phoneCheck.customerName}`,
+          });
+          
+          toast.error(
+            `SĐT "${newLeadData.phone}" đã tồn tại!\nKhách hàng: ${phoneCheck.customerName}\nID: ${phoneCheck.customerId}`,
+            {
+              duration: 6000,
+              icon: '⚠️',
+            }
+          );
+          throw new Error(`SĐT đã tồn tại: ${phoneCheck.customerName}`);
+        }
+
+        // Kiểm tra mã số thuế trùng lặp
+        if (newLeadData.taxCode && newLeadData.taxCode.trim() !== '') {
+          const taxCodeCheck = await checkTaxCodeExists(newLeadData.taxCode);
+
+          if (taxCodeCheck.exists) {
+            // Add error notification
+            addNotification({
+              type: 'error',
+              user: user?.name || user?.username || 'User',
+              department: department || 'MARKETING',
+              message: `Lỗi thêm khách hàng: MST trùng`,
+              customerName: newLeadData.name,
+              errorDetails: `MST "${newLeadData.taxCode}" đã tồn tại: ${taxCodeCheck.customerName}`,
+            });
+            
+            toast.error(
+              `MST "${newLeadData.taxCode}" đã tồn tại!\nKhách hàng: ${taxCodeCheck.customerName}\nID: ${taxCodeCheck.customerId}`,
+              {
+                duration: 6000,
+                icon: '⚠️',
+              }
+            );
+            throw new Error(`MST đã tồn tại: ${taxCodeCheck.customerName}`);
+          }
+        }
+      }
+
       // Create lead in Dataverse
       const newLeadId = await customerService.createProspectiveCustomer(newLeadData);
 
@@ -275,16 +328,35 @@ function App() {
       let failedCount = 0;
       const errors: string[] = [];
 
+      // Import dynamic service
+      const { checkPhoneExists, checkTaxCodeExists } = await import('./services/PhoneValidationService');
+
       // Import từng lead
       for (let i = 0; i < leads.length; i++) {
         try {
+          // Kiểm tra số điện thoại trùng lặp
+          if (leads[i].phone) {
+            const phoneCheck = await checkPhoneExists(leads[i].phone!);
+            if (phoneCheck.exists) {
+              throw new Error(`SĐT trùng: ${phoneCheck.customerName} (ID: ${phoneCheck.customerId})`);
+            }
+          }
+
+          // Kiểm tra mã số thuế trùng lặp
+          if (leads[i].taxCode && leads[i].taxCode!.trim() !== '') {
+            const taxCodeCheck = await checkTaxCodeExists(leads[i].taxCode!);
+            if (taxCodeCheck.exists) {
+              throw new Error(`MST trùng: ${taxCodeCheck.customerName} (ID: ${taxCodeCheck.customerId})`);
+            }
+          }
+
           await customerService.createProspectiveCustomer(leads[i]);
           successCount++;
           console.log(`✅ Lead ${i + 1}/${leads.length} imported`);
         } catch (err) {
           failedCount++;
           const errorMsg = err instanceof Error ? err.message : 'Lỗi không xác định';
-          errors.push(`Dòng ${i + 1}: ${errorMsg}`);
+          errors.push(`Dòng ${i + 2}: ${leads[i].name || 'Unknown'} - ${errorMsg}`);
           console.error(`❌ Lead ${i + 1} failed:`, err);
         }
       }
@@ -305,7 +377,19 @@ function App() {
           count: successCount,
         });
       }
-
+      
+      // Add error notification if there are failures
+      if (failedCount > 0) {
+        addNotification({
+          type: 'error',
+          user: user?.name || user?.username || 'User',
+          department: department || 'MARKETING',
+          message: `Lỗi import: ${failedCount} khách hàng thất bại`,
+          count: failedCount,
+          errorDetails: errors.slice(0, 3).join('; '),
+        });
+      }
+      
       // Show result
       if (failedCount === 0) {
         toast.success(`Import thành công ${successCount} khách hàng!`, {
