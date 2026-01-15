@@ -19,7 +19,9 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
     taxCode: '',
     source: 'Facebook Ads',
     district: '',
-    city: ''
+    districtId: '',
+    city: '',
+    cityId: ''
   });
 
   const [quanHuyenList, setQuanHuyenList] = useState<QuanHuyen[]>([]);
@@ -49,16 +51,19 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
   };
 
   // Auto-fill Tỉnh/Thành when Quận/Huyện is selected
-  const handleDistrictChange = (districtName: string) => {
-    handleChange('district', districtName);
+  const handleDistrictChange = (districtId: string) => {
+    // Find the selected district
+    const selectedDistrict = quanHuyenList.find(q => q.id === districtId);
     
-    // Auto-fill city from lookup
-    if (districtName && quanHuyenList.length > 0) {
-      const qh = quanHuyenList.find(q => q.tenQuanHuyen === districtName);
-      if (qh) {
-        handleChange('city', qh.tinhThanhName);
-      }
+    if (selectedDistrict) {
+      handleChange('districtId', districtId);
+      handleChange('district', selectedDistrict.tenQuanHuyen);
+      handleChange('cityId', selectedDistrict.tinhThanhId);
+      handleChange('city', selectedDistrict.tinhThanhName);
     } else {
+      handleChange('districtId', '');
+      handleChange('district', '');
+      handleChange('cityId', '');
       handleChange('city', '');
     }
   };
@@ -113,7 +118,9 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
       taxCode: formData.taxCode.trim(),
       source: formData.source,
       district: formData.district,
+      districtId: formData.districtId || undefined, // GUID for lookup
       city: formData.city,
+      cityId: formData.cityId || undefined, // GUID for lookup
       status: 'Marketing đã xác nhận', // Auto set status
     };
 
@@ -234,7 +241,7 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
                     </span>
                   </label>
                   <select
-                    value={formData.district}
+                    value={formData.districtId}
                     onChange={(e) => handleDistrictChange(e.target.value)}
                     className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer"
                     disabled={saving || loadingLookup}
@@ -243,7 +250,7 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
                       {loadingLookup ? '⏳ Đang tải...' : quanHuyenList.length === 0 ? '❌ Không có dữ liệu' : '-- Chọn quận/huyện --'}
                     </option>
                     {quanHuyenList.map(qh => (
-                      <option key={qh.id} value={qh.tenQuanHuyen}>
+                      <option key={qh.id} value={qh.id}>
                         {qh.tenQuanHuyen}
                       </option>
                     ))}

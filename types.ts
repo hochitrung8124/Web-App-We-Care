@@ -17,8 +17,10 @@ export interface Lead {
   birthDate?: string;
   detailedIndustry?: string; // OptionSet value (số)
   detailedIndustryText?: string; // Label text cho display và logic mapping
-  district: string;
-  city: string;
+  district: string; // Tên quận/huyện (for display)
+  districtId?: string; // GUID của lookup crdfd_quanhuyen
+  city: string; // Tên tỉnh/thành (for display)
+  cityId?: string; // GUID của lookup crdfd_tinhthanh
   paymentTerms?: string;
   tradeName: string;
   supervisor: string;
