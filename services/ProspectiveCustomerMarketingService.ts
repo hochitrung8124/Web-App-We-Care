@@ -194,14 +194,20 @@ export async function updateProspectiveCustomerMarketing(
 /**
  * Reject ProspectiveCustomer - Mark as "Khách hàng không hợp tác"
  * Status value: 191920004
+ * Also saves note to cr1bb_note field
  */
-export async function rejectProspectiveCustomer(id: string): Promise<void> {
+export async function rejectProspectiveCustomer(id: string, note: string = ''): Promise<void> {
     try {
-        const updatePayload = {
+        const updatePayload: Record<string, any> = {
             'crdfd_verify': 191920004 // Khách hàng không hợp tác
         };
 
-        console.log('📤 [Marketing] Rejecting ProspectiveCustomer:', id);
+        // Add note if provided
+        if (note && note.trim() !== '') {
+            updatePayload['cr1bb_note'] = note.trim();
+        }
+
+        console.log('📤 [Sale] Rejecting ProspectiveCustomer:', id, 'Note:', note);
 
         const response = await fetch(
             `${BASE_URL}/crdfd_prospectivecustomers(${id})`,
@@ -214,13 +220,13 @@ export async function rejectProspectiveCustomer(id: string): Promise<void> {
 
         if (!response.ok) {
             const errorText = await response.text();
-            console.error('❌ [Marketing] Reject Error:', response.status, errorText);
+            console.error('❌ [Sale] Reject Error:', response.status, errorText);
             throw new Error(`HTTP ${response.status}: ${errorText}`);
         }
 
-        console.log('✅ [Marketing] ProspectiveCustomer marked as "Khách hàng không hợp tác"');
+        console.log('✅ [Sale] ProspectiveCustomer marked as "Khách hàng không hợp tác" with note');
     } catch (error) {
-        console.error('❌ [Marketing] Error rejecting ProspectiveCustomer:', error);
+        console.error('❌ [Sale] Error rejecting ProspectiveCustomer:', error);
         throw error;
     }
 }

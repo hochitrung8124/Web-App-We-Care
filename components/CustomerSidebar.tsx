@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import ConfirmModal from './ConfirmModal';
+import RejectModal from './RejectModal';
 import { Lead } from '../types';
 import {
   fetchQuanHuyen,
@@ -19,7 +19,7 @@ interface CustomerSidebarProps {
   lead: Lead | null;
   onClose: () => void;
   onSave: (updatedLead: Lead) => void;
-  onReject?: (leadId: string) => void; // Callback for "Khách hàng không hợp tác"
+  onReject?: (leadId: string, note: string) => void; // Callback for "Khách hàng không hợp tác" with note
   saving?: boolean;
   isAdmin?: boolean;
   department?: 'SALE' | 'MARKETING' | null; // Marketing chỉ edit Tên, SĐT, Địa chỉ, MST
@@ -850,17 +850,13 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
         </button>
       </div>
 
-      {/* Reject Confirmation Modal */}
-      <ConfirmModal
+      {/* Reject Modal with Note Input */}
+      <RejectModal
         isOpen={showRejectModal}
-        title="Xác nhận hủy khách hàng"
-        message={`Bạn có chắc chắn muốn đánh dấu khách hàng "${lead?.name || ''}" là "Khách hàng không hợp tác"? Hành động này sẽ cập nhật trạng thái trong hệ thống.`}
-        confirmText="Xác nhận hủy"
-        cancelText="Quay lại"
-        type="danger"
-        onConfirm={() => {
+        customerName={lead?.name || ''}
+        onConfirm={(note) => {
           if (lead && onReject) {
-            onReject(lead.id);
+            onReject(lead.id, note);
             setShowRejectModal(false);
           }
         }}

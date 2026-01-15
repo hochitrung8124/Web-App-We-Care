@@ -562,13 +562,13 @@ function App() {
     }
   };
 
-  const handleRejectLead = async (leadId: string) => {
+  const handleRejectLead = async (leadId: string, note: string) => {
     try {
       setSaving(true);
-      console.log('🚫 [Marketing] Rejecting lead:', leadId);
+      console.log('🚫 [Sale] Rejecting lead:', leadId, 'Note:', note);
 
       const { rejectProspectiveCustomer } = await import('./services/ProspectiveCustomerMarketingService');
-      await rejectProspectiveCustomer(leadId);
+      await rejectProspectiveCustomer(leadId, note);
 
       // Update local state to remove from list
       setAllLeads(prevLeads =>
@@ -589,7 +589,7 @@ function App() {
       addNotification({
         type: 'update',
         user: user?.name || user?.username || 'User',
-        department: 'MARKETING',
+        department: 'SALE',
         message: `Đã đánh dấu khách hàng "Không hợp tác"`,
       });
 
