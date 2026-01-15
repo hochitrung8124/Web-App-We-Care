@@ -22,22 +22,28 @@ const LeadTable: React.FC<LeadTableProps> = ({ leads, selectedLeadId, onSelectLe
           <table className="w-full text-left border-collapse table-fixed min-h-[400px]">
             <thead>
               <tr className="bg-gradient-to-r from-slate-50 via-blue-50/50 to-violet-50/50 dark:from-slate-800/80 dark:via-blue-900/20 dark:to-violet-900/20 border-b-2 border-slate-200 dark:border-slate-700">
-                <th className="px-6 py-4 text-slate-700 dark:text-slate-300 text-xs font-extrabold uppercase tracking-widest w-[35%]">
+                <th className="px-6 py-4 text-slate-700 dark:text-slate-300 text-xs font-extrabold uppercase tracking-widest w-[25%]">
                   <div className="flex items-center gap-2">
                     <span className="material-symbols-outlined text-lg text-blue-600 dark:text-violet-400">person</span>
                     Khách hàng
                   </div>
                 </th>
-                <th className="px-6 py-4 text-slate-700 dark:text-slate-300 text-xs font-extrabold uppercase tracking-widest w-[20%]">
+                <th className="px-6 py-4 text-slate-700 dark:text-slate-300 text-xs font-extrabold uppercase tracking-widest w-[15%]">
                   <div className="flex items-center gap-2">
                     <span className="material-symbols-outlined text-lg text-emerald-600 dark:text-emerald-400">call</span>
                     Số điện thoại
                   </div>
                 </th>
-                <th className="px-6 py-4 text-slate-700 dark:text-slate-300 text-xs font-extrabold uppercase tracking-widest w-[20%]">
+                <th className="px-6 py-4 text-slate-700 dark:text-slate-300 text-xs font-extrabold uppercase tracking-widest w-[15%]">
                   <div className="flex items-center gap-2">
                     <span className="material-symbols-outlined text-lg text-amber-600 dark:text-amber-400">campaign</span>
                     Nguồn
+                  </div>
+                </th>
+                <th className="px-6 py-4 text-slate-700 dark:text-slate-300 text-xs font-extrabold uppercase tracking-widest w-[20%]">
+                  <div className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-lg text-rose-600 dark:text-rose-400">sticky_note_2</span>
+                    Ghi chú
                   </div>
                 </th>
                 <th className="px-6 py-4 text-slate-700 dark:text-slate-300 text-xs font-extrabold uppercase tracking-widest w-[18%]">
@@ -99,6 +105,25 @@ const LeadTable: React.FC<LeadTableProps> = ({ leads, selectedLeadId, onSelectLe
                         <span className="material-symbols-outlined text-sm">campaign</span>
                         {lead.source}
                       </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      {(() => {
+                        // Debug logging for Hihi customer
+                        if (lead.name === 'Hihi') {
+                          console.log('🔍 LeadTable DEBUG Hihi:', {
+                            name: lead.name,
+                            notes: lead.notes,
+                            hasNotes: !!lead.notes,
+                            notesLength: lead.notes?.length,
+                            fullLead: lead
+                          });
+                        }
+                        return (
+                          <p className="text-slate-600 dark:text-slate-400 text-xs line-clamp-2">
+                            {lead.notes || <span className="italic text-slate-400 dark:text-slate-500">Chưa có ghi chú</span>}
+                          </p>
+                        );
+                      })()}
                     </td>
                     <td className="px-6 py-4">
                       <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/30 dark:to-orange-900/30 text-amber-700 dark:text-amber-300 text-xs font-bold border-2 border-amber-200 dark:border-amber-800 shadow-sm">

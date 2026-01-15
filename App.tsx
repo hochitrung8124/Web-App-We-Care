@@ -707,11 +707,13 @@ function App() {
                   <select
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
-                    className="h-11 pl-3.5 pr-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 dark:focus:border-blue-500 transition-all appearance-none cursor-pointer hover:border-slate-300 dark:hover:border-slate-600 shadow-sm"
+                    className="h-11 pl-3.5 pr-9 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 dark:focus:border-blue-500 transition-all appearance-none cursor-pointer hover:border-slate-300 dark:hover:border-slate-600 shadow-sm"
                   >
                     <option value="--All--">Tất cả trạng thái</option>
                     <option value="Chờ xác nhận">⏳ Chờ xác nhận</option>
                     <option value="Marketing đã xác nhận">✅ Marketing đã xác nhận</option>
+                    <option value="Sale đã xác nhận">💼 Sale đã xác nhận</option>
+                    <option value="Khách hàng không hợp tác">🚫 Khách hàng không hợp tác</option>
                   </select>
                 )}
 

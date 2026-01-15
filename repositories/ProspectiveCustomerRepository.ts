@@ -28,7 +28,7 @@ export class ProspectiveCustomerRepository implements IRepository<IDataversePros
    */
   private buildQueryString(options?: IDataverseQueryOptions): string {
     if (!options) {
-      return `?$top=${AppConfig.dataverse.defaultPageSize}&$orderby=createdon desc`;
+      return `?$top=${AppConfig.dataverse.defaultPageSize}&$orderby=createdon desc&$select=crdfd_prospectivecustomerid,crdfd_name,crdfd_phonenumber,crdfd_email,crdfd_address,crdfd_leadsource,crdfd_verify,crdfd_taxcode,_crdfd_quanhuyen_value,_crdfd_tinhthanh_value,cr1bb_note`;
     }
 
     const params = new URLSearchParams();
@@ -37,7 +37,12 @@ export class ProspectiveCustomerRepository implements IRepository<IDataversePros
     if (options.skip) params.append('$skip', options.skip.toString());
     if (options.filter) params.append('$filter', options.filter);
     if (options.orderby) params.append('$orderby', options.orderby);
-    if (options.select?.length) params.append('$select', options.select.join(','));
+    if (options.select?.length) {
+      params.append('$select', options.select.join(','));
+    } else {
+      // Default select with only existing fields in crdfd_prospectivecustomer
+      params.append('$select', 'crdfd_prospectivecustomerid,crdfd_name,crdfd_phonenumber,crdfd_email,crdfd_address,crdfd_leadsource,crdfd_verify,crdfd_taxcode,_crdfd_quanhuyen_value,_crdfd_tinhthanh_value,cr1bb_note');
+    }
     
     // Set default orderby if not provided
     if (!options.orderby) {

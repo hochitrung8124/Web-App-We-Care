@@ -228,7 +228,7 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
                 <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
                   <span className="flex items-center gap-2">
                     <span className="material-symbols-outlined text-lg">location_on</span>
-                    Địa chỉ <span className="text-red-500">*</span>
+                    Địa chỉ 
                   </span>
                 </label>
                 <textarea
@@ -332,7 +332,7 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ onClose, onSave, saving = f
                   <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
                     <span className="flex items-center gap-2">
                       <span className="material-symbols-outlined text-lg">campaign</span>
-                      Nguồn <span className="text-red-500">*</span>
+                      Nguồn
                     </span>
                   </label>
                   <select

@@ -34,6 +34,7 @@ export interface IDataverseProspectiveCustomer {
   crdfd_keyindustry?: string;
   crdfd_subindustry?: string;
   crdfd_subinfo?: string;
+  cr1bb_note?: string; // Ghi chú
 }
 
 export interface IDataverseResponse<T> {

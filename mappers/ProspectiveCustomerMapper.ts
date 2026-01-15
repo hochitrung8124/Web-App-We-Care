@@ -21,6 +21,16 @@ export class ProspectiveCustomerMapper
   map(entity: IDataverseProspectiveCustomer): Lead {
     const name = entity.crdfd_name || 'Unknown';
 
+    // Debug logging for notes field
+    if (name === 'Hihi') {
+      console.log('🔍 DEBUG Hihi customer:', {
+        name,
+        cr1bb_note: entity.cr1bb_note,
+        hasNote: !!entity.cr1bb_note,
+        fullEntity: entity
+      });
+    }
+
     return {
       id: entity.crdfd_prospectivecustomerid,
       name: name,
@@ -53,6 +63,7 @@ export class ProspectiveCustomerMapper
       repDescription: entity.crdfd_repdescription,
       keyIndustry: entity.crdfd_keyindustry,
       subIndustry: entity.crdfd_subindustry,
+      notes: entity.cr1bb_note,
     };
   }
 

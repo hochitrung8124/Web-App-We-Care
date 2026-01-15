@@ -32,6 +32,7 @@ export interface Lead {
   keyIndustry?: string;
   subIndustry?: string;
   loaiCuaHang?: string; // Loại cửa hàng
+  notes?: string; // Ghi chú (cr1bb_note)
 }
 
 export type ConsultationResult = 'high_interest' | 'no_answer' | 'wrong_number' | 'call_back';

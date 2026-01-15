@@ -495,20 +495,15 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
     );
   };
 
-  // Show loading state
-  if (loading) {
-    return (
-      <aside className="w-full md:w-[420px] flex-shrink-0 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 flex flex-col h-full shadow-2xl z-40 absolute right-0 top-0 bottom-0 md:relative items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin mb-3"></div>
-          <p className="text-sm text-slate-500">Đang tải dữ liệu...</p>
-        </div>
-      </aside>
-    );
-  }
-
   return (
-    <aside className="w-full md:w-[420px] flex-shrink-0 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 flex flex-col h-full shadow-2xl z-40 absolute right-0 top-0 bottom-0 md:relative">
+    <aside 
+      className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center"
+      onClick={onClose}
+    >
+      <div 
+        className="w-full md:w-[480px] h-full md:h-auto md:max-h-[100vh] bg-white dark:bg-slate-900 shadow-2xl flex flex-col md:ml-auto overflow-hidden animate-slide-left"
+        onClick={(e) => e.stopPropagation()}
+      >
       {/* Sidebar Header */}
       <div className="p-5 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-r from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20">
         <div className="flex items-center justify-between mb-3">
@@ -882,6 +877,7 @@ const CustomerSidebar: React.FC<CustomerSidebarProps> = ({
         }}
         onCancel={() => setShowRejectModal(false)}
       />
+      </div>
     </aside>
   );
 };
